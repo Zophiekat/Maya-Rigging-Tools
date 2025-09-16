@@ -1,0 +1,130 @@
+from maya import cmds
+import time
+
+def get_curve_shape(curve_object):
+    node_type = cmds.nodeType(curve_object)
+
+    if node_type == "transform":
+        node_shape = cmds.listRelatives(curve_object, shapes=True)
+        if node_shape:
+            node_transform_shape = cmds.nodeType(node_shape[0])
+            if node_transform_shape == "nurbsCurve":
+                return node_shape[0]
+            else:
+                print(f"Shape inside Transform Node is not 'nurbsCurve' type!")
+                return None
+        else:
+            print(f"No shape found under transform node {curve_object}!")
+            return None
+    elif node_type == "nurbsCurve":
+        return curve_object
+
+
+def get_curve_incoming_connections(node_curve_shape, attributes_list):
+    print("\n")
+    # get node_curve_shape incoming connections for attributes in attributes_list
+    connected_attributes = []
+    
+    # Ensure node_curve_shape is a string, not a list
+    shape_name = node_curve_shape[0] if isinstance(node_curve_shape, list) else node_curve_shape
+    
+    for attribute in attributes_list:
+        attr_path = f"{shape_name}.{attribute}"
+        connection = cmds.listConnections(attr_path, source=True, destination=False, plugs=True)
+        print(f"connection: {connection}")
+        if not connection:
+            print(f"No incoming connection found for {attr_path}")
+            connected_attributes.append(None)
+        else:
+            connected_attributes.append(connection[0])
+            print(f"connected_attributes: {connected_attributes}")
+    
+    return connected_attributes
+
+
+def edit_curve_attributes_connections(
+    source_shape_node,
+    target_shape_node,
+    attributes_list,
+    connections_list,
+    operation):
+    
+    if not attributes_list:
+        return
+    for i, attribute_item in enumerate(attributes_list):
+        if operation == "connect":
+            cmds.connectAttr(
+                f"{source_shape_node}.{attribute_item}",
+                f"{target_shape_node}.{attribute_item}")
+        elif operation == "disconnect":
+            attr_path = f"{target_shape_node}.{attribute_item}"
+            connections = cmds.listConnections(attr_path, source=True, destination=False, plugs=True)
+            if connections and connections_list and i < len(connections_list) and connections_list[i] and connections[0] == connections_list[i]:
+                cmds.disconnectAttr(connections_list[i], attr_path)
+            
+            
+def copy_shape_from_active():
+    selected_objects = cmds.ls(selection=True)
+    print(f"selected_objects: {selected_objects}")
+    if not selected_objects:
+        print("No objects selected. Please select at least one curve.")
+        return
+    
+    active_object = selected_objects[-1]
+    print(f"active_object: {active_object}")
+    
+    target_curves_list = selected_objects[:-1]
+    print(f"target_curves_list: {target_curves_list}")
+    
+    attributes_list = ["controlPoints", "create"]
+    print(f"attributes_list: {attributes_list}")
+    
+    source_shape_node = get_curve_shape(active_object)
+    print(f"source_shape_node: {source_shape_node}")
+    
+    connect_operation = "connect"
+    disconnect_operation = "disconnect"
+    
+    if source_shape_node is None:
+        print(f"Active object '{active_object}' does not have a valid curve shape.")
+        return
+
+    for object_item in target_curves_list:
+
+        target_shape_node = get_curve_shape(object_item)
+        if target_shape_node is None:
+            print(f"Skipping {object_item} as it does not have a valid curve shape.")
+            continue
+
+        # get target_shape_node connections from attributes_list
+        target_node_connections = get_curve_incoming_connections(
+            target_shape_node,
+            attributes_list,)
+        print(f"target_node_connections: {target_node_connections}")
+
+        # disconnect any connected attributes from target_node_connections
+        edit_curve_attributes_connections(
+            source_shape_node,
+            target_shape_node,
+            attributes_list,
+            target_node_connections,
+            disconnect_operation)
+
+        # connect attributes from attributes_list to target_shape_node
+        edit_curve_attributes_connections(
+            source_shape_node,
+            target_shape_node,
+            attributes_list,
+            None,
+            connect_operation)
+
+        # disconnect all attributes from attributes_list
+        edit_curve_attributes_connections(
+            source_shape_node,
+            target_shape_node,
+            attributes_list,
+            None,
+            disconnect_operation)
+        
+                
+copy_shape_from_active()
