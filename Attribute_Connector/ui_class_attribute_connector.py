@@ -1,51 +1,101 @@
 import colorsys
-from .class_widget_registry import widget_registry
-from .ui_class_curve_overlay import CurveOverlay
 import importlib
-
-
-from .attribute_connector_maya_utils import connect_node_attribute
+import json
+import os
+# Use absolute imports instead of relative
+from Attribute_Connector.class_widget_registry import widget_registry
+from Attribute_Connector.ui_class_curve_overlay import CurveOverlay
+from Attribute_Connector.attribute_connector_maya_utils import connect_node_attribute
+from Attribute_Connector.attribute_connector_templates import load_templates, save_current_connections_as_template
 
 
 def _get_pyside_modules():
+    """
+    Get the appropriate PySide/Qt modules based on the environment.
+    
+    Returns:
+        tuple: (QtWidgets, QtCore, QtGui, qt_binding)
+    
+    For Maya 2025+, uses PySide6.
+    For Maya 2024 and earlier, uses PySide2.
+    Falls back to PySide6 if outside Maya.
+    """
     in_maya = False
     maya_version = None
+    qt_binding = None
+    
+    print("Detecting appropriate Qt binding...")
+    
     try:
-        import maya
-        in_maya = True
-        import maya.cmds as cmds
-        maya_version = int(cmds.about(version=True))
-    except Exception:
-        pass
+        # Import maya modules conditionally to avoid errors when not in Maya
+        import importlib.util
+        if importlib.util.find_spec("maya"):
+            import maya
+            in_maya = True
+            import maya.cmds as cmds
+            maya_version = int(cmds.about(version=True))
+            print(f"Detected Maya version: {maya_version}")
+    except Exception as e:
+        print(f"Not running in Maya or couldn't detect version: {e}")
+    
+    # For Maya 2025+, use PySide6
+    if in_maya and maya_version and maya_version >= 2025:
+        try:
+            print("Attempting to use PySide6 (Maya 2025+)")
+            PySide6 = importlib.import_module('PySide6')
+            QtWidgets = importlib.import_module('PySide6.QtWidgets')
+            QtCore = importlib.import_module('PySide6.QtCore')
+            QtGui = importlib.import_module('PySide6.QtGui')
+            qt_binding = "PySide6"
+            print("Successfully loaded PySide6")
+            return QtWidgets, QtCore, QtGui, qt_binding
+        except ImportError as e:
+            print(f"Failed to import PySide6: {e}")
+    
+    # For Maya 2024 and earlier, use PySide2
     if in_maya:
-        if maya_version and maya_version >= 2025:
-            try:
-                PySide6 = importlib.import_module('PySide6')
-                QtWidgets = importlib.import_module('PySide6.QtWidgets')
-                QtCore = importlib.import_module('PySide6.QtCore')
-                QtGui = importlib.import_module('PySide6.QtGui')
-                return QtWidgets, QtCore, QtGui
-            except ImportError:
-                pass
-        else:
-            try:
-                PySide2 = importlib.import_module('PySide2')
-                QtWidgets = importlib.import_module('PySide2.QtWidgets')
-                QtCore = importlib.import_module('PySide2.QtCore')
-                QtGui = importlib.import_module('PySide2.QtGui')
-                return QtWidgets, QtCore, QtGui
-            except ImportError:
-                pass
+        try:
+            print("Attempting to use PySide2 (Maya 2024 or earlier)")
+            PySide2 = importlib.import_module('PySide2')
+            QtWidgets = importlib.import_module('PySide2.QtWidgets')
+            QtCore = importlib.import_module('PySide2.QtCore')
+            QtGui = importlib.import_module('PySide2.QtGui')
+            qt_binding = "PySide2"
+            print("Successfully loaded PySide2")
+            return QtWidgets, QtCore, QtGui, qt_binding
+        except ImportError as e:
+            print(f"Failed to import PySide2: {e}")
+    
+    # Final fallback to PySide6 (if available)
     try:
+        print("Attempting to use PySide6 as fallback")
         PySide6 = importlib.import_module('PySide6')
         QtWidgets = importlib.import_module('PySide6.QtWidgets')
         QtCore = importlib.import_module('PySide6.QtCore')
         QtGui = importlib.import_module('PySide6.QtGui')
-        return QtWidgets, QtCore, QtGui
-    except ImportError:
-        raise ImportError("Could not import PySide2 or PySide6. Please install PySide6.")
+        qt_binding = "PySide6"
+        print("Successfully loaded PySide6")
+        return QtWidgets, QtCore, QtGui, qt_binding
+    except ImportError as e:
+        print(f"Failed to import PySide6 as fallback: {e}")
+    
+    # Last resort - try PySide2
+    try:
+        print("Attempting to use PySide2 as last resort")
+        PySide2 = importlib.import_module('PySide2')
+        QtWidgets = importlib.import_module('PySide2.QtWidgets')
+        QtCore = importlib.import_module('PySide2.QtCore')
+        QtGui = importlib.import_module('PySide2.QtGui')
+        qt_binding = "PySide2"
+        print("Successfully loaded PySide2")
+        return QtWidgets, QtCore, QtGui, qt_binding
+    except ImportError as e:
+        error_msg = f"Could not import either PySide2 or PySide6. Error: {e}"
+        print(error_msg)
+        raise ImportError(error_msg)
 
-QtWidgets, QtCore, QtGui = _get_pyside_modules()
+QtWidgets, QtCore, QtGui, qt_binding = _get_pyside_modules()
+print(f"Using {qt_binding} for Attribute Connector")
 
 
 class AttributeConnectorUI(QtWidgets.QWidget):
@@ -60,13 +110,92 @@ class AttributeConnectorUI(QtWidgets.QWidget):
         self.connections = []  # Store (source_socket, target_socket, color)
         self.pastel_colors = self.generate_pastel_palette(12)
 
-        # Set window flags
-        self.setWindowFlags(QtCore.Qt.Tool | QtCore.Qt.WindowStaysOnTopHint)
+        # Install event filter for keyboard shortcuts
+        self.installEventFilter(self)
+
+        # Optimize window management
+        self.setAttribute(QtCore.Qt.WA_DeleteOnClose, True)  # Release memory when closed
+        self.setAttribute(QtCore.Qt.WA_QuitOnClose, False)   # Don't quit app when this window closes
+        
+        # Set window flags - Use Widget instead of Tool to reduce window count
+        self.setWindowFlags(QtCore.Qt.Widget | QtCore.Qt.WindowStaysOnTopHint)
         self.setWindowTitle("Attribute Connector")
 
         # Main layout
         main_layout = QtWidgets.QVBoxLayout(self)
-
+        
+                # Add source node selection row at the top
+        source_node_row = QtWidgets.QHBoxLayout()
+        self.source_node_label = QtWidgets.QLabel("Source Node: None")
+        self.source_node_label.setStyleSheet("""
+            QLabel {
+                color: #EEE;
+                font-weight: bold;
+                font-size: 12px;
+                background-color: #333;
+                padding: 4px 8px;
+                border-radius: 4px;
+                border: 1px solid #555;
+                min-width: 300px;
+            }
+        """)
+        self.source_node_label.setSizePolicy(
+            QtWidgets.QSizePolicy.Expanding,
+            QtWidgets.QSizePolicy.Preferred
+        )
+        self.source_node_label.setWordWrap(True)
+        
+        self.assign_source_button = QtWidgets.QPushButton("Assign Source Node")
+        source_node_row.addWidget(self.source_node_label)
+        source_node_row.addWidget(self.assign_source_button)
+        main_layout.addLayout(source_node_row)
+        
+        # Add options row with checkbox for auto-populating attributes and template selection
+        options_row = QtWidgets.QHBoxLayout()
+        
+        # Auto-populate checkbox
+        self.auto_populate_checkbox = QtWidgets.QCheckBox("Auto-populate source attributes")
+        self.auto_populate_checkbox.setChecked(True)  # Default to enabled for now (can change to False later)
+        self.auto_populate_checkbox.setToolTip("When enabled, source attributes will be automatically populated when selecting a source node")
+        options_row.addWidget(self.auto_populate_checkbox)
+        
+        # Add template selection combobox
+        options_row.addWidget(QtWidgets.QLabel("Templates:"))
+        self.template_combo = QtWidgets.QComboBox()
+        self.template_combo.setMinimumWidth(150)
+        self.template_combo.setToolTip("Select a connection template")
+        widget_registry.register(self.template_combo, "template_combo")
+        options_row.addWidget(self.template_combo)
+        
+        # Template action buttons
+        self.apply_template_button = QtWidgets.QPushButton("Apply")
+        self.apply_template_button.setToolTip("Apply the selected template")
+        self.apply_template_button.setMaximumWidth(60)
+        widget_registry.register(self.apply_template_button, "apply_template_button")
+        options_row.addWidget(self.apply_template_button)
+        
+        self.save_template_button = QtWidgets.QPushButton("Save")
+        self.save_template_button.setToolTip("Save current connections as a template")
+        self.save_template_button.setMaximumWidth(60)
+        widget_registry.register(self.save_template_button, "save_template_button")
+        options_row.addWidget(self.save_template_button)
+        
+        options_row.addStretch()  # Add stretch to push everything to the left
+        main_layout.addLayout(options_row)
+        
+        # Connect template buttons
+        self.apply_template_button.clicked.connect(self.apply_template)
+        self.save_template_button.clicked.connect(self.save_template)
+        
+        # Load available templates
+        self.load_templates()
+        
+        # Connect source node button
+        self.assign_source_button.clicked.connect(self.assign_source_node)
+        
+        # Store the source node name
+        self.source_node_name = None
+        
         # Create two columns for Source and Target Attributes inside rounded frames
         self.source_frame = QtWidgets.QFrame()
         self.source_frame.setStyleSheet("QFrame { background: #222; border-radius: 16px; border: 2px solid #444; }")
@@ -83,38 +212,17 @@ class AttributeConnectorUI(QtWidgets.QWidget):
         columns_layout.addWidget(self.target_frame)
         main_layout.addLayout(columns_layout)
 
-        # Add grid position info to columns
-        self.source_column["grid_positions"] = {
-            "top_right": (1, 0),   # Example: (x_offset, y_offset) for top right
-            "bottom_right": (1, 1) # Example: (x_offset, y_offset) for bottom right
-        }
-        self.target_column["grid_positions"] = {
-            "top_left": (0, 0),    # Example: (x_offset, y_offset) for top left
-            "bottom_left": (0, 1)  # Example: (x_offset, y_offset) for bottom left
-        }
 
         # Add labels to columns for debug output
         self.source_column["label"] = "Source Attributes"
         self.target_column["label"] = "Target Attributes"
 
-        # Create occlusion grids for each corner and collect them in a list
-        self.occlusion_grids = [
-            self.create_occlusion_grid(self.source_column, corner="top_right", occluded_sockets=[], occlusion_direction="top"),
-            self.create_occlusion_grid(self.source_column, corner="bottom_right", occluded_sockets=[], occlusion_direction="bottom"),
-            self.create_occlusion_grid(self.target_column, corner="top_left", occluded_sockets=[], occlusion_direction="top"),
-            self.create_occlusion_grid(self.target_column, corner="bottom_left", occluded_sockets=[], occlusion_direction="bottom"),
-        ]
-
-        # Overlay for curves (added after columns, before bottom row)
-        # You can adjust the grid_x_offset and grid_y_offset here (in pixels)
         self.curve_overlay = CurveOverlay(
             self,
             get_connections=lambda: self.connections,
             get_dragging=lambda: hasattr(self, 'dragging_connection') and self.dragging_connection,
             get_drag_info=self._get_drag_info,
-            get_target_socket_connection_count=self.get_target_socket_connection_count,
-            grid_x_offset=0,  # Example: 20 to shift right
-            grid_y_offset=0   # Example: -10 to shift up
+
         )
         self.curve_overlay.setGeometry(0, 0, self.width(), self.height())
         self.curve_overlay.raise_()
@@ -127,9 +235,6 @@ class AttributeConnectorUI(QtWidgets.QWidget):
         # --- Ensure curve overlay updates on scroll ---
         self.source_column["list_widget"].verticalScrollBar().valueChanged.connect(self.curve_overlay.update)
         self.target_column["list_widget"].verticalScrollBar().valueChanged.connect(self.curve_overlay.update)
-        # --- Ensure grid boxes update on scroll/resize ---
-        self.source_column["list_widget"].verticalScrollBar().valueChanged.connect(self.update_grid_boxes)
-        self.target_column["list_widget"].verticalScrollBar().valueChanged.connect(self.update_grid_boxes)
 
         # --- Bottom row with Close and Apply buttons ---
         bottom_row = QtWidgets.QHBoxLayout()
@@ -155,51 +260,97 @@ class AttributeConnectorUI(QtWidgets.QWidget):
             widget.setParent(None)
             widget.deleteLater()
 
-    def update_grid_boxes(self):
-        # Recalculate and move all grid anchor boxes to the list widget edges in main window coordinates
-        if not hasattr(self, '_grid_boxes'):
-            return
-        for grid in self.occlusion_grids:
-            corner = grid['corner']
-            column = grid['parent_column']
-            list_widget = column["list_widget"]
-            rect = list_widget.rect()
-            if corner == "top_left":
-                pt = list_widget.mapTo(self, rect.topLeft())
-            elif corner == "top_right":
-                pt = list_widget.mapTo(self, rect.topRight())
-            elif corner == "bottom_left":
-                pt = list_widget.mapTo(self, rect.bottomLeft())
-            elif corner == "bottom_right":
-                pt = list_widget.mapTo(self, rect.bottomRight())
-            else:
-                continue
-            if corner in self._grid_boxes:
-                box = self._grid_boxes[corner]
-                if widget_registry.is_valid(box):
-                    box.move(pt.x() - 12, pt.y() - 12)
-
     def eventFilter(self, obj, event):
-        # Always update overlay and grid boxes on paint, scroll, resize, or move events from list widget viewports
-        if event.type() in [QtCore.QEvent.Paint, QtCore.QEvent.Resize, QtCore.QEvent.Wheel, QtCore.QEvent.Move, QtCore.QEvent.LayoutRequest, QtCore.QEvent.UpdateRequest, QtCore.QEvent.Scroll]:
-            if hasattr(self, 'curve_overlay'):
-                self.curve_overlay.update()
-            if hasattr(self, 'update_grid_boxes'):
-                self.update_grid_boxes()
-        return super(AttributeConnectorUI, self).eventFilter(obj, event)
+        try:
+            # Handle keyboard shortcuts with PySide2/PySide6 compatibility
+            # Get the correct event type enum based on PySide version
+            key_press_event = QtCore.QEvent.KeyPress
+            if hasattr(QtCore.QEvent, 'Type'):  # PySide6 style
+                if hasattr(QtCore.QEvent.Type, 'KeyPress'):
+                    key_press_event = QtCore.QEvent.Type.KeyPress
+            
+            if event.type() == key_press_event:
+                # Get the correct key constants based on PySide version
+                key_f2 = QtCore.Qt.Key_F2
+                key_delete = QtCore.Qt.Key_Delete
+                
+                # PySide6 uses different enum structure
+                if hasattr(QtCore.Qt, 'Key'):  # PySide6 style
+                    if hasattr(QtCore.Qt.Key, 'F2'):
+                        key_f2 = QtCore.Qt.Key.F2
+                    if hasattr(QtCore.Qt.Key, 'Delete'):
+                        key_delete = QtCore.Qt.Key.Delete
+                
+                # F2 key for renaming
+                if event.key() == key_f2:
+                    # Get the current active list widget
+                    active_list = None
+                    if hasattr(self, 'source_column') and self.source_column["list_widget"].hasFocus():
+                        active_list = self.source_column["list_widget"]
+                    elif hasattr(self, 'target_column') and self.target_column["list_widget"].hasFocus():
+                        active_list = self.target_column["list_widget"]
+                    
+                    # If we have an active list and a selected item, rename it
+                    if active_list and active_list.currentItem():
+                        self.handle_item_double_clicked(active_list.currentItem())
+                        return True
+                        
+                # Delete key for removing items
+                elif event.key() == key_delete:
+                    # Get the current active list widget
+                    active_list = None
+                    if hasattr(self, 'source_column') and self.source_column["list_widget"].hasFocus():
+                        active_list = self.source_column["list_widget"]
+                    elif hasattr(self, 'target_column') and self.target_column["list_widget"].hasFocus():
+                        active_list = self.target_column["list_widget"]
+                    
+                    # If we have an active list, remove the selected items
+                    if active_list:
+                        self.remove_item(active_list)
+                        return True
+            
+            # Always update overlay and grid boxes on paint, scroll, resize, or move events from list widget viewports
+            # Get the correct event types based on PySide version
+            event_types = []
+            
+            # Handle differences between PySide2 and PySide6 enums
+            if hasattr(QtCore.QEvent, 'Type'):  # PySide6 style
+                event_map = {
+                    'Paint': QtCore.QEvent.Type.Paint if hasattr(QtCore.QEvent.Type, 'Paint') else None,
+                    'Resize': QtCore.QEvent.Type.Resize if hasattr(QtCore.QEvent.Type, 'Resize') else None,
+                    'Wheel': QtCore.QEvent.Type.Wheel if hasattr(QtCore.QEvent.Type, 'Wheel') else None,
+                    'Move': QtCore.QEvent.Type.Move if hasattr(QtCore.QEvent.Type, 'Move') else None,
+                    'LayoutRequest': QtCore.QEvent.Type.LayoutRequest if hasattr(QtCore.QEvent.Type, 'LayoutRequest') else None,
+                    'UpdateRequest': QtCore.QEvent.Type.UpdateRequest if hasattr(QtCore.QEvent.Type, 'UpdateRequest') else None,
+                    'Scroll': QtCore.QEvent.Type.Scroll if hasattr(QtCore.QEvent.Type, 'Scroll') else None
+                }
+                event_types = [e for e in event_map.values() if e is not None]
+            else:  # PySide2 style
+                event_types = [
+                    QtCore.QEvent.Paint, 
+                    QtCore.QEvent.Resize, 
+                    QtCore.QEvent.Wheel, 
+                    QtCore.QEvent.Move, 
+                    QtCore.QEvent.LayoutRequest, 
+                    QtCore.QEvent.UpdateRequest, 
+                    QtCore.QEvent.Scroll
+                ]
+            
+            if event.type() in event_types:
+                if hasattr(self, 'curve_overlay'):
+                    self.curve_overlay.update()
+            
+            # Use direct parent method call
+            return QtWidgets.QWidget.eventFilter(self, obj, event)
+            
+        except Exception as e:
+            # This helps prevent cascade errors
+            print(f"Error in eventFilter: {e}")
+            # Fallback to default behavior
+            return False
 
-    def get_target_socket_connection_count(self, socket):
-        """Return the number of connections to a given target socket."""
-        return sum(1 for _, t, _ in self.connections if t == socket)
 
-
-    def terminate_script(self):
-        print("Close button pressed. Closing UI.")
-        self.close()
-
-    def apply_connections(self):
-        print("Apply button pressed. (Implement connection logic here)")
-        # Placeholder: implement actual apply logic as needed
+    # Note: Main terminate_script and apply_connections methods are defined below
 
 
 
@@ -210,8 +361,6 @@ class AttributeConnectorUI(QtWidgets.QWidget):
     def resizeEvent(self, event):
         super().resizeEvent(event)
         self.curve_overlay.setGeometry(0, 0, self.width(), self.height())
-        if hasattr(self, 'update_grid_boxes'):
-            self.update_grid_boxes()
 
     def _get_drag_info(self):
         # Always use the center of the socket for the start
@@ -284,6 +433,24 @@ class AttributeConnectorUI(QtWidgets.QWidget):
         # List widget
         list_widget = QtWidgets.QListWidget()
         list_widget.setFixedWidth(200)
+        
+        # Enable selection and clicking behavior
+        list_widget.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
+        list_widget.setFocusPolicy(QtCore.Qt.StrongFocus)
+        list_widget.itemClicked.connect(self.handle_item_clicked)
+        
+        # Enable editing on double-click (both on the item and through our custom handler)
+        list_widget.itemDoubleClicked.connect(self.handle_item_double_clicked)
+        # Set edit triggers but also handle F2 key press for renaming
+        list_widget.setEditTriggers(QtWidgets.QAbstractItemView.DoubleClicked | 
+                                    QtWidgets.QAbstractItemView.EditKeyPressed)
+        
+        # Add context menu for renaming
+        list_widget.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
+        list_widget.customContextMenuRequested.connect(
+            lambda pos, lw=list_widget: self.show_context_menu(pos, lw)
+        )
+        
         layout.addWidget(list_widget)
         column["layout"] = layout
         column["list_widget"] = list_widget
@@ -304,6 +471,11 @@ class AttributeConnectorUI(QtWidgets.QWidget):
         widget = QtWidgets.QWidget()
         layout = QtWidgets.QHBoxLayout(widget)
         layout.setContentsMargins(8, 6, 8, 6)  # Increased margins: left, top, right, bottom
+        
+        # Make the entire widget respond to mouse events
+        widget.setAutoFillBackground(True)
+        widget.setAttribute(QtCore.Qt.WA_StyledBackground, True)
+        widget.setStyleSheet("QWidget:hover { background-color: rgba(100, 100, 100, 50); }")
 
         # Assign color for source sockets
         if socket_position == "left":
@@ -315,9 +487,13 @@ class AttributeConnectorUI(QtWidgets.QWidget):
             socket._color = QtGui.QColor("white")
             layout.addWidget(socket)
 
-        # Create the label for the item text
-        label = QtWidgets.QLabel(f"{text} [{self.item_counter}]")  # Add unique ID to label
+        # Create the label for the item text (without ID/counter suffix)
+        label = QtWidgets.QLabel(text)  # Removed the counter suffix
         label.setStyleSheet("border: none; font-weight: normal; color: white;")
+        # Make the label handle double-clicks (for more intuitive editing)
+        label.mouseDoubleClickEvent = lambda event: self.handle_label_double_click(event, label, widget)
+        # Make the label handle single clicks for selection
+        label.mousePressEvent = lambda event: self.handle_label_click(event, label, widget)
         layout.addWidget(label)
 
         if socket_position == "right":
@@ -336,8 +512,8 @@ class AttributeConnectorUI(QtWidgets.QWidget):
         socket.mouseReleaseEvent = lambda event: self.complete_connection(event, socket)
 
         widget.socket = socket  # Store the socket for reference
+        widget.label_widget = label  # Store reference to the label widget directly
         widget.label = label.text()  # Store the label text for reference
-        self.item_counter += 1  # Increment the counter for the next item
         return widget
 
     def start_connection(self, event, socket):
@@ -454,6 +630,23 @@ class AttributeConnectorUI(QtWidgets.QWidget):
                 if src == self.connection_start_socket and tgt == end_socket:
                     print("Connection already exists. No new curve created.")
                     return
+            
+            # Get the parent widgets for both sockets
+            start_parent = self.connection_start_socket.parent()
+            end_parent = end_socket.parent()
+            
+            # Get the label widgets and their text
+            start_label_text = "Unknown"
+            end_label_text = "Unknown"
+            
+            if hasattr(start_parent, 'label_widget'):
+                start_label_text = start_parent.label_widget.text()
+            
+            if hasattr(end_parent, 'label_widget'):
+                end_label_text = end_parent.label_widget.text()
+            
+            print(f"Creating visual connection: {start_label_text} -> {end_label_text}")
+            
             color = self.connection_start_socket._color
             self.connections.append((self.connection_start_socket, end_socket, color))
             # Set the target socket color to match the source
@@ -479,6 +672,13 @@ class AttributeConnectorUI(QtWidgets.QWidget):
         item.setSizeHint(item_widget.sizeHint())
         list_widget.addItem(item)
         list_widget.setItemWidget(item, item_widget)
+        
+        # Select the new item but don't automatically trigger renaming
+        list_widget.setCurrentItem(item)
+        
+        # Increment the counter for the next item
+        self.item_counter += 1
+        
         self.update_item_backgrounds(list_widget)
 
     def update_item_backgrounds(self, list_widget):
@@ -493,40 +693,366 @@ class AttributeConnectorUI(QtWidgets.QWidget):
 
     def remove_item(self, list_widget):
         """Remove selected items and their associated sockets."""
-        for item in list_widget.selectedItems():
+        # First check if we have any selected items
+        selected_items = list_widget.selectedItems()
+        
+        if not selected_items:
+            print("No items selected to remove")
+            return
+        
+        # Remove selected items and update connections
+        for item in selected_items:
+            # Get the widget for this item to find its socket
+            widget = list_widget.itemWidget(item)
+            if widget and hasattr(widget, 'socket'):
+                # Remove any connections involving this socket
+                socket = widget.socket
+                self.connections = [(src, tgt, color) for src, tgt, color in self.connections 
+                                   if src != socket and tgt != socket]
+            
+            # Remove the item from the list widget
             row = list_widget.row(item)
             list_widget.takeItem(row)
+        
+        # Update the UI after removing items
         self.update_item_backgrounds(list_widget)
+        self.update()  # Update the curve overlay
 
     def apply_connections(self):
-        selected_objects_list = cmds.ls(selection=True)
-        print(f"selected_objects_list: {selected_objects_list}")
-        if not selected_objects_list:
-            print("No objects selected. Please select at least one curve.")
+        try:
+            import maya.cmds as cmds
+        except ImportError:
+            print("Error: maya.cmds module not available. Are you running in Maya?")
             return
-
-        active_object = selected_objects_list[-1]
-        print(f"active_object: {active_object}")
-
-        target_objects_list = selected_objects_list[:-1]
-        print(f"target_objects_list: {target_objects_list}")
-
+        
+        # Check if source node is assigned
+        if not self.source_node_name:
+            print("No source node assigned. Please use 'Assign Source Node' first.")
+            return
+            
+        # Check if source node still exists
+        if not cmds.objExists(self.source_node_name):
+            print(f"Error: Source node '{self.source_node_name}' no longer exists.")
+            return
+            
+        # Get target objects from current selection
+        target_objects_list = cmds.ls(selection=True)
+        print(f"Selected target objects: {target_objects_list}")
         if not target_objects_list:
-            print("Only one object selected. Need at least two objects (targets + source).")
+            print("No target objects selected. Please select at least one object.")
             return
 
-        # Use connect_node_attribute function
-        # DO NOT MODIFY: Fixed syntax error in this for loop
-        for i in range(self.target_column["list_widget"].count()):
-            target_attribute = self.target_column["list_widget"].item(i).text()
-            for j in range(self.source_column["list_widget"].count()):
-                source_attribute = self.source_column["list_widget"].item(j).text()
-                connect_node_attribute(active_object, source_attribute, target_attribute, operation_selection=1)
+        # Check if we have visual connections in the UI
+        if not self.connections:
+            print("No connections visualized in the UI. Please connect attributes first.")
+            return
+        
+        # Open an undo chunk to group all connection operations
+        cmds.undoInfo(openChunk=True, chunkName="Attribute Connector - Apply Connections")
+        
+        try:
+            # Process the visualized connections
+            for source_socket, target_socket, color in self.connections:
+                # Get the parent widgets containing the labels
+                source_parent = source_socket.parent()
+                target_parent = target_socket.parent()
+                
+                if hasattr(source_parent, 'label_widget') and hasattr(target_parent, 'label_widget'):
+                    source_attribute = source_parent.label_widget.text()
+                    target_attribute = target_parent.label_widget.text()
+                    
+                    print(f"Connecting: {self.source_node_name}.{source_attribute} -> *.{target_attribute}")
+                    
+                    # For each selected target object, create the connection
+                    for target_node in target_objects_list:
+                        # Skip if the target is the source node (unless we want to allow self-connections)
+                        if target_node == self.source_node_name:
+                            continue
+                            
+                        # Connect attributes using our helper function
+                        from Attribute_Connector.attribute_connector_maya_utils import connect_node_attribute
+                        connect_node_attribute(self.source_node_name, source_attribute, target_attribute, operation_selection=1, target_node=target_node)
+        finally:
+            # Always close the undo chunk, even if an error occurs
+            cmds.undoInfo(closeChunk=True)
+                
+        # Outside the for loop
+        print("Connections applied successfully")
+        
+    def load_templates(self):
+        """Load connection templates into the combobox"""
+        try:
+            # Clear the combobox
+            self.template_combo.clear()
+            
+            # Add default empty option
+            self.template_combo.addItem("-- Select Template --", None)
+            
+            # Load templates from file
+            templates = load_templates()
+            
+            # Populate combobox
+            for template in templates:
+                self.template_combo.addItem(template["name"], template)
+                
+            print(f"Loaded {len(templates)} templates")
+        except Exception as e:
+            print(f"Error loading templates: {e}")
+            import traceback
+            traceback.print_exc()
+    
+    def apply_template(self):
+        """Apply the selected template to the current UI"""
+        try:
+            # Get the selected template
+            current_index = self.template_combo.currentIndex()
+            if current_index <= 0:  # Skip the default "Select Template" item
+                print("No template selected")
+                return
+                
+            template = self.template_combo.itemData(current_index)
+            if not template:
+                print("Invalid template data")
+                return
+                
+            print(f"Applying template: {template['name']}")
+            
+            # Clear existing attributes and connections
+            self.clear_all_attributes()
+            self.connections = []
+            
+            # Add attributes from template
+            for conn in template["connections"]:
+                source_attr = conn["source_attribute"]
+                target_attr = conn["target_attribute"]
+                
+                # Add source attribute
+                source_item = self.add_attribute_item(
+                    self.source_column["list_widget"], 
+                    source_attr, 
+                    socket_position=self.source_column["socket_position"]
+                )
+                
+                # Add target attribute
+                target_item = self.add_attribute_item(
+                    self.target_column["list_widget"], 
+                    target_attr, 
+                    socket_position=self.target_column["socket_position"]
+                )
+                
+                # Create connection between them
+                if source_item and target_item:
+                    source_socket = source_item.data(QtCore.Qt.UserRole)["socket"]
+                    target_socket = target_item.data(QtCore.Qt.UserRole)["socket"]
+                    
+                    color_index = len(self.connections) % len(self.pastel_colors)
+                    color = self.pastel_colors[color_index]
+                    
+                    self.connections.append((source_socket, target_socket, color))
+            
+            # Update the UI
+            self.curve_overlay.update()
+            print(f"Template applied with {len(template['connections'])} connections")
+            
+        except Exception as e:
+            print(f"Error applying template: {e}")
+            import traceback
+            traceback.print_exc()
+    
+    def save_template(self):
+        """Save the current connections as a new template"""
+        try:
+            # Check if we have any connections
+            if not self.connections:
+                print("No connections to save")
+                # Show a warning dialog
+                QtWidgets.QMessageBox.warning(
+                    self, 
+                    "No Connections", 
+                    "There are no connections to save as a template."
+                )
+                return
+                
+            # Create a dialog to get the template name and description
+            dialog = QtWidgets.QDialog(self)
+            dialog.setWindowTitle("Save Template")
+            dialog.setMinimumWidth(300)
+            
+            layout = QtWidgets.QVBoxLayout(dialog)
+            
+            # Template name field
+            name_layout = QtWidgets.QHBoxLayout()
+            name_layout.addWidget(QtWidgets.QLabel("Name:"))
+            name_input = QtWidgets.QLineEdit()
+            name_layout.addWidget(name_input)
+            layout.addLayout(name_layout)
+            
+            # Template description field
+            desc_layout = QtWidgets.QHBoxLayout()
+            desc_layout.addWidget(QtWidgets.QLabel("Description:"))
+            desc_input = QtWidgets.QLineEdit()
+            desc_layout.addWidget(desc_input)
+            layout.addLayout(desc_layout)
+            
+            # OK/Cancel buttons - handle PySide2/PySide6 compatibility for button types
+            if qt_binding == "PySide6":
+                # PySide6 style enum
+                button_box = QtWidgets.QDialogButtonBox(
+                    QtWidgets.QDialogButtonBox.StandardButton.Ok | 
+                    QtWidgets.QDialogButtonBox.StandardButton.Cancel
+                )
+            else:
+                # PySide2 style enum
+                button_box = QtWidgets.QDialogButtonBox(
+                    QtWidgets.QDialogButtonBox.Ok | QtWidgets.QDialogButtonBox.Cancel
+                )
+            button_box.accepted.connect(dialog.accept)
+            button_box.rejected.connect(dialog.reject)
+            layout.addWidget(button_box)
+            
+            # Show the dialog
+            if dialog.exec_() == QtWidgets.QDialog.Accepted:
+                template_name = name_input.text().strip()
+                template_desc = desc_input.text().strip()
+                
+                # Validate inputs
+                if not template_name:
+                    QtWidgets.QMessageBox.warning(
+                        self, 
+                        "Invalid Name", 
+                        "Please provide a name for the template."
+                    )
+                    return
+                    
+                # Convert current connections to template format
+                template_connections = []
+                for source_socket, target_socket, _ in self.connections:
+                    # Get parent widgets from sockets
+                    source_parent = source_socket.parent()
+                    target_parent = target_socket.parent()
+                    
+                    # Get attribute names from the parent widgets
+                    source_attr = source_parent.label if hasattr(source_parent, 'label') else "Unknown"
+                    target_attr = target_parent.label if hasattr(target_parent, 'label') else "Unknown"
+                    
+                    template_connections.append({
+                        "source_attribute": source_attr,
+                        "target_attribute": target_attr
+                    })
+                
+                # Save the template
+                success = save_current_connections_as_template(
+                    template_name,
+                    template_desc,
+                    template_connections
+                )
+                
+                if success:
+                    print(f"Template '{template_name}' saved successfully")
+                    # Reload the templates to update the combobox
+                    self.load_templates()
+                    # Select the newly added template
+                    index = self.template_combo.findText(template_name)
+                    if index >= 0:
+                        self.template_combo.setCurrentIndex(index)
+                else:
+                    QtWidgets.QMessageBox.warning(
+                        self, 
+                        "Save Error", 
+                        "Failed to save the template. Please check the console for details."
+                    )
+            
+        except Exception as e:
+            print(f"Error saving template: {e}")
+            import traceback
+            traceback.print_exc()
+            
+    def clear_all_attributes(self):
+        """Clear all attribute items from both columns"""
+        try:
+            # Clear source attributes
+            self.source_column["list_widget"].clear()
+            # Clear target attributes
+            self.target_column["list_widget"].clear()
+            # Clear connections
+            self.connections = []
+            # Update the overlay
+            self.curve_overlay.update()
+        except Exception as e:
+            print(f"Error clearing attributes: {e}")
+            import traceback
+            traceback.print_exc()
 
     def terminate_script(self):
+        """Clean up and close the UI window."""
+        print("Closing Attribute Connector UI")
         self.setWindowOpacity(0)  # Make the window fully transparent
         self.close()  # Close only the UI window
+        
+    def closeEvent(self, event):
+        """Handle window close event - properly clean up resources."""
+        try:
+            # Clean up curve overlay
+            if hasattr(self, 'curve_overlay'):
+                self.curve_overlay.setParent(None)
+                self.curve_overlay.deleteLater()
+                
+            # Clean up any timers
+            for child in self.findChildren(QtCore.QTimer):
+                child.stop()
+            
+            # Remove event filters
+            self.removeEventFilter(self)
+            
+            # Clear connections list to release references
+            if hasattr(self, 'connections'):
+                self.connections.clear()
+                
+            # Print debug info to help track window count
+            print("Successfully closed and cleaned up Attribute Connector UI")
+        except Exception as e:
+            print(f"Error during window cleanup: {e}")
+            
+        # Accept the close event
+        event.accept()
 
+    def handle_item_double_clicked(self, item):
+        """Handle double-click event on list item to edit its text."""
+        # Get the current item's widget
+        list_widget = item.listWidget()
+        widget = list_widget.itemWidget(item)
+        if widget:
+            # Find the label widget and get its text
+            label_text = ""
+            label_widget = None
+            for child in widget.children():
+                if isinstance(child, QtWidgets.QLabel):
+                    label_text = child.text()
+                    label_widget = child
+                    break
+            
+            # Create a dialog for editing
+            dialog = QtWidgets.QInputDialog(self)
+            dialog.setWindowTitle("Rename Item")
+            dialog.setLabelText("Enter new name:")
+            dialog.setTextValue(label_text)
+            
+            if dialog.exec_() == QtWidgets.QDialog.Accepted:
+                # Apply the new name to the label
+                new_name = dialog.textValue()
+                if new_name:  # Only update if the name isn't empty
+                    # Update the label widget text
+                    if label_widget:
+                        label_widget.setText(new_name)
+                    
+                    # Update the widget's label property
+                    widget.label = new_name
+                    
+                    print(f"Renamed item to: {new_name}")
+                    
+                    # This ensures the UI is updated correctly
+                    list_widget.update()
+    
     def rename_item(self, item):
         # Ensure the item is editable
         item.setFlags(item.flags() | QtCore.Qt.ItemIsEditable)
@@ -535,104 +1061,196 @@ class AttributeConnectorUI(QtWidgets.QWidget):
         if list_widget:  # Ensure the item belongs to a list widget
             list_widget.editItem(item)
 
+    def show_context_menu(self, position, list_widget):
+        """Show context menu for list widget items."""
+        # Get the item at the position
+        item = list_widget.itemAt(position)
+        if not item:
+            return
+            
+        # Create context menu
+        context_menu = QtWidgets.QMenu(self)
+        
+        # Add rename action
+        rename_action = context_menu.addAction("Rename")
+        rename_action.triggered.connect(lambda: self.handle_item_double_clicked(item))
+        
+        # Add delete action
+        delete_action = context_menu.addAction("Delete")
+        delete_action.triggered.connect(lambda: self.remove_item(list_widget))
+        
+        # Show the menu at the cursor position
+        context_menu.exec_(list_widget.mapToGlobal(position))
+    
     def deselect_items(self):
         """Deselect all items in both list widgets."""
         self.source_column["list_widget"].clearSelection()
         self.target_column["list_widget"].clearSelection()
 
-    def toggle_selection(self, item):
-        """Toggle selection state of the clicked item on mouse release."""
+    def handle_label_double_click(self, event, label_widget, parent_widget):
+        """Handle double-click directly on a label widget"""
+        # Get the current text
+        current_text = label_widget.text()
+            
+        # Create a dialog for editing
+        dialog = QtWidgets.QInputDialog(self)
+        dialog.setWindowTitle("Rename Item")
+        dialog.setLabelText("Enter new name:")
+        dialog.setTextValue(current_text)
+        
+        if dialog.exec_() == QtWidgets.QDialog.Accepted:
+            # Apply the new name to the label
+            new_name = dialog.textValue()
+            if new_name:  # Only update if the name isn't empty
+                # Update the label widget text
+                label_widget.setText(new_name)
+                
+                # Update the parent widget's label property
+                parent_widget.label = new_name
+                
+                print(f"Renamed item to: {new_name}")
+    
+    def handle_item_clicked(self, item):
+        """Handle when a list item is clicked directly."""
         list_widget = item.listWidget()
-
-        def handle_mouse_release():
-            if item.isSelected():
-                item.setSelected(False)  # Deselect the item
+        
+        # Make sure the list widget has focus
+        list_widget.setFocus()
+        
+        # This will trigger selection state change
+        item.setSelected(True)
+        list_widget.setCurrentItem(item)
+    
+    def assign_source_node(self):
+        """Assign the currently selected Maya object as the source node"""
+        try:
+            import maya.cmds as cmds
+            selected = cmds.ls(selection=True)
+            
+            if not selected:
+                self.source_node_label.setText("No objects selected")
+                self.source_node_name = None
+                return
+                
+            # Use the first selected object as the source node
+            self.source_node_name = selected[0]
+            self.source_node_label.setText(f"Source Node: {self.source_node_name}")
+            self.source_node_label.setStyleSheet("color: lime; font-weight: bold;")
+            print(f"Assigned '{self.source_node_name}' as the source node")
+            
+            # Set window title to show source node
+            self.setWindowTitle(f"Attribute Connector - {self.source_node_name}")
+            
+            # Check if auto-populate is enabled
+            if hasattr(self, 'auto_populate_checkbox') and self.auto_populate_checkbox.isChecked():
+                # Populate the source attributes list with attributes from the selected node
+                self.populate_attributes(self.source_column["list_widget"], self.source_node_name)
+                print("Auto-populated source attributes")
             else:
-                item.setSelected(True)  # Select the item
+                print("Auto-populate is disabled - source attributes not populated")
+            
+        except ImportError:
+            print("Error: maya.cmds module not available. Are you running in Maya?")
+            self.source_node_label.setText("Error: Not running in Maya")
+            self.source_node_name = None
+    
+    def populate_attributes(self, list_widget, node_name):
+        """Populate the given list widget with attributes from the specified node"""
+        try:
+            import maya.cmds as cmds
+            
+            # Clear existing items
+            list_widget.clear()
+            
+            # Get attributes from the node
+            if not cmds.objExists(node_name):
+                print(f"Error: Node '{node_name}' does not exist")
+                return
+                
+            # Get keyable attributes (these are usually the ones we want to connect)
+            attrs = cmds.listAttr(node_name, keyable=True) or []
+            
+            # Add each attribute to the list
+            for attr in attrs:
+                self.add_item_with_text(list_widget, attr)
+                
+            print(f"Populated {len(attrs)} attributes from {node_name}")
+            
+        except ImportError:
+            print("Error: maya.cmds module not available. Are you running in Maya?")
+    
+    def add_item_with_text(self, list_widget, text):
+        """Add a new item with specific text"""
+        item = QtWidgets.QListWidgetItem()
+        socket_position = "left" if list_widget == self.target_column["list_widget"] else "right"
+        item_widget = self.create_list_item_with_socket(text, socket_position)
+        item.setSizeHint(item_widget.sizeHint())
+        list_widget.addItem(item)
+        list_widget.setItemWidget(item, item_widget)
+        self.item_counter += 1
+        self.update_item_backgrounds(list_widget)
+        
+    def add_attribute_item(self, list_widget, attribute_name, socket_position=None):
+        """Add a new attribute item and return it with socket data for templates"""
+        # Determine socket position if not provided
+        if socket_position is None:
+            socket_position = "left" if list_widget == self.target_column["list_widget"] else "right"
+            
+        # Create the list item
+        item = QtWidgets.QListWidgetItem()
+        item_widget = self.create_list_item_with_socket(attribute_name, socket_position)
+        item.setSizeHint(item_widget.sizeHint())
+        list_widget.addItem(item)
+        list_widget.setItemWidget(item, item_widget)
+        
+        # Store socket reference in item's data for easier access
+        item.setData(QtCore.Qt.UserRole, {
+            "socket": item_widget.socket,
+            "attribute_name": attribute_name
+        })
+        
+        self.item_counter += 1
+        self.update_item_backgrounds(list_widget)
+        return item
 
-        list_widget.viewport().setMouseTracking(True)
-        list_widget.viewport().mouseReleaseEvent = lambda event: handle_mouse_release()
-
-    def create_occlusion_grid(self, column, corner, occluded_sockets, occlusion_direction, grid_x_offset=0, grid_y_offset=0):
-        # Print all 4 corners of the viewport in global coordinates
-        viewport = column["list_widget"].viewport()
-        rect = viewport.rect()
-        tl = viewport.mapToGlobal(rect.topLeft())
-        tr = viewport.mapToGlobal(rect.topRight())
-        bl = viewport.mapToGlobal(rect.bottomLeft())
-        br = viewport.mapToGlobal(rect.bottomRight())
-        print(f"[ViewportCorners] {column.get('label', 'unknown')}: TL={{ {tl.x()}, {tl.y()} }} TR={{ {tr.x()}, {tr.y()} }} BL={{ {bl.x()}, {bl.y()} }} BR={{ {br.x()}, {br.y()} }}")
-        """
-        Create an occlusion grid for a specific column and corner.
-        Args:
-            column: The column dict (e.g., self.source_column or self.target_column)
-            corner: One of 'top_left', 'top_right', 'bottom_left', 'bottom_right'
-            occluded_sockets: List of socket widgets that are occluded for this grid
-            occlusion_direction: 'top' or 'bottom' (where the sockets are occluded from)
-            grid_x_offset, grid_y_offset: Additional pixel offsets for fine-tuning
-        Returns: dict with grid info (for future use)
-        """
-
-        # Determine base position for the grid based on corner (in global coordinates)
-        viewport = column["list_widget"].viewport()
-        rect = viewport.rect()
-        grid_offset_y = 32  # px, adjust as needed for grid size
-        if corner == "top_left":
-            pt = viewport.mapToGlobal(rect.topLeft())
-        elif corner == "top_right":
-            pt = viewport.mapToGlobal(rect.topRight())
-        elif corner in ("bottom_left", "bottom_right"):
+    def handle_label_click(self, event, label_widget, parent_widget):
+        """Handle click on a label to select the corresponding list item"""
+        # Find the list widget and list item that contain this label
+        for column in [self.source_column, self.target_column]:
             list_widget = column["list_widget"]
-            last_visible_y = None
-            for i in reversed(range(list_widget.count())):
+            for i in range(list_widget.count()):
                 item = list_widget.item(i)
                 widget = list_widget.itemWidget(item)
-                if widget is not None:
-                    widget_center = widget.mapTo(viewport, widget.rect().center())
-                    if 0 <= widget_center.y() <= rect.height():
-                        global_center = widget.mapToGlobal(widget.rect().center())
-                        last_visible_y = global_center.y()
-                        break
-            viewport_bottom_y = viewport.mapToGlobal(rect.bottomLeft()).y()
-            anchor_y = min(last_visible_y, viewport_bottom_y) if last_visible_y is not None else viewport_bottom_y
-            if corner == "bottom_left":
-                anchor_x = viewport.mapToGlobal(rect.bottomLeft()).x()
-            else:
-                anchor_x = viewport.mapToGlobal(rect.bottomRight()).x()
-            pt = QtCore.QPoint(anchor_x, anchor_y - grid_offset_y)
-        else:
-            raise ValueError(f"Unknown corner: {corner}")
-        base_x, base_y = pt.x(), pt.y()
-        print(f"[OcclusionGrid] Created grid at corner '{corner}' with anchor ({{ {pt.x()}, {pt.y()} }}) for column '{column.get('label', 'unknown')}'")
-
-        # --- Debug: Add colored GroupBox at grid anchor (dynamic) ---
-        if not hasattr(self, '_grid_boxes'):
-            self._grid_boxes = {}
-        color_map = {
-            'top_left': 'red',
-            'top_right': 'green',
-            'bottom_left': 'blue',
-            'bottom_right': 'yellow',
-        }
-        if corner not in self._grid_boxes:
-            box = QtWidgets.QGroupBox(f"{corner}", self)
-            box.setStyleSheet(f"QGroupBox {{ background: {color_map.get(corner, 'gray')}; border: 2px solid black; border-radius: 6px; }}")
-            box.setFixedSize(24, 24)
-            box.show()
-            box.raise_()
-            self._grid_boxes[corner] = box
-        box = self._grid_boxes[corner]
-        box.move(pt.x() - 12, pt.y() - 12)
-        # Store grid info for later use (actual widget/overlay creation can be added as needed)
-        grid_info = {
-            "parent_column": column,
-            "corner": corner,
-            "base_x": base_x,
-            "base_y": base_y,
-            "occluded_sockets": occluded_sockets,
-            "occlusion_direction": occlusion_direction,
-            "grid_x_offset": grid_x_offset,
-            "grid_y_offset": grid_y_offset
-        }
-        return grid_info
+                
+                # If this is our widget, select its item
+                if widget == parent_widget:
+                    # Make sure the list widget has focus
+                    list_widget.setFocus()
+                    
+                    # If CTRL key is not pressed, clear other selections first
+                    if not (event.modifiers() & QtCore.Qt.ControlModifier):
+                        self.deselect_items()
+                    
+                    # Select this item
+                    item.setSelected(True)
+                    list_widget.setCurrentItem(item)
+                    return
+        
+        # Call the base implementation
+        QtWidgets.QLabel.mousePressEvent(label_widget, event)
+    
+    def select_item_by_widget(self, parent_widget):
+        """Select a list item based on its custom widget."""
+        for column in [self.source_column, self.target_column]:
+            list_widget = column["list_widget"]
+            for i in range(list_widget.count()):
+                item = list_widget.item(i)
+                widget = list_widget.itemWidget(item)
+                
+                if widget == parent_widget:
+                    list_widget.setFocus()
+                    item.setSelected(True)
+                    list_widget.setCurrentItem(item)
+                    return True
+        return False
 

@@ -1,0 +1,105 @@
+{[
+
+    "summary": {    "RIG_Thigh_Twist_02_L_jnt",
+
+        "total_nodes": 50,    "Controls_Leg_L_grp",
+
+        "node_types": {    "Properties_Leg_L_grp",
+
+            "joint": 20,    "CTR_Properties_Leg_L_crv",
+
+            "transform": 25,    "Controls_Thigh_Twists_L_grp",
+
+            "ikHandle": 1,    "Offset_RIG_Thigh_Twist_01_L_trs",
+
+            "constraint": 2,    "CTR_Thigh_Twist_01_L_crv",
+
+            "ikEffector": 2    "RIG_Thigh_Twist_01_L_jnt",
+
+        }    "Offset_RIG_Thigh_Twist_02_L_trs",
+
+    },    "CTR_Thigh_Twist_02_L_crv",
+
+    "nodes": [    "Controls_Leg_Twists_L_grp",
+
+        {    "Offset_RIG_Leg_Twist_01_L_trs",
+
+            "node_name": "RIG_Thigh_Twist_02_L_jnt",    "CTR_Leg_Twist_01_L_crv",
+
+            "node_type": "joint"    "RIG_Leg_Twist_01_L_jnt",
+
+        },    "Offset_RIG_Leg_Twist_02_L_trs",
+
+        {    "CTR_Leg_Twist_02_L_crv",
+
+            "node_name": "Controls_Leg_L_grp",    "RIG_Leg_Twist_02_L_jnt",
+
+            "node_type": "transform"    "Controls_Leg_FK_L_grp",
+
+        },    "Offset_RIG_Thigh_L_trs",
+
+        {    "CTR_Thigh_L_crv",
+
+            "node_name": "Properties_Leg_L_grp",    "Offset_RIG_Leg_L_trs",
+
+            "node_type": "transform"    "CTR_Leg_L_crv",
+
+        },    "Controls_Leg_IK_L_grp",
+
+        {    "Offset_CTR_Leg_IK_L_trs",
+
+            "node_name": "CTR_Properties_Leg_L_crv",    "CTR_Leg_IK_L_crv",
+
+            "node_type": "transform"    "CTR_Leg_IK_L_jnt",
+
+        },    "Offset_CTR_Leg_IK_Pole_L_trs",
+
+        {    "CTR_Leg_IK_Pole_L_crv",
+
+            "node_name": "Controls_Thigh_Twists_L_grp",    "DRV_Leg_IK_Pole_L_jnt",
+
+            "node_type": "transform"    "System_Leg_FK_IK_L_grp",
+
+        },    "PRN_Thigh_FK_IK_L_jnt",
+
+        {    "PRN_Leg_FK_IK_L_jnt",
+
+            "node_name": "Offset_RIG_Thigh_Twist_01_L_trs",    "PRN__Leg__FK_IK_End__L__jnt",
+
+            "node_type": "transform"    "Offset_DRV_Leg_IK_Handle_L_trs",
+
+        },    "DRV_Leg_IK_Handle_L_jnt",
+
+        {    "Offset_Leg_L_ikHandle_trs",
+
+            "node_name": "CTR_Thigh_Twist_01_L_crv",    "Leg_L_ikHandle",
+
+            "node_type": "transform"    "Leg_L_ikHandle_poleVectorConstraint1",
+
+        },    "DRV_Leg_IK_Shape_Line_Start_L_jnt",
+
+        {    "Offset_DRV_Leg_IK_L_trs",
+
+            "node_name": "RIG_Thigh_Twist_01_L_jnt",    "DRV_Thigh_IK_L_jnt",
+
+            "node_type": "joint"    "DRV_Leg_IK_L_jnt",
+
+        },    "DRV__Leg__IK_End__L__jnt",
+
+        {    "Leg_L_effector",
+
+            "node_name": "Offset_RIG_Thigh_Twist_02_L_trs",    "Offset_DRV_Thigh_FK_L_trs",
+
+            "node_type": "transform"    "DRV_Thigh_FK_L_jnt",
+
+        },    "DRV_Leg_FK_L_jnt",
+
+        {    "DRV_Leg_FK_End_L_jnt",
+
+            "node_name": "CTR_Thigh_Twist_02_L_crv",    "RIG_Leg_L_jnt",
+
+            "node_type": "transform"    "RIG_Thigh_L_jnt"
+
+        }]
+    ]
+}

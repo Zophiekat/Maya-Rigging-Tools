@@ -1,0 +1,45 @@
+{
+    "summary": {
+        "total_nodes": 60,
+        "left_side_count": 35,
+        "right_side_count": 15,
+        "no_side_count": 10,
+        "left_L_count": 25,
+        "left_L_underscore_count": 10,
+        "right_R_count": 12,
+        "right_R_underscore_count": 3
+    },
+    "left_side": {
+        "L_suffix": [
+            "CTR_Thigh_L",
+            "CTR_Leg_L",
+            "RIG_Thigh_L",
+            "RIG_Leg_L"
+        ],
+        "L_infix": [
+            "CTR_Thigh_L_crv",
+            "CTR_Leg_L_crv",
+            "RIG_Thigh_L_jnt",
+            "RIG_Leg_L_jnt"
+        ]
+    },
+    "right_side": {
+        "R_suffix": [
+            "CTR_Thigh_R",
+            "CTR_Leg_R",
+            "RIG_Thigh_R",
+            "RIG_Leg_R"
+        ],
+        "R_infix": [
+            "CTR_Thigh_R_crv",
+            "CTR_Leg_R_crv",
+            "RIG_Thigh_R_jnt"
+        ]
+    },
+    "no_side": [
+        "Controls_grp",
+        "Rig",
+        "Main",
+        "Global"
+    ]
+}
