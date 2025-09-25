@@ -11,44 +11,35 @@ def load_json_data(file_path):
         return json.load(file)
 
 def parent_dag_nodes_without_shapes():
-    """Parent duplicated R side DAG nodes based on L side hierarchy."""
+    """Parent duplicated R side DAG nodes based on mirrored hierarchy data."""
     # Load the necessary JSON data files
-    hierarchy_path = PATHS.get_data_file_path("hierarchy_data.json")
+    mirrored_hierarchy_path = PATHS.get_data_file_path("mirrored_hierarchy_data.json")
     dag_nodes_path = PATHS.get_data_file_path("dag_nodes_without_shapes_data.json")
     
-    if not os.path.exists(hierarchy_path) or not os.path.exists(dag_nodes_path):
+    if not os.path.exists(mirrored_hierarchy_path) or not os.path.exists(dag_nodes_path):
         cmds.error("Required JSON data files not found!")
         return False
     
     # Load the data
-    hierarchy_data = load_json_data(hierarchy_path)
+    mirrored_hierarchy_data = load_json_data(mirrored_hierarchy_path)
     dag_nodes_data = load_json_data(dag_nodes_path)
     
-    # Create a mapping of node names to their parent names
-    # We'll create two maps - one with full paths and one with short names
-    node_to_parent = {}
-    short_name_to_parent = {}
-    
-    # Process hierarchy data to build parent maps
-    for node_name, node_info in hierarchy_data.items():
-        if "parent" in node_info and node_info["parent"]:
-            node_to_parent[node_name] = node_info["parent"]
-            
-            # Also add a short name mapping
-            short_node = node_name.split('|')[-1]
-            short_parent = node_info["parent"].split('|')[-1] if node_info["parent"] else ""
-            short_name_to_parent[short_node] = short_parent
-    
     # Print some debug info about the hierarchy data
-    print(f"Hierarchy data contains {len(hierarchy_data)} nodes")
-    print(f"Short name mapping contains {len(short_name_to_parent)} nodes")
+    print(f"Mirrored hierarchy data contains {len(mirrored_hierarchy_data)} nodes")
     
     # Extract R side nodes from our dag_nodes data
     r_side_nodes = []
     for node in dag_nodes_data["nodes"]:
         node_name = node["node_name"]
-        if "_R" in node_name or "_R_" in node_name:
-            r_side_nodes.append(node_name)
+        # Replace L with R to find the mirrored node names
+        if "_L_" in node_name:
+            r_node = node_name.replace("_L_", "_R_")
+            if cmds.objExists(r_node):
+                r_side_nodes.append(r_node)
+        elif "_L" in node_name:
+            r_node = node_name.replace("_L", "_R")
+            if cmds.objExists(r_node):
+                r_side_nodes.append(r_node)
     
     print(f"Found {len(r_side_nodes)} R-side nodes to process for parenting")
     
@@ -62,52 +53,19 @@ def parent_dag_nodes_without_shapes():
     
     # Process each R side node
     for r_node in r_side_nodes:
-        # Find the corresponding L side node name
-        l_node = None
-        if "_R_" in r_node:
-            l_node = r_node.replace("_R_", "_L_")
-        elif "_R" in r_node:
-            l_node = r_node.replace("_R", "_L")
-        
-        if not l_node:
-            print(f"Cannot determine L side equivalent for {r_node}, skipping")
+        # Find the parent directly from mirrored hierarchy data
+        if r_node not in mirrored_hierarchy_data:
+            print(f"Node {r_node} not found in mirrored hierarchy data, skipping")
             parenting_results["skipped_count"] += 1
             continue
         
-        # Try to find the parent using both full path and short name
-        l_parent = None
-        short_l_node = l_node.split('|')[-1]
+        # Get parent from the mirrored hierarchy
+        r_parent = mirrored_hierarchy_data[r_node].get("parent")
         
-        # First try the direct lookup
-        if l_node in node_to_parent:
-            l_parent = node_to_parent[l_node]
-        # Then try the short name lookup
-        elif short_l_node in short_name_to_parent:
-            l_parent = short_name_to_parent[short_l_node]
-        
-        if l_parent is None:
-            print(f"Cannot find hierarchy info for {l_node} (short name: {short_l_node}), skipping")
+        if not r_parent:
+            print(f"Node {r_node} has no parent in mirrored hierarchy (it's a root node), skipping")
             parenting_results["skipped_count"] += 1
             continue
-        
-        # Skip if no parent (root node)
-        if not l_parent:
-            print(f"Node {l_node} has no parent (it's a root node), skipping {r_node}")
-            parenting_results["skipped_count"] += 1
-            continue
-        
-        # Convert to R side parent name
-        r_parent = None
-        if "_L_" in l_parent:
-            r_parent = l_parent.replace("_L_", "_R_")
-        elif "_L" in l_parent:
-            r_parent = l_parent.replace("_L", "_R")
-        else:
-            # If parent doesn't have L/R designation, use as is
-            r_parent = l_parent
-        
-        # Get short name for the parent
-        short_r_parent = r_parent.split('|')[-1]
         
         # Check if both the node and parent exist in the scene
         if not cmds.objExists(r_node):
@@ -115,24 +73,22 @@ def parent_dag_nodes_without_shapes():
             parenting_results["error_count"] += 1
             continue
             
-        if not cmds.objExists(short_r_parent):
-            print(f"R side parent {short_r_parent} does not exist in scene, skipping {r_node}")
+        if not cmds.objExists(r_parent):
+            print(f"R side parent {r_parent} does not exist in scene, skipping {r_node}")
             parenting_results["error_count"] += 1
             continue
         
         # Perform the parenting
         try:
-            print(f"Parenting {r_node} to {short_r_parent}")
-            cmds.parent(r_node, short_r_parent)
+            print(f"Parenting {r_node} to {r_parent}")
+            cmds.parent(r_node, r_parent)
             parenting_results["success_count"] += 1
             parenting_results["parented_nodes"].append({
                 "node": r_node,
-                "parent": short_r_parent,
-                "l_node": l_node,
-                "l_parent": l_parent
+                "parent": r_parent
             })
         except Exception as e:
-            print(f"Error parenting {r_node} to {short_r_parent}: {str(e)}")
+            print(f"Error parenting {r_node} to {r_parent}: {str(e)}")
             parenting_results["error_count"] += 1
     
     # Print summary

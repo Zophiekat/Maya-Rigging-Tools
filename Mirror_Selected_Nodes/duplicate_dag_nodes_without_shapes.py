@@ -15,7 +15,7 @@ def duplicate_dag_nodes_without_shapes():
     # Load the necessary JSON data files
     dag_nodes_without_shapes_path = PATHS.get_data_file_path("dag_nodes_without_shapes_data.json")
     node_side_data_path = PATHS.get_data_file_path("node_side_data.json")
-    hierarchy_data_path = PATHS.get_data_file_path("hierarchy_data.json")
+    mirrored_nodes_path = PATHS.get_data_file_path("mirrored_hierarchy_data.json")
     
     if not os.path.exists(dag_nodes_without_shapes_path) or not os.path.exists(node_side_data_path):
         cmds.error("Required JSON data files not found!")
@@ -24,12 +24,27 @@ def duplicate_dag_nodes_without_shapes():
     # Load the data
     dag_data = load_json_data(dag_nodes_without_shapes_path)
     side_data = load_json_data(node_side_data_path)
-    hierarchy_data = load_json_data(hierarchy_data_path) if os.path.exists(hierarchy_data_path) else {}
+    
+    # Load mirrored node data if available
+    mirrored_node_mapping = {}
+    if os.path.exists(mirrored_nodes_path):
+        print(f"Using mirrored node data from: {mirrored_nodes_path}")
+        mirrored_hierarchy = load_json_data(mirrored_nodes_path)
+        
+        # Get the keys from the mirrored hierarchy - these are our R side node names
+        for r_node_name in mirrored_hierarchy.keys():
+            # Convert back to L side name for the mapping
+            if "_R_" in r_node_name:
+                l_node_name = r_node_name.replace("_R_", "_L_")
+                mirrored_node_mapping[l_node_name] = r_node_name
+            elif "_R" in r_node_name:
+                l_node_name = r_node_name.replace("_R", "_L")
+                mirrored_node_mapping[l_node_name] = r_node_name
     
     # Extract the list of node names
     nodes_to_duplicate = []
-    for node in dag_data["nodes"]:
-        nodes_to_duplicate.append(node["node_name"])
+    if "nodes" in dag_data:
+        nodes_to_duplicate = [node["node_name"] for node in dag_data["nodes"]]
     
     # Extract left side nodes from node_side_data for quick lookup
     left_nodes = {}
@@ -68,14 +83,18 @@ def duplicate_dag_nodes_without_shapes():
             print(f"Node {node} is not identified as a left side node, skipping")
             continue
         
-        # Determine the pattern (_L or _L_)
-        pattern = left_nodes[node]
-        
-        # Create the new name
-        if pattern == "_L":
-            new_name = node.replace("_L", "_R")
-        else:  # pattern is "_L_"
-            new_name = node.replace("_L_", "_R_")
+        # Get the new name from the mirrored mapping if available, otherwise use pattern replacement
+        if node in mirrored_node_mapping:
+            new_name = mirrored_node_mapping[node]
+            print(f"Using mirrored node mapping: {node} → {new_name}")
+        else:
+            # Fall back to pattern replacement
+            pattern = left_nodes[node]
+            if pattern == "_L":
+                new_name = node.replace("_L", "_R")
+            else:  # pattern is "_L_"
+                new_name = node.replace("_L_", "_R_")
+            print(f"No mapping found, using pattern replacement: {node} → {new_name}")
         
         # If the node already exists, delete it first
         if cmds.objExists(new_name):
@@ -89,28 +108,14 @@ def duplicate_dag_nodes_without_shapes():
         # Add to input set before duplication
         cmds.sets(node, add="mirror_input")
         
-        # Use hierarchy data if available, otherwise query Maya directly
-        parent_path = None
-        if node in hierarchy_data and "parent" in hierarchy_data[node]:
-            parent_path = hierarchy_data[node]["parent"]
-            print(f"Using parent from hierarchy data for {node}: {parent_path}")
-        else:
-            parent = cmds.listRelatives(node, parent=True)
-            parent_path = parent[0] if parent else None
-            print(f"Parent not found in hierarchy data, queried directly: {parent_path}")
-        
-        # Temporarily unparent if needed to avoid parenting issues
-        if parent_path and cmds.objExists(parent_path):
-            cmds.parent(node, world=True)
+        # Store parent for reference (not used for parenting)
+        parent = cmds.listRelatives(node, parent=True)
+        parent_path = parent[0] if parent else None
         
         # Duplicate the node
         try:
             duplicated = cmds.duplicate(node, name=new_name, parentOnly=True)[0]
             print(f"Duplicated {node} to {duplicated}")
-            
-            # Restore original parent for source node
-            if parent_path and cmds.objExists(parent_path):
-                cmds.parent(node, parent_path)
             
             # Verify the result
             if not cmds.objExists(duplicated):
@@ -134,19 +139,12 @@ def duplicate_dag_nodes_without_shapes():
             duplicate_results["duplicated_nodes"].append({
                 "source": node,
                 "duplicate": duplicated,
-                "parent_in_hierarchy_data": parent_path
+                "original_parent": parent_path
             })
             
         except Exception as e:
             print(f"Error duplicating {node}: {str(e)}")
             duplicate_results["error_count"] += 1
-            
-            # If we unparented the source node, restore its parent
-            if parent_path and cmds.objExists(node) and cmds.objExists(parent_path):
-                try:
-                    cmds.parent(node, parent_path)
-                except Exception as e:
-                    print(f"Failed to restore parent for {node}: {str(e)}")
     
     # Print summary
     print(f"\nDuplication Summary:")

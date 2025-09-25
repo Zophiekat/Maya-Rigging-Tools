@@ -1,190 +1,4 @@
 {
-    "Controls_Leg_L_grp": {
-        "node_name": "Controls_Leg_L_grp",
-        "parent": "Controls_grp",
-        "children": [
-            "Properties_Leg_L_grp",
-            "Controls_Thigh_Twists_L_grp",
-            "Controls_Leg_Twists_L_grp",
-            "Controls_Leg_FK_L_grp",
-            "Controls_Leg_IK_L_grp",
-            "System_Leg_FK_IK_L_grp"
-        ],
-        "full_dag_path": "|Rig|Controls_grp|Controls_Leg_L_grp",
-        "children_count": 6,
-        "parent_count": 1
-    },
-    "Properties_Leg_L_grp": {
-        "node_name": "Properties_Leg_L_grp",
-        "parent": "Controls_Leg_L_grp",
-        "children": [
-            "CTR_Properties_Leg_L_crv"
-        ],
-        "full_dag_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Properties_Leg_L_grp",
-        "children_count": 1,
-        "parent_count": 1
-    },
-    "CTR_Properties_Leg_L_crv": {
-        "node_name": "CTR_Properties_Leg_L_crv",
-        "parent": "Properties_Leg_L_grp",
-        "children": [
-            "CTR_Properties_Leg_L_crvShape",
-            "CTR_Properties_Leg_L_crvShape1",
-            "CTR_Properties_Leg_L_crvShape2"
-        ],
-        "full_dag_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Properties_Leg_L_grp|CTR_Properties_Leg_L_crv",
-        "children_count": 3,
-        "parent_count": 1
-    },
-    "CTR_Properties_Leg_L_crvShape": {
-        "node_name": "CTR_Properties_Leg_L_crvShape",
-        "parent": "CTR_Properties_Leg_L_crv",
-        "children": [],
-        "full_dag_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Properties_Leg_L_grp|CTR_Properties_Leg_L_crv|CTR_Properties_Leg_L_crvShape",
-        "children_count": 0,
-        "parent_count": 1
-    },
-    "CTR_Properties_Leg_L_crvShape1": {
-        "node_name": "CTR_Properties_Leg_L_crvShape1",
-        "parent": "CTR_Properties_Leg_L_crv",
-        "children": [],
-        "full_dag_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Properties_Leg_L_grp|CTR_Properties_Leg_L_crv|CTR_Properties_Leg_L_crvShape1",
-        "children_count": 0,
-        "parent_count": 1
-    },
-    "CTR_Properties_Leg_L_crvShape2": {
-        "node_name": "CTR_Properties_Leg_L_crvShape2",
-        "parent": "CTR_Properties_Leg_L_crv",
-        "children": [],
-        "full_dag_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Properties_Leg_L_grp|CTR_Properties_Leg_L_crv|CTR_Properties_Leg_L_crvShape2",
-        "children_count": 0,
-        "parent_count": 1
-    },
-    "Controls_Thigh_Twists_L_grp": {
-        "node_name": "Controls_Thigh_Twists_L_grp",
-        "parent": "Controls_Leg_L_grp",
-        "children": [
-            "Offset_RIG_Thigh_Twist_01_L_trs",
-            "Offset_RIG_Thigh_Twist_02_L_trs"
-        ],
-        "full_dag_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Thigh_Twists_L_grp",
-        "children_count": 2,
-        "parent_count": 1
-    },
-    "Offset_RIG_Thigh_Twist_01_L_trs": {
-        "node_name": "Offset_RIG_Thigh_Twist_01_L_trs",
-        "parent": "Controls_Thigh_Twists_L_grp",
-        "children": [
-            "CTR_Thigh_Twist_01_L_crv"
-        ],
-        "full_dag_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Thigh_Twists_L_grp|Offset_RIG_Thigh_Twist_01_L_trs",
-        "children_count": 1,
-        "parent_count": 1
-    },
-    "CTR_Thigh_Twist_01_L_crv": {
-        "node_name": "CTR_Thigh_Twist_01_L_crv",
-        "parent": "Offset_RIG_Thigh_Twist_01_L_trs",
-        "children": [
-            "CTR_Thigh_Twist_01_L_crvShape",
-            "RIG_Thigh_Twist_01_L_jnt"
-        ],
-        "full_dag_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Thigh_Twists_L_grp|Offset_RIG_Thigh_Twist_01_L_trs|CTR_Thigh_Twist_01_L_crv",
-        "children_count": 2,
-        "parent_count": 1
-    },
-    "CTR_Thigh_Twist_01_L_crvShape": {
-        "node_name": "CTR_Thigh_Twist_01_L_crvShape",
-        "parent": "CTR_Thigh_Twist_01_L_crv",
-        "children": [],
-        "full_dag_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Thigh_Twists_L_grp|Offset_RIG_Thigh_Twist_01_L_trs|CTR_Thigh_Twist_01_L_crv|CTR_Thigh_Twist_01_L_crvShape",
-        "children_count": 0,
-        "parent_count": 1
-    },
-    "RIG_Thigh_Twist_01_L_jnt": {
-        "node_name": "RIG_Thigh_Twist_01_L_jnt",
-        "parent": "CTR_Thigh_Twist_01_L_crv",
-        "children": [],
-        "full_dag_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Thigh_Twists_L_grp|Offset_RIG_Thigh_Twist_01_L_trs|CTR_Thigh_Twist_01_L_crv|RIG_Thigh_Twist_01_L_jnt",
-        "children_count": 0,
-        "parent_count": 1
-    },
-    "Offset_RIG_Thigh_Twist_02_L_trs": {
-        "node_name": "Offset_RIG_Thigh_Twist_02_L_trs",
-        "parent": "Controls_Thigh_Twists_L_grp",
-        "children": [
-            "CTR_Thigh_Twist_02_L_crv"
-        ],
-        "full_dag_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Thigh_Twists_L_grp|Offset_RIG_Thigh_Twist_02_L_trs",
-        "children_count": 1,
-        "parent_count": 1
-    },
-    "CTR_Thigh_Twist_02_L_crv": {
-        "node_name": "CTR_Thigh_Twist_02_L_crv",
-        "parent": "Offset_RIG_Thigh_Twist_02_L_trs",
-        "children": [
-            "CTR_Thigh_Twist_02_L_crvShape",
-            "RIG_Thigh_Twist_02_L_jnt"
-        ],
-        "full_dag_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Thigh_Twists_L_grp|Offset_RIG_Thigh_Twist_02_L_trs|CTR_Thigh_Twist_02_L_crv",
-        "children_count": 2,
-        "parent_count": 1
-    },
-    "CTR_Thigh_Twist_02_L_crvShape": {
-        "node_name": "CTR_Thigh_Twist_02_L_crvShape",
-        "parent": "CTR_Thigh_Twist_02_L_crv",
-        "children": [],
-        "full_dag_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Thigh_Twists_L_grp|Offset_RIG_Thigh_Twist_02_L_trs|CTR_Thigh_Twist_02_L_crv|CTR_Thigh_Twist_02_L_crvShape",
-        "children_count": 0,
-        "parent_count": 1
-    },
-    "RIG_Thigh_Twist_02_L_jnt": {
-        "node_name": "RIG_Thigh_Twist_02_L_jnt",
-        "parent": "CTR_Thigh_Twist_02_L_crv",
-        "children": [],
-        "full_dag_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Thigh_Twists_L_grp|Offset_RIG_Thigh_Twist_02_L_trs|CTR_Thigh_Twist_02_L_crv|RIG_Thigh_Twist_02_L_jnt",
-        "children_count": 0,
-        "parent_count": 1
-    },
-    "Controls_Leg_Twists_L_grp": {
-        "node_name": "Controls_Leg_Twists_L_grp",
-        "parent": "Controls_Leg_L_grp",
-        "children": [
-            "Offset_RIG_Leg_Twist_01_L_trs",
-            "Offset_RIG_Leg_Twist_02_L_trs"
-        ],
-        "full_dag_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Leg_Twists_L_grp",
-        "children_count": 2,
-        "parent_count": 1
-    },
-    "Offset_RIG_Leg_Twist_01_L_trs": {
-        "node_name": "Offset_RIG_Leg_Twist_01_L_trs",
-        "parent": "Controls_Leg_Twists_L_grp",
-        "children": [
-            "CTR_Leg_Twist_01_L_crv"
-        ],
-        "full_dag_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Leg_Twists_L_grp|Offset_RIG_Leg_Twist_01_L_trs",
-        "children_count": 1,
-        "parent_count": 1
-    },
-    "CTR_Leg_Twist_01_L_crv": {
-        "node_name": "CTR_Leg_Twist_01_L_crv",
-        "parent": "Offset_RIG_Leg_Twist_01_L_trs",
-        "children": [
-            "CTR_Leg_Twist_01_L_crvShape",
-            "RIG_Leg_Twist_01_L_jnt"
-        ],
-        "full_dag_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Leg_Twists_L_grp|Offset_RIG_Leg_Twist_01_L_trs|CTR_Leg_Twist_01_L_crv",
-        "children_count": 2,
-        "parent_count": 1
-    },
-    "CTR_Leg_Twist_01_L_crvShape": {
-        "node_name": "CTR_Leg_Twist_01_L_crvShape",
-        "parent": "CTR_Leg_Twist_01_L_crv",
-        "children": [],
-        "full_dag_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Leg_Twists_L_grp|Offset_RIG_Leg_Twist_01_L_trs|CTR_Leg_Twist_01_L_crv|CTR_Leg_Twist_01_L_crvShape",
-        "children_count": 0,
-        "parent_count": 1
-    },
     "RIG_Leg_Twist_01_L_jnt": {
         "node_name": "RIG_Leg_Twist_01_L_jnt",
         "parent": "CTR_Leg_Twist_01_L_crv",
@@ -587,6 +401,192 @@
         "parent": "System_Leg_FK_IK_L_grp",
         "children": [],
         "full_dag_path": "|Rig|Controls_grp|Controls_Leg_L_grp|System_Leg_FK_IK_L_grp|RIG_Thigh_L_jnt",
+        "children_count": 0,
+        "parent_count": 1
+    },
+    "Properties_Leg_L_grp": {
+        "node_name": "Properties_Leg_L_grp",
+        "parent": "Controls_Leg_L_grp",
+        "children": [
+            "CTR_Properties_Leg_L_crv"
+        ],
+        "full_dag_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Properties_Leg_L_grp",
+        "children_count": 1,
+        "parent_count": 1
+    },
+    "CTR_Properties_Leg_L_crv": {
+        "node_name": "CTR_Properties_Leg_L_crv",
+        "parent": "Properties_Leg_L_grp",
+        "children": [
+            "CTR_Properties_Leg_L_crvShape",
+            "CTR_Properties_Leg_L_crvShape1",
+            "CTR_Properties_Leg_L_crvShape2"
+        ],
+        "full_dag_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Properties_Leg_L_grp|CTR_Properties_Leg_L_crv",
+        "children_count": 3,
+        "parent_count": 1
+    },
+    "CTR_Properties_Leg_L_crvShape": {
+        "node_name": "CTR_Properties_Leg_L_crvShape",
+        "parent": "CTR_Properties_Leg_L_crv",
+        "children": [],
+        "full_dag_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Properties_Leg_L_grp|CTR_Properties_Leg_L_crv|CTR_Properties_Leg_L_crvShape",
+        "children_count": 0,
+        "parent_count": 1
+    },
+    "CTR_Properties_Leg_L_crvShape1": {
+        "node_name": "CTR_Properties_Leg_L_crvShape1",
+        "parent": "CTR_Properties_Leg_L_crv",
+        "children": [],
+        "full_dag_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Properties_Leg_L_grp|CTR_Properties_Leg_L_crv|CTR_Properties_Leg_L_crvShape1",
+        "children_count": 0,
+        "parent_count": 1
+    },
+    "CTR_Properties_Leg_L_crvShape2": {
+        "node_name": "CTR_Properties_Leg_L_crvShape2",
+        "parent": "CTR_Properties_Leg_L_crv",
+        "children": [],
+        "full_dag_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Properties_Leg_L_grp|CTR_Properties_Leg_L_crv|CTR_Properties_Leg_L_crvShape2",
+        "children_count": 0,
+        "parent_count": 1
+    },
+    "Controls_Leg_L_grp": {
+        "node_name": "Controls_Leg_L_grp",
+        "parent": "Controls_grp",
+        "children": [
+            "Properties_Leg_L_grp",
+            "Controls_Thigh_Twists_L_grp",
+            "Controls_Leg_Twists_L_grp",
+            "Controls_Leg_FK_L_grp",
+            "Controls_Leg_IK_L_grp",
+            "System_Leg_FK_IK_L_grp"
+        ],
+        "full_dag_path": "|Rig|Controls_grp|Controls_Leg_L_grp",
+        "children_count": 6,
+        "parent_count": 1
+    },
+    "Controls_Thigh_Twists_L_grp": {
+        "node_name": "Controls_Thigh_Twists_L_grp",
+        "parent": "Controls_Leg_L_grp",
+        "children": [
+            "Offset_RIG_Thigh_Twist_01_L_trs",
+            "Offset_RIG_Thigh_Twist_02_L_trs"
+        ],
+        "full_dag_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Thigh_Twists_L_grp",
+        "children_count": 2,
+        "parent_count": 1
+    },
+    "Offset_RIG_Thigh_Twist_01_L_trs": {
+        "node_name": "Offset_RIG_Thigh_Twist_01_L_trs",
+        "parent": "Controls_Thigh_Twists_L_grp",
+        "children": [
+            "CTR_Thigh_Twist_01_L_crv"
+        ],
+        "full_dag_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Thigh_Twists_L_grp|Offset_RIG_Thigh_Twist_01_L_trs",
+        "children_count": 1,
+        "parent_count": 1
+    },
+    "CTR_Thigh_Twist_01_L_crv": {
+        "node_name": "CTR_Thigh_Twist_01_L_crv",
+        "parent": "Offset_RIG_Thigh_Twist_01_L_trs",
+        "children": [
+            "CTR_Thigh_Twist_01_L_crvShape",
+            "RIG_Thigh_Twist_01_L_jnt"
+        ],
+        "full_dag_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Thigh_Twists_L_grp|Offset_RIG_Thigh_Twist_01_L_trs|CTR_Thigh_Twist_01_L_crv",
+        "children_count": 2,
+        "parent_count": 1
+    },
+    "CTR_Thigh_Twist_01_L_crvShape": {
+        "node_name": "CTR_Thigh_Twist_01_L_crvShape",
+        "parent": "CTR_Thigh_Twist_01_L_crv",
+        "children": [],
+        "full_dag_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Thigh_Twists_L_grp|Offset_RIG_Thigh_Twist_01_L_trs|CTR_Thigh_Twist_01_L_crv|CTR_Thigh_Twist_01_L_crvShape",
+        "children_count": 0,
+        "parent_count": 1
+    },
+    "RIG_Thigh_Twist_01_L_jnt": {
+        "node_name": "RIG_Thigh_Twist_01_L_jnt",
+        "parent": "CTR_Thigh_Twist_01_L_crv",
+        "children": [],
+        "full_dag_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Thigh_Twists_L_grp|Offset_RIG_Thigh_Twist_01_L_trs|CTR_Thigh_Twist_01_L_crv|RIG_Thigh_Twist_01_L_jnt",
+        "children_count": 0,
+        "parent_count": 1
+    },
+    "Offset_RIG_Thigh_Twist_02_L_trs": {
+        "node_name": "Offset_RIG_Thigh_Twist_02_L_trs",
+        "parent": "Controls_Thigh_Twists_L_grp",
+        "children": [
+            "CTR_Thigh_Twist_02_L_crv"
+        ],
+        "full_dag_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Thigh_Twists_L_grp|Offset_RIG_Thigh_Twist_02_L_trs",
+        "children_count": 1,
+        "parent_count": 1
+    },
+    "CTR_Thigh_Twist_02_L_crv": {
+        "node_name": "CTR_Thigh_Twist_02_L_crv",
+        "parent": "Offset_RIG_Thigh_Twist_02_L_trs",
+        "children": [
+            "CTR_Thigh_Twist_02_L_crvShape",
+            "RIG_Thigh_Twist_02_L_jnt"
+        ],
+        "full_dag_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Thigh_Twists_L_grp|Offset_RIG_Thigh_Twist_02_L_trs|CTR_Thigh_Twist_02_L_crv",
+        "children_count": 2,
+        "parent_count": 1
+    },
+    "CTR_Thigh_Twist_02_L_crvShape": {
+        "node_name": "CTR_Thigh_Twist_02_L_crvShape",
+        "parent": "CTR_Thigh_Twist_02_L_crv",
+        "children": [],
+        "full_dag_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Thigh_Twists_L_grp|Offset_RIG_Thigh_Twist_02_L_trs|CTR_Thigh_Twist_02_L_crv|CTR_Thigh_Twist_02_L_crvShape",
+        "children_count": 0,
+        "parent_count": 1
+    },
+    "RIG_Thigh_Twist_02_L_jnt": {
+        "node_name": "RIG_Thigh_Twist_02_L_jnt",
+        "parent": "CTR_Thigh_Twist_02_L_crv",
+        "children": [],
+        "full_dag_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Thigh_Twists_L_grp|Offset_RIG_Thigh_Twist_02_L_trs|CTR_Thigh_Twist_02_L_crv|RIG_Thigh_Twist_02_L_jnt",
+        "children_count": 0,
+        "parent_count": 1
+    },
+    "Controls_Leg_Twists_L_grp": {
+        "node_name": "Controls_Leg_Twists_L_grp",
+        "parent": "Controls_Leg_L_grp",
+        "children": [
+            "Offset_RIG_Leg_Twist_01_L_trs",
+            "Offset_RIG_Leg_Twist_02_L_trs"
+        ],
+        "full_dag_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Leg_Twists_L_grp",
+        "children_count": 2,
+        "parent_count": 1
+    },
+    "Offset_RIG_Leg_Twist_01_L_trs": {
+        "node_name": "Offset_RIG_Leg_Twist_01_L_trs",
+        "parent": "Controls_Leg_Twists_L_grp",
+        "children": [
+            "CTR_Leg_Twist_01_L_crv"
+        ],
+        "full_dag_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Leg_Twists_L_grp|Offset_RIG_Leg_Twist_01_L_trs",
+        "children_count": 1,
+        "parent_count": 1
+    },
+    "CTR_Leg_Twist_01_L_crv": {
+        "node_name": "CTR_Leg_Twist_01_L_crv",
+        "parent": "Offset_RIG_Leg_Twist_01_L_trs",
+        "children": [
+            "CTR_Leg_Twist_01_L_crvShape",
+            "RIG_Leg_Twist_01_L_jnt"
+        ],
+        "full_dag_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Leg_Twists_L_grp|Offset_RIG_Leg_Twist_01_L_trs|CTR_Leg_Twist_01_L_crv",
+        "children_count": 2,
+        "parent_count": 1
+    },
+    "CTR_Leg_Twist_01_L_crvShape": {
+        "node_name": "CTR_Leg_Twist_01_L_crvShape",
+        "parent": "CTR_Leg_Twist_01_L_crv",
+        "children": [],
+        "full_dag_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Leg_Twists_L_grp|Offset_RIG_Leg_Twist_01_L_trs|CTR_Leg_Twist_01_L_crv|CTR_Leg_Twist_01_L_crvShape",
         "children_count": 0,
         "parent_count": 1
     }

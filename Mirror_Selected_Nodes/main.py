@@ -39,8 +39,14 @@ importlib.reload(store_node_side_data)
 import store_hierarchy_data
 importlib.reload(store_hierarchy_data)
 #
+import create_mirror_hierarchy_data
+importlib.reload(create_mirror_hierarchy_data)
+#
 import store_connection_data
 importlib.reload(store_connection_data)
+#
+import create_mirror_connection_data
+importlib.reload(create_mirror_connection_data)
 #
 import filter_utils
 importlib.reload(filter_utils)
@@ -51,7 +57,7 @@ importlib.reload(mirror_selected_nodes)
 
 def run_mirror_tool():
     """Main function to mirror selected nodes in Maya."""
-    print("\n=== MIRROR SELECTED NODES ===")
+    print("\n=== MIRROR SELECTED ===")
     
     # Archive existing JSON data
     print("Archiving existing JSON data...")
@@ -102,6 +108,10 @@ def run_mirror_tool():
         hierarchy_data_path
     )
     
+    # Create mirrored hierarchy data
+    print("Creating mirrored hierarchy data...")
+    create_mirror_hierarchy_data.run()  # Call the new module here
+    
     # Store connection data
     print("Storing connection data...")
     connection_data_path = PATHS.get_data_file_path("connection_data.json")
@@ -110,6 +120,16 @@ def run_mirror_tool():
         connection_data_path
     )
     
+    # After these lines:
+    connection_data_path = PATHS.get_data_file_path("connection_data.json")
+    store_connection_data.save_connections_to_json(
+        all_selected_nodes, 
+        connection_data_path
+    )
+
+    print("Creating mirrored connection data...")
+    create_mirror_connection_data.run()
+
     # Run the mirroring process
     print("Running mirror operation...")
     result = mirror_selected_nodes.run()

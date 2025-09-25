@@ -2,15 +2,91 @@
     "summary": {
         "total_nodes": 62,
         "node_types": {
-            "joint": 19,
             "transform": 28,
             "nurbsCurve": 12,
+            "joint": 19,
             "ikHandle": 1,
             "poleVectorConstraint": 1,
             "ikEffector": 1
         }
     },
     "nodes": [
+        {
+            "node_name": "Controls_Leg_L_grp",
+            "node_type": "transform"
+        },
+        {
+            "node_name": "Properties_Leg_L_grp",
+            "node_type": "transform"
+        },
+        {
+            "node_name": "CTR_Properties_Leg_L_crv",
+            "node_type": "transform"
+        },
+        {
+            "node_name": "CTR_Properties_Leg_L_crvShape",
+            "node_type": "nurbsCurve"
+        },
+        {
+            "node_name": "CTR_Properties_Leg_L_crvShape1",
+            "node_type": "nurbsCurve"
+        },
+        {
+            "node_name": "CTR_Properties_Leg_L_crvShape2",
+            "node_type": "nurbsCurve"
+        },
+        {
+            "node_name": "Controls_Thigh_Twists_L_grp",
+            "node_type": "transform"
+        },
+        {
+            "node_name": "Offset_RIG_Thigh_Twist_01_L_trs",
+            "node_type": "transform"
+        },
+        {
+            "node_name": "CTR_Thigh_Twist_01_L_crv",
+            "node_type": "transform"
+        },
+        {
+            "node_name": "CTR_Thigh_Twist_01_L_crvShape",
+            "node_type": "nurbsCurve"
+        },
+        {
+            "node_name": "RIG_Thigh_Twist_01_L_jnt",
+            "node_type": "joint"
+        },
+        {
+            "node_name": "Offset_RIG_Thigh_Twist_02_L_trs",
+            "node_type": "transform"
+        },
+        {
+            "node_name": "CTR_Thigh_Twist_02_L_crv",
+            "node_type": "transform"
+        },
+        {
+            "node_name": "CTR_Thigh_Twist_02_L_crvShape",
+            "node_type": "nurbsCurve"
+        },
+        {
+            "node_name": "RIG_Thigh_Twist_02_L_jnt",
+            "node_type": "joint"
+        },
+        {
+            "node_name": "Controls_Leg_Twists_L_grp",
+            "node_type": "transform"
+        },
+        {
+            "node_name": "Offset_RIG_Leg_Twist_01_L_trs",
+            "node_type": "transform"
+        },
+        {
+            "node_name": "CTR_Leg_Twist_01_L_crv",
+            "node_type": "transform"
+        },
+        {
+            "node_name": "CTR_Leg_Twist_01_L_crvShape",
+            "node_type": "nurbsCurve"
+        },
         {
             "node_name": "RIG_Leg_Twist_01_L_jnt",
             "node_type": "joint"
@@ -182,82 +258,6 @@
         {
             "node_name": "RIG_Thigh_L_jnt",
             "node_type": "joint"
-        },
-        {
-            "node_name": "Properties_Leg_L_grp",
-            "node_type": "transform"
-        },
-        {
-            "node_name": "CTR_Properties_Leg_L_crv",
-            "node_type": "transform"
-        },
-        {
-            "node_name": "CTR_Properties_Leg_L_crvShape",
-            "node_type": "nurbsCurve"
-        },
-        {
-            "node_name": "CTR_Properties_Leg_L_crvShape1",
-            "node_type": "nurbsCurve"
-        },
-        {
-            "node_name": "CTR_Properties_Leg_L_crvShape2",
-            "node_type": "nurbsCurve"
-        },
-        {
-            "node_name": "Controls_Leg_L_grp",
-            "node_type": "transform"
-        },
-        {
-            "node_name": "Controls_Thigh_Twists_L_grp",
-            "node_type": "transform"
-        },
-        {
-            "node_name": "Offset_RIG_Thigh_Twist_01_L_trs",
-            "node_type": "transform"
-        },
-        {
-            "node_name": "CTR_Thigh_Twist_01_L_crv",
-            "node_type": "transform"
-        },
-        {
-            "node_name": "CTR_Thigh_Twist_01_L_crvShape",
-            "node_type": "nurbsCurve"
-        },
-        {
-            "node_name": "RIG_Thigh_Twist_01_L_jnt",
-            "node_type": "joint"
-        },
-        {
-            "node_name": "Offset_RIG_Thigh_Twist_02_L_trs",
-            "node_type": "transform"
-        },
-        {
-            "node_name": "CTR_Thigh_Twist_02_L_crv",
-            "node_type": "transform"
-        },
-        {
-            "node_name": "CTR_Thigh_Twist_02_L_crvShape",
-            "node_type": "nurbsCurve"
-        },
-        {
-            "node_name": "RIG_Thigh_Twist_02_L_jnt",
-            "node_type": "joint"
-        },
-        {
-            "node_name": "Controls_Leg_Twists_L_grp",
-            "node_type": "transform"
-        },
-        {
-            "node_name": "Offset_RIG_Leg_Twist_01_L_trs",
-            "node_type": "transform"
-        },
-        {
-            "node_name": "CTR_Leg_Twist_01_L_crv",
-            "node_type": "transform"
-        },
-        {
-            "node_name": "CTR_Leg_Twist_01_L_crvShape",
-            "node_type": "nurbsCurve"
         }
     ]
 }

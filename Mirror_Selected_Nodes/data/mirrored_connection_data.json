@@ -1,0 +1,314 @@
+{
+    "Controls_Leg_R_grp": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "Properties_Leg_R_grp": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "CTR_Properties_Leg_R_crv": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "CTR_Properties_Leg_R_crvShape2": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "Controls_Thigh_Twists_R_grp": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "Offset_RIG_Thigh_Twist_01_R_trs": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "CTR_Thigh_Twist_01_R_crv": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "CTR_Thigh_Twist_01_R_crvShape": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "RIG_Thigh_Twist_01_R_jnt": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "Offset_RIG_Thigh_Twist_02_R_trs": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "CTR_Thigh_Twist_02_R_crv": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "CTR_Thigh_Twist_02_R_crvShape": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "RIG_Thigh_Twist_02_R_jnt": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "Controls_Leg_Twists_R_grp": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "Offset_RIG_Leg_Twist_01_R_trs": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "CTR_Leg_Twist_01_R_crv": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "CTR_Leg_Twist_01_R_crvShape": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "RIG_Leg_Twist_01_R_jnt": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "Offset_RIG_Leg_Twist_02_R_trs": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "CTR_Leg_Twist_02_R_crv": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "CTR_Leg_Twist_02_R_crvShape": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "RIG_Leg_Twist_02_R_jnt": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "Controls_Leg_FK_R_grp": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "Offset_RIG_Thigh_R_trs": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "CTR_Thigh_R_crv": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "CTR_Thigh_R_crvShape": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "Offset_RIG_Leg_R_trs": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "CTR_Leg_R_crv": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "CTR_Leg_R_crvShape": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "Controls_Leg_IK_R_grp": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "Offset_CTR_Leg_IK_R_trs": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "CTR_Leg_IK_R_crv": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "CTR_Leg_IK_R_crvShape": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "CTR_Leg_IK_R_jnt": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "Offset_CTR_Leg_IK_Pole_R_trs": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "CTR_Leg_IK_Pole_R_crv": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "CTR_Leg_K_Pole_R_crvShape": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "DRV_Leg_IK_Pole_R_jnt": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "System_Leg_FK_IK_R_grp": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "PRN_Thigh_FK_IK_R_jnt": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "PRN_Leg_FK_IK_R_jnt": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "PRN__Leg__FK_IK_End__R__jnt": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "CTR_Properties_Leg_R_crvShape1": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "CTR_Properties_Leg_R_crvShape": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "Offset_DRV_Leg_IK_Handle_R_trs": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "DRV_Leg_IK_Handle_R_jnt": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "Offset_Leg_R_ikHandle_trs": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "Leg_R_ikHandle": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "Leg_R_ikHandle_poleVectorConstraint1": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "DRV_Leg_IK_Shape_Line_Start_R_jnt": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "Offset_DRV_Leg_IK_R_trs": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "DRV_Thigh_IK_R_jnt": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "DRV_Leg_IK_R_jnt": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "DRV__Leg__IK_End__R__jnt": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "Leg_R_effector": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "Offset_DRV_Thigh_FK_R_trs": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "DRV_Thigh_FK_R_jnt": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "DRV_Leg_FK_R_jnt": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "DRV_Leg_FK_End_R_jnt": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "RIG_Leg_R_jnt": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "RIG_Thigh_R_jnt": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "PRN_Thigh_FK_IK_R__ParentMatrix": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "CTR_Leg_R__Properties_SetRange": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "DRV_Leg_IK_Pole_R__AimMatrix": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "DRV_Leg_IK_Pole_R__AimMatrix_Decomp": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "PRN__Leg__FK_IK_End__R__ParentMatrix": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "RIG_Leg_R__ParentMatrix": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "PRN_Leg_FK_IK_R__MultMatrix_IK": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "PRN_Leg_FK_IK_R__ParentMatrix": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "Controls_Leg_Twists_R__ParentMatrix": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "DEF_Thigh_R__ParentMatrix": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "RIG_Thigh_R__ParentMatrix": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "DEF_Leg_R__ParentMatrix": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "Offset_RIG_Leg_R__ParentMatrix": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "DRV_Thigh_FK_R__MultMatrix": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "Controls_Thigh_Twists_R__ParentMatrix": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "DRV_Leg_FK_R__MultMatrix": {
+        "inputs": {},
+        "outputs": {}
+    },
+    "PRN_Leg_FK_IK_R__MultMatrix_FK": {
+        "inputs": {},
+        "outputs": {}
+    }
+}

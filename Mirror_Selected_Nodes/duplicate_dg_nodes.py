@@ -15,6 +15,7 @@ def duplicate_dg_nodes():
     # Load the necessary JSON data files
     dg_nodes_path = PATHS.get_data_file_path("dg_nodes_data.json")
     node_side_data_path = PATHS.get_data_file_path("node_side_data.json")
+    mirrored_nodes_path = PATHS.get_data_file_path("mirrored_hierarchy_data.json")
     
     if not os.path.exists(dg_nodes_path) or not os.path.exists(node_side_data_path):
         cmds.error("Required JSON data files not found!")
@@ -23,6 +24,22 @@ def duplicate_dg_nodes():
     # Load the data
     dg_data = load_json_data(dg_nodes_path)
     side_data = load_json_data(node_side_data_path)
+    
+    # Load mirrored node data if available
+    mirrored_node_mapping = {}
+    if os.path.exists(mirrored_nodes_path):
+        print(f"Using mirrored node data from: {mirrored_nodes_path}")
+        mirrored_hierarchy = load_json_data(mirrored_nodes_path)
+        
+        # Get the keys from the mirrored hierarchy - these are our R side node names
+        for r_node_name in mirrored_hierarchy.keys():
+            # Convert back to L side name for the mapping
+            if "_R_" in r_node_name:
+                l_node_name = r_node_name.replace("_R_", "_L_")
+                mirrored_node_mapping[l_node_name] = r_node_name
+            elif "_R" in r_node_name:
+                l_node_name = r_node_name.replace("_R", "_L")
+                mirrored_node_mapping[l_node_name] = r_node_name
     
     # Extract DG nodes
     dg_nodes_to_duplicate = []
@@ -66,14 +83,18 @@ def duplicate_dg_nodes():
             print(f"Node {node} is not identified as a left side node, skipping")
             continue
         
-        # Determine the pattern (_L or _L_)
-        pattern = left_nodes[node]
-        
-        # Create the new name
-        if pattern == "_L":
-            new_name = node.replace("_L", "_R")
-        else:  # pattern is "_L_"
-            new_name = node.replace("_L_", "_R_")
+        # Get the new name from the mirrored mapping if available, otherwise use pattern replacement
+        if node in mirrored_node_mapping:
+            new_name = mirrored_node_mapping[node]
+            print(f"Using mirrored node mapping: {node} → {new_name}")
+        else:
+            # Fall back to pattern replacement
+            pattern = left_nodes[node]
+            if pattern == "_L":
+                new_name = node.replace("_L", "_R")
+            else:  # pattern is "_L_"
+                new_name = node.replace("_L_", "_R_")
+            print(f"No mapping found, using pattern replacement: {node} → {new_name}")
         
         # If the node already exists, delete it first
         if cmds.objExists(new_name):
@@ -98,7 +119,14 @@ def duplicate_dg_nodes():
             # Use direct duplication with the -rr flag (do not retain references)
             # This will create a duplicate without maintaining connections
             cmds.select(node, replace=True)
-            duplicated_nodes = cmds.duplicate(rr=True)
+            duplicated_nodes = cmds.duplicate(
+                node,
+                name=new_name,
+                parentOnly=True,
+                upstreamNodes=False,
+                inputConnections=False,
+                returnRootsOnly=True
+                )
             duplicated = duplicated_nodes[0]
             
             # Rename the duplicated node
