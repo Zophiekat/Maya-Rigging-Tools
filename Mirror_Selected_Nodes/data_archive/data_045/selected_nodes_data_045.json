@@ -1,0 +1,14 @@
+{
+    "summary": {
+        "total_nodes": 1,
+        "node_types": {
+            "transform": 1
+        }
+    },
+    "nodes": [
+        {
+            "node_name": "Offset_CTR_Leg_IK_Pole_R_trs",
+            "node_type": "transform"
+        }
+    ]
+}

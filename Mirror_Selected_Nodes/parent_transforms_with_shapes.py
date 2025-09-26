@@ -11,46 +11,42 @@ def load_json_data(file_path):
         return json.load(file)
 
 def parent_transforms_with_shapes():
-    """Parent duplicated R side transform nodes with shapes based on L side hierarchy."""
+    """Parent duplicated R side transform nodes with shapes based on mirrored hierarchy data."""
     # Load the necessary JSON data files
-    hierarchy_path = PATHS.get_data_file_path("hierarchy_data.json")
+    mirrored_hierarchy_path = PATHS.get_data_file_path("mirrored_hierarchy_data.json")
     transforms_path = PATHS.get_data_file_path("transforms_with_shapes_data.json")
+    mirror_side_path = PATHS.get_data_file_path("mirror_side_data.json")
     
-    if not os.path.exists(hierarchy_path) or not os.path.exists(transforms_path):
-        cmds.error("Required JSON data files not found!")
+    if not os.path.exists(mirrored_hierarchy_path) or not os.path.exists(transforms_path):
+        cmds.error("❌ Required JSON data files not found!")
         return False
     
     # Load the data
-    hierarchy_data = load_json_data(hierarchy_path)
+    mirrored_hierarchy_data = load_json_data(mirrored_hierarchy_path)
     transforms_data = load_json_data(transforms_path)
     
-    # Create a mapping of node names to their parent names
-    # We'll create two maps - one with full paths and one with short names
-    node_to_parent = {}
-    short_name_to_parent = {}
-    
-    # Process hierarchy data to build parent maps
-    for node_name, node_info in hierarchy_data.items():
-        if "parent" in node_info and node_info["parent"]:
-            node_to_parent[node_name] = node_info["parent"]
-            
-            # Also add a short name mapping
-            short_node = node_name.split('|')[-1]
-            short_parent = node_info["parent"].split('|')[-1] if node_info["parent"] else ""
-            short_name_to_parent[short_node] = short_parent
+    # Load mirror mapping to get L->R node mappings
+    mirror_mapping = {}
+    if os.path.exists(mirror_side_path):
+        mirror_data = load_json_data(mirror_side_path)
+        mirror_mapping = mirror_data.get("mirror_mapping", {})
     
     # Print some debug info about the hierarchy data
-    print(f"Hierarchy data contains {len(hierarchy_data)} nodes")
-    print(f"Short name mapping contains {len(short_name_to_parent)} nodes")
+    print(f"🌳 Mirrored hierarchy data contains {len(mirrored_hierarchy_data)} nodes")
     
-    # Extract R side transform nodes
-    r_side_transforms = []
+    # Extract L side transform nodes and get their R side equivalents
+    transforms_to_parent = []
     for transform in transforms_data.get("transforms", []):
-        transform_name = transform["transform_name"]
-        if "_R" in transform_name or "_R_" in transform_name:
-            r_side_transforms.append(transform_name)
+        l_transform_name = transform["transform_name"]
+        
+        # Check if this is an L-side transform
+        if "_L" in l_transform_name or "_L_" in l_transform_name:
+            # Get the R-side equivalent from mirror mapping
+            if l_transform_name in mirror_mapping:
+                r_transform_name = mirror_mapping[l_transform_name]
+                transforms_to_parent.append(r_transform_name)
     
-    print(f"Found {len(r_side_transforms)} R-side transforms to process for parenting")
+    print(f"☘️ Found {len(transforms_to_parent)} R-side transforms to process for parenting")
     
     # Track results
     parenting_results = {
@@ -61,85 +57,65 @@ def parent_transforms_with_shapes():
     }
     
     # Process each R side transform
-    for r_transform in r_side_transforms:
-        # Find the corresponding L side transform name
-        l_transform = None
-        if "_R_" in r_transform:
-            l_transform = r_transform.replace("_R_", "_L_")
-        elif "_R" in r_transform:
-            l_transform = r_transform.replace("_R", "_L")
-        
-        if not l_transform:
-            print(f"Cannot determine L side equivalent for {r_transform}, skipping")
+    for r_transform in transforms_to_parent:
+        # Get the hierarchy info from mirrored_hierarchy_data
+        if r_transform not in mirrored_hierarchy_data:
+            print(f"❌ Cannot find hierarchy info for {r_transform} in mirrored data, skipping")
             parenting_results["skipped_count"] += 1
             continue
         
-        # Try to find the parent using both full path and short name
-        l_parent = None
-        short_l_transform = l_transform.split('|')[-1]
+        # Get the parent from the mirrored hierarchy data
+        node_info = mirrored_hierarchy_data[r_transform]
+        r_parent = node_info.get("parent")
         
-        # First try the direct lookup
-        if l_transform in node_to_parent:
-            l_parent = node_to_parent[l_transform]
-        # Then try the short name lookup
-        elif short_l_transform in short_name_to_parent:
-            l_parent = short_name_to_parent[short_l_transform]
-        
-        if l_parent is None:
-            print(f"Cannot find hierarchy info for {l_transform} (short name: {short_l_transform}), skipping")
+        if r_parent is None:
+            print(f"❌ Transform {r_transform} has no parent info in mirrored data, skipping")
             parenting_results["skipped_count"] += 1
             continue
         
         # Skip if no parent (root node)
-        if not l_parent:
-            print(f"Transform {l_transform} has no parent (it's a root node), skipping {r_transform}")
+        if not r_parent:
+            print(f"ℹ️ Transform {r_transform} has no parent (it's a root node), skipping")
             parenting_results["skipped_count"] += 1
             continue
         
-        # Convert to R side parent name
-        r_parent = None
-        if "_L_" in l_parent:
-            r_parent = l_parent.replace("_L_", "_R_")
-        elif "_L" in l_parent:
-            r_parent = l_parent.replace("_L", "_R")
-        else:
-            # If parent doesn't have L/R designation, use as is
-            r_parent = l_parent
-        
-        # Get short name for the parent
-        short_r_parent = r_parent.split('|')[-1]
-        
         # Check if both the transform and parent exist in the scene
         if not cmds.objExists(r_transform):
-            print(f"R side transform {r_transform} does not exist in scene, skipping")
+            print(f"❌ R side transform {r_transform} does not exist in scene, skipping")
             parenting_results["error_count"] += 1
             continue
             
-        if not cmds.objExists(short_r_parent):
-            print(f"R side parent {short_r_parent} does not exist in scene, skipping {r_transform}")
+        if not cmds.objExists(r_parent):
+            print(f"❌ R side parent {r_parent} does not exist in scene, skipping {r_transform}")
             parenting_results["error_count"] += 1
+            continue
+        
+        # Check if already parented correctly
+        current_parent = cmds.listRelatives(r_transform, parent=True)
+        if current_parent and current_parent[0] == r_parent:
+            print(f"ℹ️ {r_transform} is already parented to {r_parent}, skipping")
+            parenting_results["skipped_count"] += 1
             continue
         
         # Perform the parenting
         try:
-            print(f"Parenting {r_transform} to {short_r_parent}")
-            cmds.parent(r_transform, short_r_parent)
+            print(f"👨‍👧 Parenting {r_transform} to {r_parent}")
+            cmds.parent(r_transform, r_parent)
             parenting_results["success_count"] += 1
             parenting_results["parented_transforms"].append({
                 "transform": r_transform,
-                "parent": short_r_parent,
-                "l_transform": l_transform,
-                "l_parent": l_parent
+                "parent": r_parent,
+                "children": node_info.get("children", [])
             })
         except Exception as e:
-            print(f"Error parenting {r_transform} to {short_r_parent}: {str(e)}")
+            print(f"❌ Error parenting {r_transform} to {r_parent}: {str(e)}")
             parenting_results["error_count"] += 1
     
     # Print summary
-    print(f"\nTransforms With Shapes Parenting Summary:")
-    print(f"- Transforms processed: {len(r_side_transforms)}")
+    print(f"\n📊 Transforms With Shapes Parenting Summary:")
+    print(f"- Transforms processed: {len(transforms_to_parent)}")
     print(f"- Successfully parented: {parenting_results['success_count']}")
-    print(f"- Skipped (no hierarchy info): {parenting_results['skipped_count']}")
+    print(f"- Skipped (no hierarchy info or already parented): {parenting_results['skipped_count']}")
     print(f"- Errors: {parenting_results['error_count']}")
     
     return parenting_results

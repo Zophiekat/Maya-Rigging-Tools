@@ -1,0 +1,3141 @@
+{
+    "DRV_Leg_IK_Shape_Line_Start_R_jnt": {
+        "node_name": "DRV_Leg_IK_Shape_Line_Start_R_jnt",
+        "node_type": "joint",
+        "connected_attributes": [
+            "offsetParentMatrix",
+            "worldMatrix",
+            "lockInfluenceWeights",
+            "objectColorRGB"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "offsetParentMatrix",
+                "data_type": "matrix",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "DRV_Leg_IK_R_jnt.worldMatrix[0]",
+                "exact_destination": "DRV_Leg_IK_R_jnt.worldMatrix",
+                "connected_node_name": "DRV_Leg_IK_R_jnt",
+                "connected_node_type": "joint"
+            }
+        ],
+        "outgoing_connections": [
+            {
+                "attribute_name": "worldMatrix",
+                "data_type": "matrix",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "DRV_Leg_IK_Shape_Line_Start_R_jnt.worldMatrix",
+                "exact_destination": "DRV_Leg_IK_Pole_R__AimMatrix.inputMatrix",
+                "connected_node_name": "DRV_Leg_IK_Pole_R__AimMatrix",
+                "connected_node_type": "aimMatrix"
+            },
+            {
+                "attribute_name": "lockInfluenceWeights",
+                "data_type": "bool",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "DRV_Leg_IK_Shape_Line_Start_R_jnt.lockInfluenceWeights",
+                "exact_destination": "SkinCluster__CTR__Leg__IK_Pole__R__crvShape.lockWeights[0]",
+                "connected_node_name": "SkinCluster__CTR__Leg__IK_Pole__R__crvShape",
+                "connected_node_type": "skinCluster"
+            },
+            {
+                "attribute_name": "objectColorRGB",
+                "data_type": "float3",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "DRV_Leg_IK_Shape_Line_Start_R_jnt.objectColorRGB",
+                "exact_destination": "SkinCluster__CTR__Leg__IK_Pole__R__crvShape.influenceColor[0]",
+                "connected_node_name": "SkinCluster__CTR__Leg__IK_Pole__R__crvShape",
+                "connected_node_type": "skinCluster"
+            }
+        ]
+    },
+    "Offset_DRV_Leg_IK_R_trs": {
+        "node_name": "Offset_DRV_Leg_IK_R_trs",
+        "node_type": "transform",
+        "connected_attributes": [],
+        "incoming_connections": [],
+        "outgoing_connections": []
+    },
+    "DRV_Thigh_IK_R_jnt": {
+        "node_name": "DRV_Thigh_IK_R_jnt",
+        "node_type": "joint",
+        "connected_attributes": [
+            "message",
+            "parentMatrix",
+            "translate",
+            "scale",
+            "worldMatrix"
+        ],
+        "incoming_connections": [],
+        "outgoing_connections": [
+            {
+                "attribute_name": "message",
+                "data_type": "message",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "DRV_Thigh_IK_R_jnt.message",
+                "exact_destination": "Leg_R_ikHandle.startJoint",
+                "connected_node_name": "Leg_R_ikHandle",
+                "connected_node_type": "ikHandle"
+            },
+            {
+                "attribute_name": "parentMatrix",
+                "data_type": "matrix",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "DRV_Thigh_IK_R_jnt.parentMatrix",
+                "exact_destination": "Leg_R_ikHandle_poleVectorConstraint1.pivotSpace",
+                "connected_node_name": "Leg_R_ikHandle_poleVectorConstraint1",
+                "connected_node_type": "poleVectorConstraint"
+            },
+            {
+                "attribute_name": "translate",
+                "data_type": "double3",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "DRV_Thigh_IK_R_jnt.translate",
+                "exact_destination": "Leg_R_ikHandle_poleVectorConstraint1.constraintRotatePivot",
+                "connected_node_name": "Leg_R_ikHandle_poleVectorConstraint1",
+                "connected_node_type": "poleVectorConstraint"
+            },
+            {
+                "attribute_name": "scale",
+                "data_type": "double3",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "DRV_Thigh_IK_R_jnt.scale",
+                "exact_destination": "DRV_Leg_IK_R_jnt.inverseScale",
+                "connected_node_name": "DRV_Leg_IK_R_jnt",
+                "connected_node_type": "joint"
+            },
+            {
+                "attribute_name": "worldMatrix",
+                "data_type": "matrix",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "DRV_Thigh_IK_R_jnt.worldMatrix",
+                "exact_destination": "PRN_Thigh_FK_IK_R__ParentMatrix.target[1].targetMatrix",
+                "connected_node_name": "PRN_Thigh_FK_IK_R__ParentMatrix",
+                "connected_node_type": "parentMatrix"
+            }
+        ]
+    },
+    "DRV_Leg_IK_R_jnt": {
+        "node_name": "DRV_Leg_IK_R_jnt",
+        "node_type": "joint",
+        "connected_attributes": [
+            "worldMatrix",
+            "inverseScale",
+            "scale",
+            "parentInverseMatrix"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "inverseScale",
+                "data_type": "double3",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "DRV_Thigh_IK_R_jnt.scale",
+                "exact_destination": "DRV_Thigh_IK_R_jnt.scale",
+                "connected_node_name": "DRV_Thigh_IK_R_jnt",
+                "connected_node_type": "joint"
+            }
+        ],
+        "outgoing_connections": [
+            {
+                "attribute_name": "worldMatrix",
+                "data_type": "matrix",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "DRV_Leg_IK_R_jnt.worldMatrix",
+                "exact_destination": "PRN_Leg_FK_IK_R__MultMatrix_IK.matrixIn[1]",
+                "connected_node_name": "PRN_Leg_FK_IK_R__MultMatrix_IK",
+                "connected_node_type": "multMatrix"
+            },
+            {
+                "attribute_name": "scale",
+                "data_type": "double3",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "DRV_Leg_IK_R_jnt.scale",
+                "exact_destination": "DRV__Leg__IK_End__R__jnt.inverseScale",
+                "connected_node_name": "DRV__Leg__IK_End__R__jnt",
+                "connected_node_type": "joint"
+            },
+            {
+                "attribute_name": "parentInverseMatrix",
+                "data_type": "matrix",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "DRV_Leg_IK_R_jnt.parentInverseMatrix",
+                "exact_destination": "PRN_Leg_FK_IK_R__MultMatrix_IK.matrixIn[2]",
+                "connected_node_name": "PRN_Leg_FK_IK_R__MultMatrix_IK",
+                "connected_node_type": "multMatrix"
+            }
+        ]
+    },
+    "Controls_Leg_R_grp": {
+        "node_name": "Controls_Leg_R_grp",
+        "node_type": "transform",
+        "connected_attributes": [
+            "outlinerColor",
+            "useOutlinerColor"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "outlinerColor",
+                "data_type": "float3",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "Controls_grp.outlinerColor",
+                "exact_destination": "Controls_grp.outlinerColor",
+                "connected_node_name": "Controls_grp",
+                "connected_node_type": "transform"
+            },
+            {
+                "attribute_name": "useOutlinerColor",
+                "data_type": "bool",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "Controls_grp.useOutlinerColor",
+                "exact_destination": "Controls_grp.useOutlinerColor",
+                "connected_node_name": "Controls_grp",
+                "connected_node_type": "transform"
+            }
+        ],
+        "outgoing_connections": []
+    },
+    "CTR_Properties_Leg_R_crvShape": {
+        "node_name": "CTR_Properties_Leg_R_crvShape",
+        "node_type": "nurbsCurve",
+        "connected_attributes": [],
+        "incoming_connections": [],
+        "outgoing_connections": []
+    },
+    "Controls_Leg_Twists_R_grp": {
+        "node_name": "Controls_Leg_Twists_R_grp",
+        "node_type": "transform",
+        "connected_attributes": [
+            "offsetParentMatrix",
+            "visibility"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "offsetParentMatrix",
+                "data_type": "matrix",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "Controls_Leg_Twists_R__ParentMatrix.outputMatrix",
+                "exact_destination": "Controls_Leg_Twists_R__ParentMatrix.outputMatrix",
+                "connected_node_name": "Controls_Leg_Twists_R__ParentMatrix",
+                "connected_node_type": "parentMatrix"
+            },
+            {
+                "attribute_name": "visibility",
+                "data_type": "bool",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "CTR_Properties_Leg_R_crv.View_Twists",
+                "exact_destination": "CTR_Properties_Leg_R_crv.View_Twists",
+                "connected_node_name": "CTR_Properties_Leg_R_crv",
+                "connected_node_type": "transform"
+            }
+        ],
+        "outgoing_connections": []
+    },
+    "Offset_RIG_Leg_Twist_01_R_trs": {
+        "node_name": "Offset_RIG_Leg_Twist_01_R_trs",
+        "node_type": "transform",
+        "connected_attributes": [
+            "outlinerColor",
+            "useOutlinerColor"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "outlinerColor",
+                "data_type": "float3",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "Controls_grp.Offset_Transform_GroupColor",
+                "exact_destination": "Controls_grp.Offset_Transform_GroupColor",
+                "connected_node_name": "Controls_grp",
+                "connected_node_type": "transform"
+            },
+            {
+                "attribute_name": "useOutlinerColor",
+                "data_type": "bool",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "Controls_grp.useOutlinerColor",
+                "exact_destination": "Controls_grp.useOutlinerColor",
+                "connected_node_name": "Controls_grp",
+                "connected_node_type": "transform"
+            }
+        ],
+        "outgoing_connections": []
+    },
+    "CTR_Leg_Twist_01_R_crv": {
+        "node_name": "CTR_Leg_Twist_01_R_crv",
+        "node_type": "transform",
+        "connected_attributes": [
+            "overrideColorRGB",
+            "overrideRGBColors",
+            "overrideEnabled"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "overrideColorRGB",
+                "data_type": "float3",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "Color_Group__R_3rd__Asset.Group_Color",
+                "exact_destination": "Color_Group__R_3rd__Asset.Group_Color",
+                "connected_node_name": "Color_Group__R_3rd__Asset",
+                "connected_node_type": "dagContainer"
+            },
+            {
+                "attribute_name": "overrideRGBColors",
+                "data_type": "bool",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "Color_Group__R_3rd__Asset.Enable_Custom_Color",
+                "exact_destination": "Color_Group__R_3rd__Asset.Enable_Custom_Color",
+                "connected_node_name": "Color_Group__R_3rd__Asset",
+                "connected_node_type": "dagContainer"
+            },
+            {
+                "attribute_name": "overrideEnabled",
+                "data_type": "bool",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "Color_Group__R_3rd__Asset.Enable_Custom_Color",
+                "exact_destination": "Color_Group__R_3rd__Asset.Enable_Custom_Color",
+                "connected_node_name": "Color_Group__R_3rd__Asset",
+                "connected_node_type": "dagContainer"
+            }
+        ],
+        "outgoing_connections": []
+    },
+    "RIG_Leg_Twist_01_R_jnt": {
+        "node_name": "RIG_Leg_Twist_01_R_jnt",
+        "node_type": "joint",
+        "connected_attributes": [
+            "translate",
+            "rotatePivot",
+            "rotatePivotTranslate",
+            "rotate",
+            "rotateOrder",
+            "scale",
+            "parentMatrix",
+            "jointOrient",
+            "segmentScaleCompensate",
+            "inverseScale"
+        ],
+        "incoming_connections": [],
+        "outgoing_connections": [
+            {
+                "attribute_name": "translate",
+                "data_type": "double3",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "RIG_Leg_Twist_01_R_jnt.translate",
+                "exact_destination": "DEF_Leg_Twist_01_R_jnt_parentConstraint1.target[0].targetTranslate",
+                "connected_node_name": "DEF_Leg_Twist_01_R_jnt_parentConstraint1",
+                "connected_node_type": "parentConstraint"
+            },
+            {
+                "attribute_name": "rotatePivot",
+                "data_type": "double3",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "RIG_Leg_Twist_01_R_jnt.rotatePivot",
+                "exact_destination": "DEF_Leg_Twist_01_R_jnt_parentConstraint1.target[0].targetRotatePivot",
+                "connected_node_name": "DEF_Leg_Twist_01_R_jnt_parentConstraint1",
+                "connected_node_type": "parentConstraint"
+            },
+            {
+                "attribute_name": "rotatePivotTranslate",
+                "data_type": "double3",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "RIG_Leg_Twist_01_R_jnt.rotatePivotTranslate",
+                "exact_destination": "DEF_Leg_Twist_01_R_jnt_parentConstraint1.target[0].targetRotateTranslate",
+                "connected_node_name": "DEF_Leg_Twist_01_R_jnt_parentConstraint1",
+                "connected_node_type": "parentConstraint"
+            },
+            {
+                "attribute_name": "rotate",
+                "data_type": "double3",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "RIG_Leg_Twist_01_R_jnt.rotate",
+                "exact_destination": "DEF_Leg_Twist_01_R_jnt_parentConstraint1.target[0].targetRotate",
+                "connected_node_name": "DEF_Leg_Twist_01_R_jnt_parentConstraint1",
+                "connected_node_type": "parentConstraint"
+            },
+            {
+                "attribute_name": "rotateOrder",
+                "data_type": "enum",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "RIG_Leg_Twist_01_R_jnt.rotateOrder",
+                "exact_destination": "DEF_Leg_Twist_01_R_jnt_parentConstraint1.target[0].targetRotateOrder",
+                "connected_node_name": "DEF_Leg_Twist_01_R_jnt_parentConstraint1",
+                "connected_node_type": "parentConstraint"
+            },
+            {
+                "attribute_name": "scale",
+                "data_type": "double3",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "RIG_Leg_Twist_01_R_jnt.scale",
+                "exact_destination": "DEF_Leg_Twist_01_R_jnt_parentConstraint1.target[0].targetScale",
+                "connected_node_name": "DEF_Leg_Twist_01_R_jnt_parentConstraint1",
+                "connected_node_type": "parentConstraint"
+            },
+            {
+                "attribute_name": "parentMatrix",
+                "data_type": "matrix",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "RIG_Leg_Twist_01_R_jnt.parentMatrix",
+                "exact_destination": "DEF_Leg_Twist_01_R_jnt_parentConstraint1.target[0].targetParentMatrix",
+                "connected_node_name": "DEF_Leg_Twist_01_R_jnt_parentConstraint1",
+                "connected_node_type": "parentConstraint"
+            },
+            {
+                "attribute_name": "jointOrient",
+                "data_type": "double3",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "RIG_Leg_Twist_01_R_jnt.jointOrient",
+                "exact_destination": "DEF_Leg_Twist_01_R_jnt_parentConstraint1.target[0].targetJointOrient",
+                "connected_node_name": "DEF_Leg_Twist_01_R_jnt_parentConstraint1",
+                "connected_node_type": "parentConstraint"
+            },
+            {
+                "attribute_name": "segmentScaleCompensate",
+                "data_type": "bool",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "RIG_Leg_Twist_01_R_jnt.segmentScaleCompensate",
+                "exact_destination": "DEF_Leg_Twist_01_R_jnt_parentConstraint1.target[0].targetScaleCompensate",
+                "connected_node_name": "DEF_Leg_Twist_01_R_jnt_parentConstraint1",
+                "connected_node_type": "parentConstraint"
+            },
+            {
+                "attribute_name": "inverseScale",
+                "data_type": "double3",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "RIG_Leg_Twist_01_R_jnt.inverseScale",
+                "exact_destination": "DEF_Leg_Twist_01_R_jnt_parentConstraint1.target[0].targetInverseScale",
+                "connected_node_name": "DEF_Leg_Twist_01_R_jnt_parentConstraint1",
+                "connected_node_type": "parentConstraint"
+            }
+        ]
+    },
+    "Offset_RIG_Thigh_Twist_02_R_trs": {
+        "node_name": "Offset_RIG_Thigh_Twist_02_R_trs",
+        "node_type": "transform",
+        "connected_attributes": [
+            "outlinerColor",
+            "useOutlinerColor"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "outlinerColor",
+                "data_type": "float3",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "Controls_grp.Offset_Transform_GroupColor",
+                "exact_destination": "Controls_grp.Offset_Transform_GroupColor",
+                "connected_node_name": "Controls_grp",
+                "connected_node_type": "transform"
+            },
+            {
+                "attribute_name": "useOutlinerColor",
+                "data_type": "bool",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "Controls_grp.useOutlinerColor",
+                "exact_destination": "Controls_grp.useOutlinerColor",
+                "connected_node_name": "Controls_grp",
+                "connected_node_type": "transform"
+            }
+        ],
+        "outgoing_connections": []
+    },
+    "CTR_Thigh_Twist_02_R_crv": {
+        "node_name": "CTR_Thigh_Twist_02_R_crv",
+        "node_type": "transform",
+        "connected_attributes": [
+            "overrideColorRGB",
+            "overrideRGBColors",
+            "overrideEnabled"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "overrideColorRGB",
+                "data_type": "float3",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "Color_Group__R_3rd__Asset.Group_Color",
+                "exact_destination": "Color_Group__R_3rd__Asset.Group_Color",
+                "connected_node_name": "Color_Group__R_3rd__Asset",
+                "connected_node_type": "dagContainer"
+            },
+            {
+                "attribute_name": "overrideRGBColors",
+                "data_type": "bool",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "Color_Group__R_3rd__Asset.Enable_Custom_Color",
+                "exact_destination": "Color_Group__R_3rd__Asset.Enable_Custom_Color",
+                "connected_node_name": "Color_Group__R_3rd__Asset",
+                "connected_node_type": "dagContainer"
+            },
+            {
+                "attribute_name": "overrideEnabled",
+                "data_type": "bool",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "Color_Group__R_3rd__Asset.Enable_Custom_Color",
+                "exact_destination": "Color_Group__R_3rd__Asset.Enable_Custom_Color",
+                "connected_node_name": "Color_Group__R_3rd__Asset",
+                "connected_node_type": "dagContainer"
+            }
+        ],
+        "outgoing_connections": []
+    },
+    "CTR_Thigh_Twist_02_R_crvShape": {
+        "node_name": "CTR_Thigh_Twist_02_R_crvShape",
+        "node_type": "nurbsCurve",
+        "connected_attributes": [
+            "create",
+            "controlPoints",
+            "tweakLocation"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "create",
+                "data_type": "nurbsCurve",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "Custom_Control__Rocator__Curve_OutputShape.local",
+                "exact_destination": "Custom_Control__Rocator__Curve_OutputShape.local",
+                "connected_node_name": "Custom_Control__Rocator__Curve_OutputShape",
+                "connected_node_type": "nurbsCurve"
+            },
+            {
+                "attribute_name": "controlPoints",
+                "data_type": "TdataCompound",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "Custom_Control__Rocator__Curve_OutputShape.controlPoints",
+                "exact_destination": "Custom_Control__Rocator__Curve_OutputShape.controlPoints",
+                "connected_node_name": "Custom_Control__Rocator__Curve_OutputShape",
+                "connected_node_type": "nurbsCurve"
+            },
+            {
+                "attribute_name": "tweakLocation",
+                "data_type": "double3",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "Custom_Control__Rocator__Tweak.plist[0].controlPoints[0]",
+                "exact_destination": "Custom_Control__Rocator__Tweak.plist[0].controlPoints[0]",
+                "connected_node_name": "Custom_Control__Rocator__Tweak",
+                "connected_node_type": "tweak"
+            }
+        ],
+        "outgoing_connections": []
+    },
+    "RIG_Thigh_Twist_02_R_jnt": {
+        "node_name": "RIG_Thigh_Twist_02_R_jnt",
+        "node_type": "joint",
+        "connected_attributes": [
+            "translate",
+            "rotatePivot",
+            "rotatePivotTranslate",
+            "rotate",
+            "rotateOrder",
+            "scale",
+            "parentMatrix",
+            "jointOrient",
+            "segmentScaleCompensate",
+            "inverseScale"
+        ],
+        "incoming_connections": [],
+        "outgoing_connections": [
+            {
+                "attribute_name": "translate",
+                "data_type": "double3",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "RIG_Thigh_Twist_02_R_jnt.translate",
+                "exact_destination": "DEF_Thigh_Twist_02_R_jnt_parentConstraint1.target[0].targetTranslate",
+                "connected_node_name": "DEF_Thigh_Twist_02_R_jnt_parentConstraint1",
+                "connected_node_type": "parentConstraint"
+            },
+            {
+                "attribute_name": "rotatePivot",
+                "data_type": "double3",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "RIG_Thigh_Twist_02_R_jnt.rotatePivot",
+                "exact_destination": "DEF_Thigh_Twist_02_R_jnt_parentConstraint1.target[0].targetRotatePivot",
+                "connected_node_name": "DEF_Thigh_Twist_02_R_jnt_parentConstraint1",
+                "connected_node_type": "parentConstraint"
+            },
+            {
+                "attribute_name": "rotatePivotTranslate",
+                "data_type": "double3",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "RIG_Thigh_Twist_02_R_jnt.rotatePivotTranslate",
+                "exact_destination": "DEF_Thigh_Twist_02_R_jnt_parentConstraint1.target[0].targetRotateTranslate",
+                "connected_node_name": "DEF_Thigh_Twist_02_R_jnt_parentConstraint1",
+                "connected_node_type": "parentConstraint"
+            },
+            {
+                "attribute_name": "rotate",
+                "data_type": "double3",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "RIG_Thigh_Twist_02_R_jnt.rotate",
+                "exact_destination": "DEF_Thigh_Twist_02_R_jnt_parentConstraint1.target[0].targetRotate",
+                "connected_node_name": "DEF_Thigh_Twist_02_R_jnt_parentConstraint1",
+                "connected_node_type": "parentConstraint"
+            },
+            {
+                "attribute_name": "rotateOrder",
+                "data_type": "enum",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "RIG_Thigh_Twist_02_R_jnt.rotateOrder",
+                "exact_destination": "DEF_Thigh_Twist_02_R_jnt_parentConstraint1.target[0].targetRotateOrder",
+                "connected_node_name": "DEF_Thigh_Twist_02_R_jnt_parentConstraint1",
+                "connected_node_type": "parentConstraint"
+            },
+            {
+                "attribute_name": "scale",
+                "data_type": "double3",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "RIG_Thigh_Twist_02_R_jnt.scale",
+                "exact_destination": "DEF_Thigh_Twist_02_R_jnt_parentConstraint1.target[0].targetScale",
+                "connected_node_name": "DEF_Thigh_Twist_02_R_jnt_parentConstraint1",
+                "connected_node_type": "parentConstraint"
+            },
+            {
+                "attribute_name": "parentMatrix",
+                "data_type": "matrix",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "RIG_Thigh_Twist_02_R_jnt.parentMatrix",
+                "exact_destination": "DEF_Thigh_Twist_02_R_jnt_parentConstraint1.target[0].targetParentMatrix",
+                "connected_node_name": "DEF_Thigh_Twist_02_R_jnt_parentConstraint1",
+                "connected_node_type": "parentConstraint"
+            },
+            {
+                "attribute_name": "jointOrient",
+                "data_type": "double3",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "RIG_Thigh_Twist_02_R_jnt.jointOrient",
+                "exact_destination": "DEF_Thigh_Twist_02_R_jnt_parentConstraint1.target[0].targetJointOrient",
+                "connected_node_name": "DEF_Thigh_Twist_02_R_jnt_parentConstraint1",
+                "connected_node_type": "parentConstraint"
+            },
+            {
+                "attribute_name": "segmentScaleCompensate",
+                "data_type": "bool",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "RIG_Thigh_Twist_02_R_jnt.segmentScaleCompensate",
+                "exact_destination": "DEF_Thigh_Twist_02_R_jnt_parentConstraint1.target[0].targetScaleCompensate",
+                "connected_node_name": "DEF_Thigh_Twist_02_R_jnt_parentConstraint1",
+                "connected_node_type": "parentConstraint"
+            },
+            {
+                "attribute_name": "inverseScale",
+                "data_type": "double3",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "RIG_Thigh_Twist_02_R_jnt.inverseScale",
+                "exact_destination": "DEF_Thigh_Twist_02_R_jnt_parentConstraint1.target[0].targetInverseScale",
+                "connected_node_name": "DEF_Thigh_Twist_02_R_jnt_parentConstraint1",
+                "connected_node_type": "parentConstraint"
+            }
+        ]
+    },
+    "Offset_Leg_R_ikHandle_trs": {
+        "node_name": "Offset_Leg_R_ikHandle_trs",
+        "node_type": "transform",
+        "connected_attributes": [],
+        "incoming_connections": [],
+        "outgoing_connections": []
+    },
+    "Leg_R_ikHandle": {
+        "node_name": "Leg_R_ikHandle",
+        "node_type": "ikHandle",
+        "connected_attributes": [
+            "startJoint",
+            "endEffector",
+            "ikSolver",
+            "poleVectorX",
+            "poleVectorY",
+            "poleVectorZ",
+            "parentInverseMatrix"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "startJoint",
+                "data_type": "message",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "DRV_Thigh_IK_R_jnt.message",
+                "exact_destination": "DRV_Thigh_IK_R_jnt.message",
+                "connected_node_name": "DRV_Thigh_IK_R_jnt",
+                "connected_node_type": "joint"
+            },
+            {
+                "attribute_name": "endEffector",
+                "data_type": "message",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "Leg_R_effector.handlePath[0]",
+                "exact_destination": "Leg_R_effector.handlePath",
+                "connected_node_name": "Leg_R_effector",
+                "connected_node_type": "ikEffector"
+            },
+            {
+                "attribute_name": "ikSolver",
+                "data_type": "message",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "ikRPsolver.message",
+                "exact_destination": "ikRPsolver.message",
+                "connected_node_name": "ikRPsolver",
+                "connected_node_type": "ikRPsolver"
+            },
+            {
+                "attribute_name": "poleVectorX",
+                "data_type": "double",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "Leg_R_ikHandle_poleVectorConstraint1.constraintTranslateX",
+                "exact_destination": "Leg_R_ikHandle_poleVectorConstraint1.constraintTranslateX",
+                "connected_node_name": "Leg_R_ikHandle_poleVectorConstraint1",
+                "connected_node_type": "poleVectorConstraint"
+            },
+            {
+                "attribute_name": "poleVectorY",
+                "data_type": "double",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "Leg_R_ikHandle_poleVectorConstraint1.constraintTranslateY",
+                "exact_destination": "Leg_R_ikHandle_poleVectorConstraint1.constraintTranslateY",
+                "connected_node_name": "Leg_R_ikHandle_poleVectorConstraint1",
+                "connected_node_type": "poleVectorConstraint"
+            },
+            {
+                "attribute_name": "poleVectorZ",
+                "data_type": "double",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "Leg_R_ikHandle_poleVectorConstraint1.constraintTranslateZ",
+                "exact_destination": "Leg_R_ikHandle_poleVectorConstraint1.constraintTranslateZ",
+                "connected_node_name": "Leg_R_ikHandle_poleVectorConstraint1",
+                "connected_node_type": "poleVectorConstraint"
+            }
+        ],
+        "outgoing_connections": [
+            {
+                "attribute_name": "parentInverseMatrix",
+                "data_type": "matrix",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "Leg_R_ikHandle.parentInverseMatrix",
+                "exact_destination": "Leg_R_ikHandle_poleVectorConstraint1.constraintParentInverseMatrix",
+                "connected_node_name": "Leg_R_ikHandle_poleVectorConstraint1",
+                "connected_node_type": "poleVectorConstraint"
+            }
+        ]
+    },
+    "Leg_R_ikHandle_poleVectorConstraint1": {
+        "node_name": "Leg_R_ikHandle_poleVectorConstraint1",
+        "node_type": "poleVectorConstraint",
+        "connected_attributes": [
+            "constraintTranslateX",
+            "constraintTranslateY",
+            "constraintTranslateZ",
+            "constraintParentInverseMatrix",
+            "pivotSpace",
+            "constraintRotatePivot",
+            "target[0].targetTranslate",
+            "target[0].targetRotatePivot",
+            "target[0].targetRotateTranslate",
+            "target[0].targetParentMatrix",
+            "target[0].targetWeight",
+            "DRV_Leg_IK_Pole_L_jntW0"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "constraintParentInverseMatrix",
+                "data_type": "matrix",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "Leg_R_ikHandle.parentInverseMatrix[0]",
+                "exact_destination": "Leg_R_ikHandle.parentInverseMatrix",
+                "connected_node_name": "Leg_R_ikHandle",
+                "connected_node_type": "ikHandle"
+            },
+            {
+                "attribute_name": "pivotSpace",
+                "data_type": "matrix",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "DRV_Thigh_IK_R_jnt.parentMatrix[0]",
+                "exact_destination": "DRV_Thigh_IK_R_jnt.parentMatrix",
+                "connected_node_name": "DRV_Thigh_IK_R_jnt",
+                "connected_node_type": "joint"
+            },
+            {
+                "attribute_name": "constraintRotatePivot",
+                "data_type": "double3",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "DRV_Thigh_IK_R_jnt.translate",
+                "exact_destination": "DRV_Thigh_IK_R_jnt.translate",
+                "connected_node_name": "DRV_Thigh_IK_R_jnt",
+                "connected_node_type": "joint"
+            },
+            {
+                "attribute_name": "target[0].targetTranslate",
+                "data_type": "unknown",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "DRV_Leg_IK_Pole_R_jnt.translate",
+                "exact_destination": "DRV_Leg_IK_Pole_R_jnt.translate",
+                "connected_node_name": "DRV_Leg_IK_Pole_R_jnt",
+                "connected_node_type": "joint"
+            },
+            {
+                "attribute_name": "target[0].targetRotatePivot",
+                "data_type": "unknown",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "DRV_Leg_IK_Pole_R_jnt.rotatePivot",
+                "exact_destination": "DRV_Leg_IK_Pole_R_jnt.rotatePivot",
+                "connected_node_name": "DRV_Leg_IK_Pole_R_jnt",
+                "connected_node_type": "joint"
+            },
+            {
+                "attribute_name": "target[0].targetRotateTranslate",
+                "data_type": "unknown",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "DRV_Leg_IK_Pole_R_jnt.rotatePivotTranslate",
+                "exact_destination": "DRV_Leg_IK_Pole_R_jnt.rotatePivotTranslate",
+                "connected_node_name": "DRV_Leg_IK_Pole_R_jnt",
+                "connected_node_type": "joint"
+            },
+            {
+                "attribute_name": "target[0].targetParentMatrix",
+                "data_type": "unknown",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "DRV_Leg_IK_Pole_R_jnt.parentMatrix[0]",
+                "exact_destination": "DRV_Leg_IK_Pole_R_jnt.parentMatrix",
+                "connected_node_name": "DRV_Leg_IK_Pole_R_jnt",
+                "connected_node_type": "joint"
+            },
+            {
+                "attribute_name": "target[0].targetWeight",
+                "data_type": "unknown",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "Leg_R_ikHandle_poleVectorConstraint1.DRV_Leg_IK_Pole_L_jntW0",
+                "exact_destination": "Leg_R_ikHandle_poleVectorConstraint1.DRV_Leg_IK_Pole_L_jntW0",
+                "connected_node_name": "Leg_R_ikHandle_poleVectorConstraint1",
+                "connected_node_type": "poleVectorConstraint"
+            }
+        ],
+        "outgoing_connections": [
+            {
+                "attribute_name": "constraintTranslateX",
+                "data_type": "doubleLinear",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "Leg_R_ikHandle_poleVectorConstraint1.constraintTranslateX",
+                "exact_destination": "Leg_R_ikHandle.poleVectorX",
+                "connected_node_name": "Leg_R_ikHandle",
+                "connected_node_type": "ikHandle"
+            },
+            {
+                "attribute_name": "constraintTranslateY",
+                "data_type": "doubleLinear",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "Leg_R_ikHandle_poleVectorConstraint1.constraintTranslateY",
+                "exact_destination": "Leg_R_ikHandle.poleVectorY",
+                "connected_node_name": "Leg_R_ikHandle",
+                "connected_node_type": "ikHandle"
+            },
+            {
+                "attribute_name": "constraintTranslateZ",
+                "data_type": "doubleLinear",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "Leg_R_ikHandle_poleVectorConstraint1.constraintTranslateZ",
+                "exact_destination": "Leg_R_ikHandle.poleVectorZ",
+                "connected_node_name": "Leg_R_ikHandle",
+                "connected_node_type": "ikHandle"
+            },
+            {
+                "attribute_name": "DRV_Leg_IK_Pole_L_jntW0",
+                "data_type": "double",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "Leg_R_ikHandle_poleVectorConstraint1.DRV_Leg_IK_Pole_L_jntW0",
+                "exact_destination": "Leg_R_ikHandle_poleVectorConstraint1.target[0].targetWeight",
+                "connected_node_name": "Leg_R_ikHandle_poleVectorConstraint1",
+                "connected_node_type": "poleVectorConstraint"
+            }
+        ]
+    },
+    "Controls_Leg_IK_R_grp": {
+        "node_name": "Controls_Leg_IK_R_grp",
+        "node_type": "transform",
+        "connected_attributes": [
+            "visibility"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "visibility",
+                "data_type": "bool",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "CTR_Leg_R__Properties_SetRange.outValueY",
+                "exact_destination": "CTR_Leg_R__Properties_SetRange.outValueY",
+                "connected_node_name": "CTR_Leg_R__Properties_SetRange",
+                "connected_node_type": "setRange"
+            }
+        ],
+        "outgoing_connections": []
+    },
+    "Offset_CTR_Leg_IK_R_trs": {
+        "node_name": "Offset_CTR_Leg_IK_R_trs",
+        "node_type": "transform",
+        "connected_attributes": [],
+        "incoming_connections": [],
+        "outgoing_connections": []
+    },
+    "CTR_Leg_IK_R_crv": {
+        "node_name": "CTR_Leg_IK_R_crv",
+        "node_type": "transform",
+        "connected_attributes": [
+            "overrideColorRGB",
+            "overrideRGBColors",
+            "overrideEnabled",
+            "worldMatrix"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "overrideColorRGB",
+                "data_type": "float3",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "CTR_Leg_IK_R_crv__Control_Color.outColor",
+                "exact_destination": "CTR_Leg_IK_R_crv__Control_Color.outColor",
+                "connected_node_name": "CTR_Leg_IK_R_crv__Control_Color",
+                "connected_node_type": "colorConstant"
+            },
+            {
+                "attribute_name": "overrideRGBColors",
+                "data_type": "bool",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "CTR_Leg_IK_R_crv__Control_Color.overrideRGBColors",
+                "exact_destination": "CTR_Leg_IK_R_crv__Control_Color.overrideRGBColors",
+                "connected_node_name": "CTR_Leg_IK_R_crv__Control_Color",
+                "connected_node_type": "colorConstant"
+            },
+            {
+                "attribute_name": "overrideEnabled",
+                "data_type": "bool",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "CTR_Leg_IK_R_crv__Control_Color.overrideEnabled",
+                "exact_destination": "CTR_Leg_IK_R_crv__Control_Color.overrideEnabled",
+                "connected_node_name": "CTR_Leg_IK_R_crv__Control_Color",
+                "connected_node_type": "colorConstant"
+            }
+        ],
+        "outgoing_connections": [
+            {
+                "attribute_name": "worldMatrix",
+                "data_type": "matrix",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "CTR_Leg_IK_R_crv.worldMatrix",
+                "exact_destination": "Offset_DRV_Ankle_Bk_R__ParentMatrix.target[1].targetMatrix",
+                "connected_node_name": "Offset_DRV_Ankle_Bk_R__ParentMatrix",
+                "connected_node_type": "parentMatrix"
+            }
+        ]
+    },
+    "CTR_Leg_IK_R_crvShape": {
+        "node_name": "CTR_Leg_IK_R_crvShape",
+        "node_type": "nurbsCurve",
+        "connected_attributes": [
+            "lineWidth"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "lineWidth",
+                "data_type": "float",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "CTR_Leg_IK_R_crv__Control_Color.lineWidth",
+                "exact_destination": "CTR_Leg_IK_R_crv__Control_Color.lineWidth",
+                "connected_node_name": "CTR_Leg_IK_R_crv__Control_Color",
+                "connected_node_type": "colorConstant"
+            }
+        ],
+        "outgoing_connections": []
+    },
+    "System_Leg_FK_IK_R_grp": {
+        "node_name": "System_Leg_FK_IK_R_grp",
+        "node_type": "transform",
+        "connected_attributes": [],
+        "incoming_connections": [],
+        "outgoing_connections": []
+    },
+    "PRN_Thigh_FK_IK_R_jnt": {
+        "node_name": "PRN_Thigh_FK_IK_R_jnt",
+        "node_type": "joint",
+        "connected_attributes": [
+            "offsetParentMatrix",
+            "scale",
+            "worldMatrix"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "offsetParentMatrix",
+                "data_type": "matrix",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "PRN_Thigh_FK_IK_R__ParentMatrix.outputMatrix",
+                "exact_destination": "PRN_Thigh_FK_IK_R__ParentMatrix.outputMatrix",
+                "connected_node_name": "PRN_Thigh_FK_IK_R__ParentMatrix",
+                "connected_node_type": "parentMatrix"
+            }
+        ],
+        "outgoing_connections": [
+            {
+                "attribute_name": "scale",
+                "data_type": "double3",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "PRN_Thigh_FK_IK_R_jnt.scale",
+                "exact_destination": "PRN_Leg_FK_IK_R_jnt.inverseScale",
+                "connected_node_name": "PRN_Leg_FK_IK_R_jnt",
+                "connected_node_type": "joint"
+            },
+            {
+                "attribute_name": "worldMatrix",
+                "data_type": "matrix",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "PRN_Thigh_FK_IK_R_jnt.worldMatrix",
+                "exact_destination": "RIG_Thigh_R__ParentMatrix.target[0].targetMatrix",
+                "connected_node_name": "RIG_Thigh_R__ParentMatrix",
+                "connected_node_type": "parentMatrix"
+            }
+        ]
+    },
+    "PRN_Leg_FK_IK_R_jnt": {
+        "node_name": "PRN_Leg_FK_IK_R_jnt",
+        "node_type": "joint",
+        "connected_attributes": [
+            "inverseScale",
+            "offsetParentMatrix",
+            "scale",
+            "worldMatrix"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "inverseScale",
+                "data_type": "double3",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "PRN_Thigh_FK_IK_R_jnt.scale",
+                "exact_destination": "PRN_Thigh_FK_IK_R_jnt.scale",
+                "connected_node_name": "PRN_Thigh_FK_IK_R_jnt",
+                "connected_node_type": "joint"
+            },
+            {
+                "attribute_name": "offsetParentMatrix",
+                "data_type": "matrix",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "PRN_Leg_FK_IK_R__ParentMatrix.outputMatrix",
+                "exact_destination": "PRN_Leg_FK_IK_R__ParentMatrix.outputMatrix",
+                "connected_node_name": "PRN_Leg_FK_IK_R__ParentMatrix",
+                "connected_node_type": "parentMatrix"
+            }
+        ],
+        "outgoing_connections": [
+            {
+                "attribute_name": "scale",
+                "data_type": "double3",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "PRN_Leg_FK_IK_R_jnt.scale",
+                "exact_destination": "PRN__Leg__FK_IK_End__R__jnt.inverseScale",
+                "connected_node_name": "PRN__Leg__FK_IK_End__R__jnt",
+                "connected_node_type": "joint"
+            },
+            {
+                "attribute_name": "worldMatrix",
+                "data_type": "matrix",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "PRN_Leg_FK_IK_R_jnt.worldMatrix",
+                "exact_destination": "RIG_Leg_R__ParentMatrix.target[0].targetMatrix",
+                "connected_node_name": "RIG_Leg_R__ParentMatrix",
+                "connected_node_type": "parentMatrix"
+            }
+        ]
+    },
+    "CTR_Leg_Twist_01_R_crvShape": {
+        "node_name": "CTR_Leg_Twist_01_R_crvShape",
+        "node_type": "nurbsCurve",
+        "connected_attributes": [
+            "create",
+            "controlPoints",
+            "tweakLocation"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "create",
+                "data_type": "nurbsCurve",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "Custom_Control__Rocator__Curve_OutputShape.local",
+                "exact_destination": "Custom_Control__Rocator__Curve_OutputShape.local",
+                "connected_node_name": "Custom_Control__Rocator__Curve_OutputShape",
+                "connected_node_type": "nurbsCurve"
+            },
+            {
+                "attribute_name": "controlPoints",
+                "data_type": "TdataCompound",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "Custom_Control__Rocator__Curve_OutputShape.controlPoints",
+                "exact_destination": "Custom_Control__Rocator__Curve_OutputShape.controlPoints",
+                "connected_node_name": "Custom_Control__Rocator__Curve_OutputShape",
+                "connected_node_type": "nurbsCurve"
+            },
+            {
+                "attribute_name": "tweakLocation",
+                "data_type": "double3",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "Custom_Control__Rocator__Tweak.plist[0].controlPoints[0]",
+                "exact_destination": "Custom_Control__Rocator__Tweak.plist[0].controlPoints[0]",
+                "connected_node_name": "Custom_Control__Rocator__Tweak",
+                "connected_node_type": "tweak"
+            }
+        ],
+        "outgoing_connections": []
+    },
+    "Offset_RIG_Leg_Twist_02_R_trs": {
+        "node_name": "Offset_RIG_Leg_Twist_02_R_trs",
+        "node_type": "transform",
+        "connected_attributes": [
+            "outlinerColor",
+            "useOutlinerColor"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "outlinerColor",
+                "data_type": "float3",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "Controls_grp.Offset_Transform_GroupColor",
+                "exact_destination": "Controls_grp.Offset_Transform_GroupColor",
+                "connected_node_name": "Controls_grp",
+                "connected_node_type": "transform"
+            },
+            {
+                "attribute_name": "useOutlinerColor",
+                "data_type": "bool",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "Controls_grp.useOutlinerColor",
+                "exact_destination": "Controls_grp.useOutlinerColor",
+                "connected_node_name": "Controls_grp",
+                "connected_node_type": "transform"
+            }
+        ],
+        "outgoing_connections": []
+    },
+    "CTR_Leg_Twist_02_R_crv": {
+        "node_name": "CTR_Leg_Twist_02_R_crv",
+        "node_type": "transform",
+        "connected_attributes": [
+            "overrideColorRGB",
+            "overrideRGBColors",
+            "overrideEnabled"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "overrideColorRGB",
+                "data_type": "float3",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "Color_Group__R_3rd__Asset.Group_Color",
+                "exact_destination": "Color_Group__R_3rd__Asset.Group_Color",
+                "connected_node_name": "Color_Group__R_3rd__Asset",
+                "connected_node_type": "dagContainer"
+            },
+            {
+                "attribute_name": "overrideRGBColors",
+                "data_type": "bool",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "Color_Group__R_3rd__Asset.Enable_Custom_Color",
+                "exact_destination": "Color_Group__R_3rd__Asset.Enable_Custom_Color",
+                "connected_node_name": "Color_Group__R_3rd__Asset",
+                "connected_node_type": "dagContainer"
+            },
+            {
+                "attribute_name": "overrideEnabled",
+                "data_type": "bool",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "Color_Group__R_3rd__Asset.Enable_Custom_Color",
+                "exact_destination": "Color_Group__R_3rd__Asset.Enable_Custom_Color",
+                "connected_node_name": "Color_Group__R_3rd__Asset",
+                "connected_node_type": "dagContainer"
+            }
+        ],
+        "outgoing_connections": []
+    },
+    "CTR_Leg_Twist_02_R_crvShape": {
+        "node_name": "CTR_Leg_Twist_02_R_crvShape",
+        "node_type": "nurbsCurve",
+        "connected_attributes": [
+            "create",
+            "controlPoints",
+            "tweakLocation"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "create",
+                "data_type": "nurbsCurve",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "Custom_Control__Rocator__Curve_OutputShape.local",
+                "exact_destination": "Custom_Control__Rocator__Curve_OutputShape.local",
+                "connected_node_name": "Custom_Control__Rocator__Curve_OutputShape",
+                "connected_node_type": "nurbsCurve"
+            },
+            {
+                "attribute_name": "controlPoints",
+                "data_type": "TdataCompound",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "Custom_Control__Rocator__Curve_OutputShape.controlPoints",
+                "exact_destination": "Custom_Control__Rocator__Curve_OutputShape.controlPoints",
+                "connected_node_name": "Custom_Control__Rocator__Curve_OutputShape",
+                "connected_node_type": "nurbsCurve"
+            },
+            {
+                "attribute_name": "tweakLocation",
+                "data_type": "double3",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "Custom_Control__Rocator__Tweak.plist[0].controlPoints[0]",
+                "exact_destination": "Custom_Control__Rocator__Tweak.plist[0].controlPoints[0]",
+                "connected_node_name": "Custom_Control__Rocator__Tweak",
+                "connected_node_type": "tweak"
+            }
+        ],
+        "outgoing_connections": []
+    },
+    "DRV_Thigh_FK_R_jnt": {
+        "node_name": "DRV_Thigh_FK_R_jnt",
+        "node_type": "joint",
+        "connected_attributes": [
+            "offsetParentMatrix",
+            "worldMatrix",
+            "parentInverseMatrix"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "offsetParentMatrix",
+                "data_type": "matrix",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "DRV_Thigh_FK_R__MultMatrix.matrixSum",
+                "exact_destination": "DRV_Thigh_FK_R__MultMatrix.matrixSum",
+                "connected_node_name": "DRV_Thigh_FK_R__MultMatrix",
+                "connected_node_type": "multMatrix"
+            }
+        ],
+        "outgoing_connections": [
+            {
+                "attribute_name": "worldMatrix",
+                "data_type": "matrix",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "DRV_Thigh_FK_R_jnt.worldMatrix",
+                "exact_destination": "PRN_Thigh_FK_IK_R__ParentMatrix.target[0].targetMatrix",
+                "connected_node_name": "PRN_Thigh_FK_IK_R__ParentMatrix",
+                "connected_node_type": "parentMatrix"
+            },
+            {
+                "attribute_name": "parentInverseMatrix",
+                "data_type": "matrix",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "DRV_Thigh_FK_R_jnt.parentInverseMatrix",
+                "exact_destination": "PRN_Leg_FK_IK_R__MultMatrix_FK.matrixIn[3]",
+                "connected_node_name": "PRN_Leg_FK_IK_R__MultMatrix_FK",
+                "connected_node_type": "multMatrix"
+            }
+        ]
+    },
+    "DRV_Leg_FK_R_jnt": {
+        "node_name": "DRV_Leg_FK_R_jnt",
+        "node_type": "joint",
+        "connected_attributes": [
+            "offsetParentMatrix",
+            "worldMatrix"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "offsetParentMatrix",
+                "data_type": "matrix",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "CTR_Leg_R_crv.worldMatrix[0]",
+                "exact_destination": "CTR_Leg_R_crv.worldMatrix",
+                "connected_node_name": "CTR_Leg_R_crv",
+                "connected_node_type": "transform"
+            }
+        ],
+        "outgoing_connections": [
+            {
+                "attribute_name": "worldMatrix",
+                "data_type": "matrix",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "DRV_Leg_FK_R_jnt.worldMatrix",
+                "exact_destination": "PRN_Leg_FK_IK_R__MultMatrix_FK.matrixIn[2]",
+                "connected_node_name": "PRN_Leg_FK_IK_R__MultMatrix_FK",
+                "connected_node_type": "multMatrix"
+            }
+        ]
+    },
+    "DRV_Leg_FK_End_R_jnt": {
+        "node_name": "DRV_Leg_FK_End_R_jnt",
+        "node_type": "joint",
+        "connected_attributes": [],
+        "incoming_connections": [],
+        "outgoing_connections": []
+    },
+    "Properties_Leg_R_grp": {
+        "node_name": "Properties_Leg_R_grp",
+        "node_type": "transform",
+        "connected_attributes": [
+            "offsetParentMatrix"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "offsetParentMatrix",
+                "data_type": "matrix",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "RIG_Thigh_R_jnt.worldMatrix[0]",
+                "exact_destination": "RIG_Thigh_R_jnt.worldMatrix",
+                "connected_node_name": "RIG_Thigh_R_jnt",
+                "connected_node_type": "joint"
+            }
+        ],
+        "outgoing_connections": []
+    },
+    "CTR_Properties_Leg_R_crv": {
+        "node_name": "CTR_Properties_Leg_R_crv",
+        "node_type": "transform",
+        "connected_attributes": [
+            "FK_IK_Switch",
+            "View_Twists",
+            "overrideColorRGB",
+            "overrideRGBColors",
+            "overrideEnabled"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "overrideColorRGB",
+                "data_type": "float3",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "Color_Group__R_3rd__Asset.Group_Color",
+                "exact_destination": "Color_Group__R_3rd__Asset.Group_Color",
+                "connected_node_name": "Color_Group__R_3rd__Asset",
+                "connected_node_type": "dagContainer"
+            },
+            {
+                "attribute_name": "overrideRGBColors",
+                "data_type": "bool",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "Color_Group__R_3rd__Asset.Enable_Custom_Color",
+                "exact_destination": "Color_Group__R_3rd__Asset.Enable_Custom_Color",
+                "connected_node_name": "Color_Group__R_3rd__Asset",
+                "connected_node_type": "dagContainer"
+            },
+            {
+                "attribute_name": "overrideEnabled",
+                "data_type": "bool",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "Color_Group__R_3rd__Asset.Enable_Custom_Color",
+                "exact_destination": "Color_Group__R_3rd__Asset.Enable_Custom_Color",
+                "connected_node_name": "Color_Group__R_3rd__Asset",
+                "connected_node_type": "dagContainer"
+            }
+        ],
+        "outgoing_connections": [
+            {
+                "attribute_name": "FK_IK_Switch",
+                "data_type": "double",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "CTR_Properties_Leg_R_crv.FK_IK_Switch",
+                "exact_destination": "CTR_Leg_R__Properties_SetRange.valueY",
+                "connected_node_name": "CTR_Leg_R__Properties_SetRange",
+                "connected_node_type": "setRange"
+            },
+            {
+                "attribute_name": "View_Twists",
+                "data_type": "bool",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "CTR_Properties_Leg_R_crv.View_Twists",
+                "exact_destination": "Controls_Leg_Twists_R_grp.visibility",
+                "connected_node_name": "Controls_Leg_Twists_R_grp",
+                "connected_node_type": "transform"
+            }
+        ]
+    },
+    "CTR_Properties_Leg_R_crvShape1": {
+        "node_name": "CTR_Properties_Leg_R_crvShape1",
+        "node_type": "nurbsCurve",
+        "connected_attributes": [],
+        "incoming_connections": [],
+        "outgoing_connections": []
+    },
+    "CTR_Properties_Leg_R_crvShape2": {
+        "node_name": "CTR_Properties_Leg_R_crvShape2",
+        "node_type": "nurbsCurve",
+        "connected_attributes": [],
+        "incoming_connections": [],
+        "outgoing_connections": []
+    },
+    "CTR_Leg_K_Pole_R_crvShape": {
+        "node_name": "CTR_Leg_K_Pole_R_crvShape",
+        "node_type": "nurbsCurve",
+        "connected_attributes": [
+            "create",
+            "lineWidth"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "create",
+                "data_type": "nurbsCurve",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "SkinCluster__CTR__Leg__IK_Pole__R__crvShape.outputGeometry[0]",
+                "exact_destination": "SkinCluster__CTR__Leg__IK_Pole__R__crvShape.outputGeometry[0]",
+                "connected_node_name": "SkinCluster__CTR__Leg__IK_Pole__R__crvShape",
+                "connected_node_type": "skinCluster"
+            },
+            {
+                "attribute_name": "lineWidth",
+                "data_type": "float",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "CTR_Leg_IK_Pole_R_crv__Control_Color.lineWidth",
+                "exact_destination": "CTR_Leg_IK_Pole_R_crv__Control_Color.lineWidth",
+                "connected_node_name": "CTR_Leg_IK_Pole_R_crv__Control_Color",
+                "connected_node_type": "colorConstant"
+            }
+        ],
+        "outgoing_connections": []
+    },
+    "DRV_Leg_IK_Pole_R_jnt": {
+        "node_name": "DRV_Leg_IK_Pole_R_jnt",
+        "node_type": "joint",
+        "connected_attributes": [
+            "rotate",
+            "translate",
+            "rotatePivot",
+            "rotatePivotTranslate",
+            "parentMatrix",
+            "worldMatrix",
+            "lockInfluenceWeights",
+            "objectColorRGB"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "rotate",
+                "data_type": "double3",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "DRV_Leg_IK_Pole_R__AimMatrix_Decomp.outputRotate",
+                "exact_destination": "DRV_Leg_IK_Pole_R__AimMatrix_Decomp.outputRotate",
+                "connected_node_name": "DRV_Leg_IK_Pole_R__AimMatrix_Decomp",
+                "connected_node_type": "decomposeMatrix"
+            }
+        ],
+        "outgoing_connections": [
+            {
+                "attribute_name": "translate",
+                "data_type": "double3",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "DRV_Leg_IK_Pole_R_jnt.translate",
+                "exact_destination": "Leg_R_ikHandle_poleVectorConstraint1.target[0].targetTranslate",
+                "connected_node_name": "Leg_R_ikHandle_poleVectorConstraint1",
+                "connected_node_type": "poleVectorConstraint"
+            },
+            {
+                "attribute_name": "rotatePivot",
+                "data_type": "double3",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "DRV_Leg_IK_Pole_R_jnt.rotatePivot",
+                "exact_destination": "Leg_R_ikHandle_poleVectorConstraint1.target[0].targetRotatePivot",
+                "connected_node_name": "Leg_R_ikHandle_poleVectorConstraint1",
+                "connected_node_type": "poleVectorConstraint"
+            },
+            {
+                "attribute_name": "rotatePivotTranslate",
+                "data_type": "double3",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "DRV_Leg_IK_Pole_R_jnt.rotatePivotTranslate",
+                "exact_destination": "Leg_R_ikHandle_poleVectorConstraint1.target[0].targetRotateTranslate",
+                "connected_node_name": "Leg_R_ikHandle_poleVectorConstraint1",
+                "connected_node_type": "poleVectorConstraint"
+            },
+            {
+                "attribute_name": "parentMatrix",
+                "data_type": "matrix",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "DRV_Leg_IK_Pole_R_jnt.parentMatrix",
+                "exact_destination": "Leg_R_ikHandle_poleVectorConstraint1.target[0].targetParentMatrix",
+                "connected_node_name": "Leg_R_ikHandle_poleVectorConstraint1",
+                "connected_node_type": "poleVectorConstraint"
+            },
+            {
+                "attribute_name": "worldMatrix",
+                "data_type": "matrix",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "DRV_Leg_IK_Pole_R_jnt.worldMatrix",
+                "exact_destination": "SkinCluster__CTR__Leg__IK_Pole__R__crvShape.matrix[1]",
+                "connected_node_name": "SkinCluster__CTR__Leg__IK_Pole__R__crvShape",
+                "connected_node_type": "skinCluster"
+            },
+            {
+                "attribute_name": "lockInfluenceWeights",
+                "data_type": "bool",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "DRV_Leg_IK_Pole_R_jnt.lockInfluenceWeights",
+                "exact_destination": "SkinCluster__CTR__Leg__IK_Pole__R__crvShape.lockWeights[1]",
+                "connected_node_name": "SkinCluster__CTR__Leg__IK_Pole__R__crvShape",
+                "connected_node_type": "skinCluster"
+            },
+            {
+                "attribute_name": "objectColorRGB",
+                "data_type": "float3",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "DRV_Leg_IK_Pole_R_jnt.objectColorRGB",
+                "exact_destination": "SkinCluster__CTR__Leg__IK_Pole__R__crvShape.influenceColor[1]",
+                "connected_node_name": "SkinCluster__CTR__Leg__IK_Pole__R__crvShape",
+                "connected_node_type": "skinCluster"
+            }
+        ]
+    },
+    "CTR_Thigh_Twist_01_R_crv": {
+        "node_name": "CTR_Thigh_Twist_01_R_crv",
+        "node_type": "transform",
+        "connected_attributes": [
+            "overrideColorRGB",
+            "overrideRGBColors",
+            "overrideEnabled"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "overrideColorRGB",
+                "data_type": "float3",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "Color_Group__R_3rd__Asset.Group_Color",
+                "exact_destination": "Color_Group__R_3rd__Asset.Group_Color",
+                "connected_node_name": "Color_Group__R_3rd__Asset",
+                "connected_node_type": "dagContainer"
+            },
+            {
+                "attribute_name": "overrideRGBColors",
+                "data_type": "bool",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "Color_Group__R_3rd__Asset.Enable_Custom_Color",
+                "exact_destination": "Color_Group__R_3rd__Asset.Enable_Custom_Color",
+                "connected_node_name": "Color_Group__R_3rd__Asset",
+                "connected_node_type": "dagContainer"
+            },
+            {
+                "attribute_name": "overrideEnabled",
+                "data_type": "bool",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "Color_Group__R_3rd__Asset.Enable_Custom_Color",
+                "exact_destination": "Color_Group__R_3rd__Asset.Enable_Custom_Color",
+                "connected_node_name": "Color_Group__R_3rd__Asset",
+                "connected_node_type": "dagContainer"
+            }
+        ],
+        "outgoing_connections": []
+    },
+    "CTR_Thigh_Twist_01_R_crvShape": {
+        "node_name": "CTR_Thigh_Twist_01_R_crvShape",
+        "node_type": "nurbsCurve",
+        "connected_attributes": [
+            "create",
+            "controlPoints",
+            "tweakLocation"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "create",
+                "data_type": "nurbsCurve",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "Custom_Control__Rocator__Curve_OutputShape.local",
+                "exact_destination": "Custom_Control__Rocator__Curve_OutputShape.local",
+                "connected_node_name": "Custom_Control__Rocator__Curve_OutputShape",
+                "connected_node_type": "nurbsCurve"
+            },
+            {
+                "attribute_name": "controlPoints",
+                "data_type": "TdataCompound",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "Custom_Control__Rocator__Curve_OutputShape.controlPoints",
+                "exact_destination": "Custom_Control__Rocator__Curve_OutputShape.controlPoints",
+                "connected_node_name": "Custom_Control__Rocator__Curve_OutputShape",
+                "connected_node_type": "nurbsCurve"
+            },
+            {
+                "attribute_name": "tweakLocation",
+                "data_type": "double3",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "Custom_Control__Rocator__Tweak.plist[0].controlPoints[0]",
+                "exact_destination": "Custom_Control__Rocator__Tweak.plist[0].controlPoints[0]",
+                "connected_node_name": "Custom_Control__Rocator__Tweak",
+                "connected_node_type": "tweak"
+            }
+        ],
+        "outgoing_connections": []
+    },
+    "RIG_Thigh_Twist_01_R_jnt": {
+        "node_name": "RIG_Thigh_Twist_01_R_jnt",
+        "node_type": "joint",
+        "connected_attributes": [
+            "translate",
+            "rotatePivot",
+            "rotatePivotTranslate",
+            "rotate",
+            "rotateOrder",
+            "scale",
+            "parentMatrix",
+            "jointOrient",
+            "segmentScaleCompensate",
+            "inverseScale"
+        ],
+        "incoming_connections": [],
+        "outgoing_connections": [
+            {
+                "attribute_name": "translate",
+                "data_type": "double3",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "RIG_Thigh_Twist_01_R_jnt.translate",
+                "exact_destination": "DEF_Thigh_Twist_01_R_jnt_parentConstraint1.target[0].targetTranslate",
+                "connected_node_name": "DEF_Thigh_Twist_01_R_jnt_parentConstraint1",
+                "connected_node_type": "parentConstraint"
+            },
+            {
+                "attribute_name": "rotatePivot",
+                "data_type": "double3",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "RIG_Thigh_Twist_01_R_jnt.rotatePivot",
+                "exact_destination": "DEF_Thigh_Twist_01_R_jnt_parentConstraint1.target[0].targetRotatePivot",
+                "connected_node_name": "DEF_Thigh_Twist_01_R_jnt_parentConstraint1",
+                "connected_node_type": "parentConstraint"
+            },
+            {
+                "attribute_name": "rotatePivotTranslate",
+                "data_type": "double3",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "RIG_Thigh_Twist_01_R_jnt.rotatePivotTranslate",
+                "exact_destination": "DEF_Thigh_Twist_01_R_jnt_parentConstraint1.target[0].targetRotateTranslate",
+                "connected_node_name": "DEF_Thigh_Twist_01_R_jnt_parentConstraint1",
+                "connected_node_type": "parentConstraint"
+            },
+            {
+                "attribute_name": "rotate",
+                "data_type": "double3",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "RIG_Thigh_Twist_01_R_jnt.rotate",
+                "exact_destination": "DEF_Thigh_Twist_01_R_jnt_parentConstraint1.target[0].targetRotate",
+                "connected_node_name": "DEF_Thigh_Twist_01_R_jnt_parentConstraint1",
+                "connected_node_type": "parentConstraint"
+            },
+            {
+                "attribute_name": "rotateOrder",
+                "data_type": "enum",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "RIG_Thigh_Twist_01_R_jnt.rotateOrder",
+                "exact_destination": "DEF_Thigh_Twist_01_R_jnt_parentConstraint1.target[0].targetRotateOrder",
+                "connected_node_name": "DEF_Thigh_Twist_01_R_jnt_parentConstraint1",
+                "connected_node_type": "parentConstraint"
+            },
+            {
+                "attribute_name": "scale",
+                "data_type": "double3",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "RIG_Thigh_Twist_01_R_jnt.scale",
+                "exact_destination": "DEF_Thigh_Twist_01_R_jnt_parentConstraint1.target[0].targetScale",
+                "connected_node_name": "DEF_Thigh_Twist_01_R_jnt_parentConstraint1",
+                "connected_node_type": "parentConstraint"
+            },
+            {
+                "attribute_name": "parentMatrix",
+                "data_type": "matrix",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "RIG_Thigh_Twist_01_R_jnt.parentMatrix",
+                "exact_destination": "DEF_Thigh_Twist_01_R_jnt_parentConstraint1.target[0].targetParentMatrix",
+                "connected_node_name": "DEF_Thigh_Twist_01_R_jnt_parentConstraint1",
+                "connected_node_type": "parentConstraint"
+            },
+            {
+                "attribute_name": "jointOrient",
+                "data_type": "double3",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "RIG_Thigh_Twist_01_R_jnt.jointOrient",
+                "exact_destination": "DEF_Thigh_Twist_01_R_jnt_parentConstraint1.target[0].targetJointOrient",
+                "connected_node_name": "DEF_Thigh_Twist_01_R_jnt_parentConstraint1",
+                "connected_node_type": "parentConstraint"
+            },
+            {
+                "attribute_name": "segmentScaleCompensate",
+                "data_type": "bool",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "RIG_Thigh_Twist_01_R_jnt.segmentScaleCompensate",
+                "exact_destination": "DEF_Thigh_Twist_01_R_jnt_parentConstraint1.target[0].targetScaleCompensate",
+                "connected_node_name": "DEF_Thigh_Twist_01_R_jnt_parentConstraint1",
+                "connected_node_type": "parentConstraint"
+            },
+            {
+                "attribute_name": "inverseScale",
+                "data_type": "double3",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "RIG_Thigh_Twist_01_R_jnt.inverseScale",
+                "exact_destination": "DEF_Thigh_Twist_01_R_jnt_parentConstraint1.target[0].targetInverseScale",
+                "connected_node_name": "DEF_Thigh_Twist_01_R_jnt_parentConstraint1",
+                "connected_node_type": "parentConstraint"
+            }
+        ]
+    },
+    "Controls_Thigh_Twists_R_grp": {
+        "node_name": "Controls_Thigh_Twists_R_grp",
+        "node_type": "transform",
+        "connected_attributes": [
+            "offsetParentMatrix",
+            "visibility"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "offsetParentMatrix",
+                "data_type": "matrix",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "Controls_Thigh_Twists_R__ParentMatrix.outputMatrix",
+                "exact_destination": "Controls_Thigh_Twists_R__ParentMatrix.outputMatrix",
+                "connected_node_name": "Controls_Thigh_Twists_R__ParentMatrix",
+                "connected_node_type": "parentMatrix"
+            },
+            {
+                "attribute_name": "visibility",
+                "data_type": "bool",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "CTR_Properties_Leg_R_crv.View_Twists",
+                "exact_destination": "CTR_Properties_Leg_R_crv.View_Twists",
+                "connected_node_name": "CTR_Properties_Leg_R_crv",
+                "connected_node_type": "transform"
+            }
+        ],
+        "outgoing_connections": []
+    },
+    "Offset_RIG_Thigh_Twist_01_R_trs": {
+        "node_name": "Offset_RIG_Thigh_Twist_01_R_trs",
+        "node_type": "transform",
+        "connected_attributes": [
+            "outlinerColor",
+            "useOutlinerColor"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "outlinerColor",
+                "data_type": "float3",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "Controls_grp.Offset_Transform_GroupColor",
+                "exact_destination": "Controls_grp.Offset_Transform_GroupColor",
+                "connected_node_name": "Controls_grp",
+                "connected_node_type": "transform"
+            },
+            {
+                "attribute_name": "useOutlinerColor",
+                "data_type": "bool",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "Controls_grp.useOutlinerColor",
+                "exact_destination": "Controls_grp.useOutlinerColor",
+                "connected_node_name": "Controls_grp",
+                "connected_node_type": "transform"
+            }
+        ],
+        "outgoing_connections": []
+    },
+    "CTR_Thigh_R_crv": {
+        "node_name": "CTR_Thigh_R_crv",
+        "node_type": "transform",
+        "connected_attributes": [
+            "worldMatrix"
+        ],
+        "incoming_connections": [],
+        "outgoing_connections": [
+            {
+                "attribute_name": "worldMatrix",
+                "data_type": "matrix",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "CTR_Thigh_R_crv.worldMatrix",
+                "exact_destination": "DRV_Thigh_FK_R__MultMatrix.matrixIn[1]",
+                "connected_node_name": "DRV_Thigh_FK_R__MultMatrix",
+                "connected_node_type": "multMatrix"
+            }
+        ]
+    },
+    "CTR_Thigh_R_crvShape": {
+        "node_name": "CTR_Thigh_R_crvShape",
+        "node_type": "nurbsCurve",
+        "connected_attributes": [],
+        "incoming_connections": [],
+        "outgoing_connections": []
+    },
+    "Offset_RIG_Leg_R_trs": {
+        "node_name": "Offset_RIG_Leg_R_trs",
+        "node_type": "transform",
+        "connected_attributes": [
+            "outlinerColor",
+            "useOutlinerColor",
+            "offsetParentMatrix"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "outlinerColor",
+                "data_type": "float3",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "Controls_grp.Offset_Transform_GroupColor",
+                "exact_destination": "Controls_grp.Offset_Transform_GroupColor",
+                "connected_node_name": "Controls_grp",
+                "connected_node_type": "transform"
+            },
+            {
+                "attribute_name": "useOutlinerColor",
+                "data_type": "bool",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "Controls_grp.useOutlinerColor",
+                "exact_destination": "Controls_grp.useOutlinerColor",
+                "connected_node_name": "Controls_grp",
+                "connected_node_type": "transform"
+            },
+            {
+                "attribute_name": "offsetParentMatrix",
+                "data_type": "matrix",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "Offset_RIG_Leg_R__ParentMatrix.outputMatrix",
+                "exact_destination": "Offset_RIG_Leg_R__ParentMatrix.outputMatrix",
+                "connected_node_name": "Offset_RIG_Leg_R__ParentMatrix",
+                "connected_node_type": "parentMatrix"
+            }
+        ],
+        "outgoing_connections": []
+    },
+    "RIG_Leg_R_jnt": {
+        "node_name": "RIG_Leg_R_jnt",
+        "node_type": "joint",
+        "connected_attributes": [
+            "offsetParentMatrix",
+            "worldMatrix"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "offsetParentMatrix",
+                "data_type": "matrix",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "RIG_Leg_R__ParentMatrix.outputMatrix",
+                "exact_destination": "RIG_Leg_R__ParentMatrix.outputMatrix",
+                "connected_node_name": "RIG_Leg_R__ParentMatrix",
+                "connected_node_type": "parentMatrix"
+            }
+        ],
+        "outgoing_connections": [
+            {
+                "attribute_name": "worldMatrix",
+                "data_type": "matrix",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "RIG_Leg_R_jnt.worldMatrix",
+                "exact_destination": "Controls_Leg_Twists_R__ParentMatrix.target[0].targetMatrix",
+                "connected_node_name": "Controls_Leg_Twists_R__ParentMatrix",
+                "connected_node_type": "parentMatrix"
+            }
+        ]
+    },
+    "RIG_Thigh_R_jnt": {
+        "node_name": "RIG_Thigh_R_jnt",
+        "node_type": "joint",
+        "connected_attributes": [
+            "worldMatrix",
+            "offsetParentMatrix"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "offsetParentMatrix",
+                "data_type": "matrix",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "RIG_Thigh_R__ParentMatrix.outputMatrix",
+                "exact_destination": "RIG_Thigh_R__ParentMatrix.outputMatrix",
+                "connected_node_name": "RIG_Thigh_R__ParentMatrix",
+                "connected_node_type": "parentMatrix"
+            }
+        ],
+        "outgoing_connections": [
+            {
+                "attribute_name": "worldMatrix",
+                "data_type": "matrix",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "RIG_Thigh_R_jnt.worldMatrix",
+                "exact_destination": "DEF_Thigh_R__ParentMatrix.target[0].targetMatrix",
+                "connected_node_name": "DEF_Thigh_R__ParentMatrix",
+                "connected_node_type": "parentMatrix"
+            }
+        ]
+    },
+    "RIG_Leg_Twist_02_R_jnt": {
+        "node_name": "RIG_Leg_Twist_02_R_jnt",
+        "node_type": "joint",
+        "connected_attributes": [
+            "translate",
+            "rotatePivot",
+            "rotatePivotTranslate",
+            "rotate",
+            "rotateOrder",
+            "scale",
+            "parentMatrix",
+            "jointOrient",
+            "segmentScaleCompensate",
+            "inverseScale"
+        ],
+        "incoming_connections": [],
+        "outgoing_connections": [
+            {
+                "attribute_name": "translate",
+                "data_type": "double3",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "RIG_Leg_Twist_02_R_jnt.translate",
+                "exact_destination": "DEF_Leg_Twist_02_R_jnt_parentConstraint1.target[0].targetTranslate",
+                "connected_node_name": "DEF_Leg_Twist_02_R_jnt_parentConstraint1",
+                "connected_node_type": "parentConstraint"
+            },
+            {
+                "attribute_name": "rotatePivot",
+                "data_type": "double3",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "RIG_Leg_Twist_02_R_jnt.rotatePivot",
+                "exact_destination": "DEF_Leg_Twist_02_R_jnt_parentConstraint1.target[0].targetRotatePivot",
+                "connected_node_name": "DEF_Leg_Twist_02_R_jnt_parentConstraint1",
+                "connected_node_type": "parentConstraint"
+            },
+            {
+                "attribute_name": "rotatePivotTranslate",
+                "data_type": "double3",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "RIG_Leg_Twist_02_R_jnt.rotatePivotTranslate",
+                "exact_destination": "DEF_Leg_Twist_02_R_jnt_parentConstraint1.target[0].targetRotateTranslate",
+                "connected_node_name": "DEF_Leg_Twist_02_R_jnt_parentConstraint1",
+                "connected_node_type": "parentConstraint"
+            },
+            {
+                "attribute_name": "rotate",
+                "data_type": "double3",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "RIG_Leg_Twist_02_R_jnt.rotate",
+                "exact_destination": "DEF_Leg_Twist_02_R_jnt_parentConstraint1.target[0].targetRotate",
+                "connected_node_name": "DEF_Leg_Twist_02_R_jnt_parentConstraint1",
+                "connected_node_type": "parentConstraint"
+            },
+            {
+                "attribute_name": "rotateOrder",
+                "data_type": "enum",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "RIG_Leg_Twist_02_R_jnt.rotateOrder",
+                "exact_destination": "DEF_Leg_Twist_02_R_jnt_parentConstraint1.target[0].targetRotateOrder",
+                "connected_node_name": "DEF_Leg_Twist_02_R_jnt_parentConstraint1",
+                "connected_node_type": "parentConstraint"
+            },
+            {
+                "attribute_name": "scale",
+                "data_type": "double3",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "RIG_Leg_Twist_02_R_jnt.scale",
+                "exact_destination": "DEF_Leg_Twist_02_R_jnt_parentConstraint1.target[0].targetScale",
+                "connected_node_name": "DEF_Leg_Twist_02_R_jnt_parentConstraint1",
+                "connected_node_type": "parentConstraint"
+            },
+            {
+                "attribute_name": "parentMatrix",
+                "data_type": "matrix",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "RIG_Leg_Twist_02_R_jnt.parentMatrix",
+                "exact_destination": "DEF_Leg_Twist_02_R_jnt_parentConstraint1.target[0].targetParentMatrix",
+                "connected_node_name": "DEF_Leg_Twist_02_R_jnt_parentConstraint1",
+                "connected_node_type": "parentConstraint"
+            },
+            {
+                "attribute_name": "jointOrient",
+                "data_type": "double3",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "RIG_Leg_Twist_02_R_jnt.jointOrient",
+                "exact_destination": "DEF_Leg_Twist_02_R_jnt_parentConstraint1.target[0].targetJointOrient",
+                "connected_node_name": "DEF_Leg_Twist_02_R_jnt_parentConstraint1",
+                "connected_node_type": "parentConstraint"
+            },
+            {
+                "attribute_name": "segmentScaleCompensate",
+                "data_type": "bool",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "RIG_Leg_Twist_02_R_jnt.segmentScaleCompensate",
+                "exact_destination": "DEF_Leg_Twist_02_R_jnt_parentConstraint1.target[0].targetScaleCompensate",
+                "connected_node_name": "DEF_Leg_Twist_02_R_jnt_parentConstraint1",
+                "connected_node_type": "parentConstraint"
+            },
+            {
+                "attribute_name": "inverseScale",
+                "data_type": "double3",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "RIG_Leg_Twist_02_R_jnt.inverseScale",
+                "exact_destination": "DEF_Leg_Twist_02_R_jnt_parentConstraint1.target[0].targetInverseScale",
+                "connected_node_name": "DEF_Leg_Twist_02_R_jnt_parentConstraint1",
+                "connected_node_type": "parentConstraint"
+            }
+        ]
+    },
+    "Controls_Leg_FK_R_grp": {
+        "node_name": "Controls_Leg_FK_R_grp",
+        "node_type": "transform",
+        "connected_attributes": [
+            "visibility"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "visibility",
+                "data_type": "bool",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "CTR_Leg_R__Properties_SetRange.outValueX",
+                "exact_destination": "CTR_Leg_R__Properties_SetRange.outValueX",
+                "connected_node_name": "CTR_Leg_R__Properties_SetRange",
+                "connected_node_type": "setRange"
+            }
+        ],
+        "outgoing_connections": []
+    },
+    "Offset_RIG_Thigh_R_trs": {
+        "node_name": "Offset_RIG_Thigh_R_trs",
+        "node_type": "transform",
+        "connected_attributes": [
+            "outlinerColor",
+            "useOutlinerColor"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "outlinerColor",
+                "data_type": "float3",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "Controls_grp.Offset_Transform_GroupColor",
+                "exact_destination": "Controls_grp.Offset_Transform_GroupColor",
+                "connected_node_name": "Controls_grp",
+                "connected_node_type": "transform"
+            },
+            {
+                "attribute_name": "useOutlinerColor",
+                "data_type": "bool",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "Controls_grp.useOutlinerColor",
+                "exact_destination": "Controls_grp.useOutlinerColor",
+                "connected_node_name": "Controls_grp",
+                "connected_node_type": "transform"
+            }
+        ],
+        "outgoing_connections": []
+    },
+    "CTR_Leg_R_crv": {
+        "node_name": "CTR_Leg_R_crv",
+        "node_type": "transform",
+        "connected_attributes": [
+            "worldMatrix",
+            "parentInverseMatrix"
+        ],
+        "incoming_connections": [],
+        "outgoing_connections": [
+            {
+                "attribute_name": "worldMatrix",
+                "data_type": "matrix",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "CTR_Leg_R_crv.worldMatrix",
+                "exact_destination": "Offset_RIG_Foot_R__ParentMatrix.target[0].targetMatrix",
+                "connected_node_name": "Offset_RIG_Foot_R__ParentMatrix",
+                "connected_node_type": "parentMatrix"
+            },
+            {
+                "attribute_name": "parentInverseMatrix",
+                "data_type": "matrix",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "CTR_Leg_R_crv.parentInverseMatrix",
+                "exact_destination": "DRV_Leg_FK_R__MultMatrix.matrixIn[2]",
+                "connected_node_name": "DRV_Leg_FK_R__MultMatrix",
+                "connected_node_type": "multMatrix"
+            }
+        ]
+    },
+    "CTR_Leg_R_crvShape": {
+        "node_name": "CTR_Leg_R_crvShape",
+        "node_type": "nurbsCurve",
+        "connected_attributes": [],
+        "incoming_connections": [],
+        "outgoing_connections": []
+    },
+    "PRN__Leg__FK_IK_End__R__jnt": {
+        "node_name": "PRN__Leg__FK_IK_End__R__jnt",
+        "node_type": "joint",
+        "connected_attributes": [
+            "inverseScale",
+            "offsetParentMatrix"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "inverseScale",
+                "data_type": "double3",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "PRN_Leg_FK_IK_R_jnt.scale",
+                "exact_destination": "PRN_Leg_FK_IK_R_jnt.scale",
+                "connected_node_name": "PRN_Leg_FK_IK_R_jnt",
+                "connected_node_type": "joint"
+            },
+            {
+                "attribute_name": "offsetParentMatrix",
+                "data_type": "matrix",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "PRN__Leg__FK_IK_End__R__ParentMatrix.outputMatrix",
+                "exact_destination": "PRN__Leg__FK_IK_End__R__ParentMatrix.outputMatrix",
+                "connected_node_name": "PRN__Leg__FK_IK_End__R__ParentMatrix",
+                "connected_node_type": "parentMatrix"
+            }
+        ],
+        "outgoing_connections": []
+    },
+    "Offset_DRV_Leg_IK_Handle_R_trs": {
+        "node_name": "Offset_DRV_Leg_IK_Handle_R_trs",
+        "node_type": "transform",
+        "connected_attributes": [],
+        "incoming_connections": [],
+        "outgoing_connections": []
+    },
+    "DRV_Leg_IK_Handle_R_jnt": {
+        "node_name": "DRV_Leg_IK_Handle_R_jnt",
+        "node_type": "joint",
+        "connected_attributes": [
+            "offsetParentMatrix"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "offsetParentMatrix",
+                "data_type": "matrix",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "CTR_Leg_IK_R_jnt.worldMatrix[0]",
+                "exact_destination": "CTR_Leg_IK_R_jnt.worldMatrix",
+                "connected_node_name": "CTR_Leg_IK_R_jnt",
+                "connected_node_type": "joint"
+            }
+        ],
+        "outgoing_connections": []
+    },
+    "DRV__Leg__IK_End__R__jnt": {
+        "node_name": "DRV__Leg__IK_End__R__jnt",
+        "node_type": "joint",
+        "connected_attributes": [
+            "inverseScale",
+            "translateX",
+            "translateY",
+            "translateZ",
+            "offsetParentMatrix"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "inverseScale",
+                "data_type": "double3",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "DRV_Leg_IK_R_jnt.scale",
+                "exact_destination": "DRV_Leg_IK_R_jnt.scale",
+                "connected_node_name": "DRV_Leg_IK_R_jnt",
+                "connected_node_type": "joint"
+            }
+        ],
+        "outgoing_connections": [
+            {
+                "attribute_name": "translateX",
+                "data_type": "doubleLinear",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "DRV__Leg__IK_End__R__jnt.translateX",
+                "exact_destination": "Leg_R_effector.translateX",
+                "connected_node_name": "Leg_R_effector",
+                "connected_node_type": "ikEffector"
+            },
+            {
+                "attribute_name": "translateY",
+                "data_type": "doubleLinear",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "DRV__Leg__IK_End__R__jnt.translateY",
+                "exact_destination": "Leg_R_effector.translateY",
+                "connected_node_name": "Leg_R_effector",
+                "connected_node_type": "ikEffector"
+            },
+            {
+                "attribute_name": "translateZ",
+                "data_type": "doubleLinear",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "DRV__Leg__IK_End__R__jnt.translateZ",
+                "exact_destination": "Leg_R_effector.translateZ",
+                "connected_node_name": "Leg_R_effector",
+                "connected_node_type": "ikEffector"
+            },
+            {
+                "attribute_name": "offsetParentMatrix",
+                "data_type": "matrix",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "DRV__Leg__IK_End__R__jnt.offsetParentMatrix",
+                "exact_destination": "Leg_R_effector.offsetParentMatrix",
+                "connected_node_name": "Leg_R_effector",
+                "connected_node_type": "ikEffector"
+            }
+        ]
+    },
+    "Leg_R_effector": {
+        "node_name": "Leg_R_effector",
+        "node_type": "ikEffector",
+        "connected_attributes": [
+            "handlePath",
+            "translateX",
+            "translateY",
+            "translateZ",
+            "offsetParentMatrix"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "translateX",
+                "data_type": "doubleLinear",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "DRV__Leg__IK_End__R__jnt.translateX",
+                "exact_destination": "DRV__Leg__IK_End__R__jnt.translateX",
+                "connected_node_name": "DRV__Leg__IK_End__R__jnt",
+                "connected_node_type": "joint"
+            },
+            {
+                "attribute_name": "translateY",
+                "data_type": "doubleLinear",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "DRV__Leg__IK_End__R__jnt.translateY",
+                "exact_destination": "DRV__Leg__IK_End__R__jnt.translateY",
+                "connected_node_name": "DRV__Leg__IK_End__R__jnt",
+                "connected_node_type": "joint"
+            },
+            {
+                "attribute_name": "translateZ",
+                "data_type": "doubleLinear",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "DRV__Leg__IK_End__R__jnt.translateZ",
+                "exact_destination": "DRV__Leg__IK_End__R__jnt.translateZ",
+                "connected_node_name": "DRV__Leg__IK_End__R__jnt",
+                "connected_node_type": "joint"
+            },
+            {
+                "attribute_name": "offsetParentMatrix",
+                "data_type": "matrix",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "DRV__Leg__IK_End__R__jnt.offsetParentMatrix",
+                "exact_destination": "DRV__Leg__IK_End__R__jnt.offsetParentMatrix",
+                "connected_node_name": "DRV__Leg__IK_End__R__jnt",
+                "connected_node_type": "joint"
+            }
+        ],
+        "outgoing_connections": [
+            {
+                "attribute_name": "handlePath",
+                "data_type": "message",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "Leg_R_effector.handlePath",
+                "exact_destination": "Leg_R_ikHandle.endEffector",
+                "connected_node_name": "Leg_R_ikHandle",
+                "connected_node_type": "ikHandle"
+            }
+        ]
+    },
+    "Offset_DRV_Thigh_FK_R_trs": {
+        "node_name": "Offset_DRV_Thigh_FK_R_trs",
+        "node_type": "transform",
+        "connected_attributes": [],
+        "incoming_connections": [],
+        "outgoing_connections": []
+    },
+    "CTR_Leg_IK_R_jnt": {
+        "node_name": "CTR_Leg_IK_R_jnt",
+        "node_type": "joint",
+        "connected_attributes": [
+            "worldMatrix"
+        ],
+        "incoming_connections": [],
+        "outgoing_connections": [
+            {
+                "attribute_name": "worldMatrix",
+                "data_type": "matrix",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "CTR_Leg_IK_R_jnt.worldMatrix",
+                "exact_destination": "DRV_Leg_IK_Handle_R_jnt.offsetParentMatrix",
+                "connected_node_name": "DRV_Leg_IK_Handle_R_jnt",
+                "connected_node_type": "joint"
+            }
+        ]
+    },
+    "Offset_CTR_Leg_IK_Pole_R_trs": {
+        "node_name": "Offset_CTR_Leg_IK_Pole_R_trs",
+        "node_type": "transform",
+        "connected_attributes": [],
+        "incoming_connections": [],
+        "outgoing_connections": []
+    },
+    "CTR_Leg_IK_Pole_R_crv": {
+        "node_name": "CTR_Leg_IK_Pole_R_crv",
+        "node_type": "transform",
+        "connected_attributes": [
+            "overrideColorRGB",
+            "overrideRGBColors",
+            "overrideEnabled",
+            "worldMatrix"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "overrideColorRGB",
+                "data_type": "float3",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "CTR_Leg_IK_Pole_R_crv__Control_Color.outColor",
+                "exact_destination": "CTR_Leg_IK_Pole_R_crv__Control_Color.outColor",
+                "connected_node_name": "CTR_Leg_IK_Pole_R_crv__Control_Color",
+                "connected_node_type": "colorConstant"
+            },
+            {
+                "attribute_name": "overrideRGBColors",
+                "data_type": "bool",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "CTR_Leg_IK_Pole_R_crv__Control_Color.overrideRGBColors",
+                "exact_destination": "CTR_Leg_IK_Pole_R_crv__Control_Color.overrideRGBColors",
+                "connected_node_name": "CTR_Leg_IK_Pole_R_crv__Control_Color",
+                "connected_node_type": "colorConstant"
+            },
+            {
+                "attribute_name": "overrideEnabled",
+                "data_type": "bool",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "CTR_Leg_IK_Pole_R_crv__Control_Color.overrideEnabled",
+                "exact_destination": "CTR_Leg_IK_Pole_R_crv__Control_Color.overrideEnabled",
+                "connected_node_name": "CTR_Leg_IK_Pole_R_crv__Control_Color",
+                "connected_node_type": "colorConstant"
+            }
+        ],
+        "outgoing_connections": [
+            {
+                "attribute_name": "worldMatrix",
+                "data_type": "matrix",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "CTR_Leg_IK_Pole_R_crv.worldMatrix",
+                "exact_destination": "DRV_Leg_IK_Pole_R__AimMatrix.secondaryTargetMatrix",
+                "connected_node_name": "DRV_Leg_IK_Pole_R__AimMatrix",
+                "connected_node_type": "aimMatrix"
+            }
+        ]
+    },
+    "RIG_Thigh_R__ParentMatrix": {
+        "node_name": "RIG_Thigh_R__ParentMatrix",
+        "node_type": "parentMatrix",
+        "connected_attributes": [
+            "outputMatrix",
+            "target[0].targetMatrix"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "target[0].targetMatrix",
+                "data_type": "unknown",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "PRN_Thigh_FK_IK_R_jnt.worldMatrix[0]",
+                "exact_destination": "PRN_Thigh_FK_IK_R_jnt.worldMatrix",
+                "connected_node_name": "PRN_Thigh_FK_IK_R_jnt",
+                "connected_node_type": "joint"
+            }
+        ],
+        "outgoing_connections": [
+            {
+                "attribute_name": "outputMatrix",
+                "data_type": "matrix",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "RIG_Thigh_R__ParentMatrix.outputMatrix",
+                "exact_destination": "RIG_Thigh_R_jnt.offsetParentMatrix",
+                "connected_node_name": "RIG_Thigh_R_jnt",
+                "connected_node_type": "joint"
+            }
+        ]
+    },
+    "DEF_Thigh_R__ParentMatrix": {
+        "node_name": "DEF_Thigh_R__ParentMatrix",
+        "node_type": "parentMatrix",
+        "connected_attributes": [
+            "outputMatrix",
+            "target[0].targetMatrix"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "target[0].targetMatrix",
+                "data_type": "unknown",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "RIG_Thigh_R_jnt.worldMatrix[0]",
+                "exact_destination": "RIG_Thigh_R_jnt.worldMatrix",
+                "connected_node_name": "RIG_Thigh_R_jnt",
+                "connected_node_type": "joint"
+            }
+        ],
+        "outgoing_connections": [
+            {
+                "attribute_name": "outputMatrix",
+                "data_type": "matrix",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "DEF_Thigh_R__ParentMatrix.outputMatrix",
+                "exact_destination": "DEF_Thigh_R_jnt.offsetParentMatrix",
+                "connected_node_name": "DEF_Thigh_R_jnt",
+                "connected_node_type": "joint"
+            }
+        ]
+    },
+    "Controls_Leg_Twists_R__ParentMatrix": {
+        "node_name": "Controls_Leg_Twists_R__ParentMatrix",
+        "node_type": "parentMatrix",
+        "connected_attributes": [
+            "outputMatrix",
+            "target[0].targetMatrix"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "target[0].targetMatrix",
+                "data_type": "unknown",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "RIG_Leg_R_jnt.worldMatrix[0]",
+                "exact_destination": "RIG_Leg_R_jnt.worldMatrix",
+                "connected_node_name": "RIG_Leg_R_jnt",
+                "connected_node_type": "joint"
+            }
+        ],
+        "outgoing_connections": [
+            {
+                "attribute_name": "outputMatrix",
+                "data_type": "matrix",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "Controls_Leg_Twists_R__ParentMatrix.outputMatrix",
+                "exact_destination": "Controls_Leg_Twists_R_grp.offsetParentMatrix",
+                "connected_node_name": "Controls_Leg_Twists_R_grp",
+                "connected_node_type": "transform"
+            }
+        ]
+    },
+    "RIG_Leg_R__ParentMatrix": {
+        "node_name": "RIG_Leg_R__ParentMatrix",
+        "node_type": "parentMatrix",
+        "connected_attributes": [
+            "outputMatrix",
+            "target[0].targetMatrix"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "target[0].targetMatrix",
+                "data_type": "unknown",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "PRN_Leg_FK_IK_R_jnt.worldMatrix[0]",
+                "exact_destination": "PRN_Leg_FK_IK_R_jnt.worldMatrix",
+                "connected_node_name": "PRN_Leg_FK_IK_R_jnt",
+                "connected_node_type": "joint"
+            }
+        ],
+        "outgoing_connections": [
+            {
+                "attribute_name": "outputMatrix",
+                "data_type": "matrix",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "RIG_Leg_R__ParentMatrix.outputMatrix",
+                "exact_destination": "RIG_Leg_R_jnt.offsetParentMatrix",
+                "connected_node_name": "RIG_Leg_R_jnt",
+                "connected_node_type": "joint"
+            }
+        ]
+    },
+    "CTR_Leg_R__Properties_SetRange": {
+        "node_name": "CTR_Leg_R__Properties_SetRange",
+        "node_type": "setRange",
+        "connected_attributes": [
+            "outValueX",
+            "outValueY",
+            "valueX",
+            "valueY"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "valueX",
+                "data_type": "float",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "CTR_Properties_Leg_R_crv.FK_IK_Switch",
+                "exact_destination": "CTR_Properties_Leg_R_crv.FK_IK_Switch",
+                "connected_node_name": "CTR_Properties_Leg_R_crv",
+                "connected_node_type": "transform"
+            },
+            {
+                "attribute_name": "valueY",
+                "data_type": "float",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "CTR_Properties_Leg_R_crv.FK_IK_Switch",
+                "exact_destination": "CTR_Properties_Leg_R_crv.FK_IK_Switch",
+                "connected_node_name": "CTR_Properties_Leg_R_crv",
+                "connected_node_type": "transform"
+            }
+        ],
+        "outgoing_connections": [
+            {
+                "attribute_name": "outValueX",
+                "data_type": "float",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "CTR_Leg_R__Properties_SetRange.outValueX",
+                "exact_destination": "PRN_Thigh_FK_IK_R__ParentMatrix.target[0].weight",
+                "connected_node_name": "PRN_Thigh_FK_IK_R__ParentMatrix",
+                "connected_node_type": "parentMatrix"
+            },
+            {
+                "attribute_name": "outValueY",
+                "data_type": "float",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "CTR_Leg_R__Properties_SetRange.outValueY",
+                "exact_destination": "PRN_Thigh_FK_IK_R__ParentMatrix.target[1].weight",
+                "connected_node_name": "PRN_Thigh_FK_IK_R__ParentMatrix",
+                "connected_node_type": "parentMatrix"
+            }
+        ]
+    },
+    "PRN_Thigh_FK_IK_R__ParentMatrix": {
+        "node_name": "PRN_Thigh_FK_IK_R__ParentMatrix",
+        "node_type": "parentMatrix",
+        "connected_attributes": [
+            "outputMatrix",
+            "target[0].targetMatrix",
+            "target[0].weight",
+            "target[1].targetMatrix",
+            "target[1].weight"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "target[0].targetMatrix",
+                "data_type": "unknown",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "DRV_Thigh_FK_R_jnt.worldMatrix[0]",
+                "exact_destination": "DRV_Thigh_FK_R_jnt.worldMatrix",
+                "connected_node_name": "DRV_Thigh_FK_R_jnt",
+                "connected_node_type": "joint"
+            },
+            {
+                "attribute_name": "target[0].weight",
+                "data_type": "unknown",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "CTR_Leg_R__Properties_SetRange.outValueX",
+                "exact_destination": "CTR_Leg_R__Properties_SetRange.outValueX",
+                "connected_node_name": "CTR_Leg_R__Properties_SetRange",
+                "connected_node_type": "setRange"
+            },
+            {
+                "attribute_name": "target[1].targetMatrix",
+                "data_type": "unknown",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "DRV_Thigh_IK_R_jnt.worldMatrix[0]",
+                "exact_destination": "DRV_Thigh_IK_R_jnt.worldMatrix",
+                "connected_node_name": "DRV_Thigh_IK_R_jnt",
+                "connected_node_type": "joint"
+            },
+            {
+                "attribute_name": "target[1].weight",
+                "data_type": "unknown",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "CTR_Leg_R__Properties_SetRange.outValueY",
+                "exact_destination": "CTR_Leg_R__Properties_SetRange.outValueY",
+                "connected_node_name": "CTR_Leg_R__Properties_SetRange",
+                "connected_node_type": "setRange"
+            }
+        ],
+        "outgoing_connections": [
+            {
+                "attribute_name": "outputMatrix",
+                "data_type": "matrix",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "PRN_Thigh_FK_IK_R__ParentMatrix.outputMatrix",
+                "exact_destination": "PRN_Thigh_FK_IK_R_jnt.offsetParentMatrix",
+                "connected_node_name": "PRN_Thigh_FK_IK_R_jnt",
+                "connected_node_type": "joint"
+            }
+        ]
+    },
+    "PRN__Leg__FK_IK_End__R__ParentMatrix": {
+        "node_name": "PRN__Leg__FK_IK_End__R__ParentMatrix",
+        "node_type": "parentMatrix",
+        "connected_attributes": [
+            "outputMatrix",
+            "target[0].weight",
+            "target[1].weight"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "target[0].weight",
+                "data_type": "unknown",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "CTR_Leg_R__Properties_SetRange.outValueX",
+                "exact_destination": "CTR_Leg_R__Properties_SetRange.outValueX",
+                "connected_node_name": "CTR_Leg_R__Properties_SetRange",
+                "connected_node_type": "setRange"
+            },
+            {
+                "attribute_name": "target[1].weight",
+                "data_type": "unknown",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "CTR_Leg_R__Properties_SetRange.outValueY",
+                "exact_destination": "CTR_Leg_R__Properties_SetRange.outValueY",
+                "connected_node_name": "CTR_Leg_R__Properties_SetRange",
+                "connected_node_type": "setRange"
+            }
+        ],
+        "outgoing_connections": [
+            {
+                "attribute_name": "outputMatrix",
+                "data_type": "matrix",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "PRN__Leg__FK_IK_End__R__ParentMatrix.outputMatrix",
+                "exact_destination": "PRN__Leg__FK_IK_End__R__jnt.offsetParentMatrix",
+                "connected_node_name": "PRN__Leg__FK_IK_End__R__jnt",
+                "connected_node_type": "joint"
+            }
+        ]
+    },
+    "Offset_RIG_Leg_R__ParentMatrix": {
+        "node_name": "Offset_RIG_Leg_R__ParentMatrix",
+        "node_type": "parentMatrix",
+        "connected_attributes": [
+            "outputMatrix",
+            "target[0].targetMatrix"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "target[0].targetMatrix",
+                "data_type": "unknown",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "CTR_Thigh_R_crv.worldMatrix[0]",
+                "exact_destination": "CTR_Thigh_R_crv.worldMatrix",
+                "connected_node_name": "CTR_Thigh_R_crv",
+                "connected_node_type": "transform"
+            }
+        ],
+        "outgoing_connections": [
+            {
+                "attribute_name": "outputMatrix",
+                "data_type": "matrix",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "Offset_RIG_Leg_R__ParentMatrix.outputMatrix",
+                "exact_destination": "Offset_RIG_Leg_R_trs.offsetParentMatrix",
+                "connected_node_name": "Offset_RIG_Leg_R_trs",
+                "connected_node_type": "transform"
+            }
+        ]
+    },
+    "DRV_Leg_IK_Pole_R__AimMatrix_Decomp": {
+        "node_name": "DRV_Leg_IK_Pole_R__AimMatrix_Decomp",
+        "node_type": "decomposeMatrix",
+        "connected_attributes": [
+            "outputRotate",
+            "inputMatrix"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "inputMatrix",
+                "data_type": "matrix",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "DRV_Leg_IK_Pole_R__AimMatrix.outputMatrix",
+                "exact_destination": "DRV_Leg_IK_Pole_R__AimMatrix.outputMatrix",
+                "connected_node_name": "DRV_Leg_IK_Pole_R__AimMatrix",
+                "connected_node_type": "aimMatrix"
+            }
+        ],
+        "outgoing_connections": [
+            {
+                "attribute_name": "outputRotate",
+                "data_type": "double3",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "DRV_Leg_IK_Pole_R__AimMatrix_Decomp.outputRotate",
+                "exact_destination": "DRV_Leg_IK_Pole_R_jnt.rotate",
+                "connected_node_name": "DRV_Leg_IK_Pole_R_jnt",
+                "connected_node_type": "joint"
+            }
+        ]
+    },
+    "Controls_Thigh_Twists_R__ParentMatrix": {
+        "node_name": "Controls_Thigh_Twists_R__ParentMatrix",
+        "node_type": "parentMatrix",
+        "connected_attributes": [
+            "outputMatrix",
+            "target[0].targetMatrix"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "target[0].targetMatrix",
+                "data_type": "unknown",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "RIG_Thigh_R_jnt.worldMatrix[0]",
+                "exact_destination": "RIG_Thigh_R_jnt.worldMatrix",
+                "connected_node_name": "RIG_Thigh_R_jnt",
+                "connected_node_type": "joint"
+            }
+        ],
+        "outgoing_connections": [
+            {
+                "attribute_name": "outputMatrix",
+                "data_type": "matrix",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "Controls_Thigh_Twists_R__ParentMatrix.outputMatrix",
+                "exact_destination": "Controls_Thigh_Twists_R_grp.offsetParentMatrix",
+                "connected_node_name": "Controls_Thigh_Twists_R_grp",
+                "connected_node_type": "transform"
+            }
+        ]
+    },
+    "DRV_Thigh_FK_R__MultMatrix": {
+        "node_name": "DRV_Thigh_FK_R__MultMatrix",
+        "node_type": "multMatrix",
+        "connected_attributes": [
+            "matrixSum",
+            "matrixIn[1]"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "matrixIn[1]",
+                "data_type": "unknown",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "CTR_Thigh_R_crv.worldMatrix[0]",
+                "exact_destination": "CTR_Thigh_R_crv.worldMatrix",
+                "connected_node_name": "CTR_Thigh_R_crv",
+                "connected_node_type": "transform"
+            }
+        ],
+        "outgoing_connections": [
+            {
+                "attribute_name": "matrixSum",
+                "data_type": "matrix",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "DRV_Thigh_FK_R__MultMatrix.matrixSum",
+                "exact_destination": "DRV_Thigh_FK_R_jnt.offsetParentMatrix",
+                "connected_node_name": "DRV_Thigh_FK_R_jnt",
+                "connected_node_type": "joint"
+            }
+        ]
+    },
+    "DRV_Leg_FK_R__MultMatrix": {
+        "node_name": "DRV_Leg_FK_R__MultMatrix",
+        "node_type": "multMatrix",
+        "connected_attributes": [
+            "matrixIn[2]"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "matrixIn[2]",
+                "data_type": "unknown",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "CTR_Leg_R_crv.parentInverseMatrix[0]",
+                "exact_destination": "CTR_Leg_R_crv.parentInverseMatrix",
+                "connected_node_name": "CTR_Leg_R_crv",
+                "connected_node_type": "transform"
+            }
+        ],
+        "outgoing_connections": []
+    },
+    "PRN_Leg_FK_IK_R__MultMatrix_FK": {
+        "node_name": "PRN_Leg_FK_IK_R__MultMatrix_FK",
+        "node_type": "multMatrix",
+        "connected_attributes": [
+            "matrixIn[2]",
+            "matrixIn[3]",
+            "matrixSum"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "matrixIn[2]",
+                "data_type": "unknown",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "DRV_Leg_FK_R_jnt.worldMatrix[0]",
+                "exact_destination": "DRV_Leg_FK_R_jnt.worldMatrix",
+                "connected_node_name": "DRV_Leg_FK_R_jnt",
+                "connected_node_type": "joint"
+            },
+            {
+                "attribute_name": "matrixIn[3]",
+                "data_type": "unknown",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "DRV_Thigh_FK_R_jnt.parentInverseMatrix[0]",
+                "exact_destination": "DRV_Thigh_FK_R_jnt.parentInverseMatrix",
+                "connected_node_name": "DRV_Thigh_FK_R_jnt",
+                "connected_node_type": "joint"
+            }
+        ],
+        "outgoing_connections": [
+            {
+                "attribute_name": "matrixSum",
+                "data_type": "matrix",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "PRN_Leg_FK_IK_R__MultMatrix_FK.matrixSum",
+                "exact_destination": "PRN_Leg_FK_IK_R__ParentMatrix.target[0].targetMatrix",
+                "connected_node_name": "PRN_Leg_FK_IK_R__ParentMatrix",
+                "connected_node_type": "parentMatrix"
+            }
+        ]
+    },
+    "PRN_Leg_FK_IK_R__ParentMatrix": {
+        "node_name": "PRN_Leg_FK_IK_R__ParentMatrix",
+        "node_type": "parentMatrix",
+        "connected_attributes": [
+            "outputMatrix",
+            "target[0].targetMatrix",
+            "target[0].weight",
+            "target[1].targetMatrix",
+            "target[1].weight"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "target[0].targetMatrix",
+                "data_type": "unknown",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "PRN_Leg_FK_IK_R__MultMatrix_FK.matrixSum",
+                "exact_destination": "PRN_Leg_FK_IK_R__MultMatrix_FK.matrixSum",
+                "connected_node_name": "PRN_Leg_FK_IK_R__MultMatrix_FK",
+                "connected_node_type": "multMatrix"
+            },
+            {
+                "attribute_name": "target[0].weight",
+                "data_type": "unknown",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "CTR_Leg_R__Properties_SetRange.outValueX",
+                "exact_destination": "CTR_Leg_R__Properties_SetRange.outValueX",
+                "connected_node_name": "CTR_Leg_R__Properties_SetRange",
+                "connected_node_type": "setRange"
+            },
+            {
+                "attribute_name": "target[1].targetMatrix",
+                "data_type": "unknown",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "PRN_Leg_FK_IK_R__MultMatrix_IK.matrixSum",
+                "exact_destination": "PRN_Leg_FK_IK_R__MultMatrix_IK.matrixSum",
+                "connected_node_name": "PRN_Leg_FK_IK_R__MultMatrix_IK",
+                "connected_node_type": "multMatrix"
+            },
+            {
+                "attribute_name": "target[1].weight",
+                "data_type": "unknown",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "CTR_Leg_R__Properties_SetRange.outValueY",
+                "exact_destination": "CTR_Leg_R__Properties_SetRange.outValueY",
+                "connected_node_name": "CTR_Leg_R__Properties_SetRange",
+                "connected_node_type": "setRange"
+            }
+        ],
+        "outgoing_connections": [
+            {
+                "attribute_name": "outputMatrix",
+                "data_type": "matrix",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "PRN_Leg_FK_IK_R__ParentMatrix.outputMatrix",
+                "exact_destination": "PRN_Leg_FK_IK_R_jnt.offsetParentMatrix",
+                "connected_node_name": "PRN_Leg_FK_IK_R_jnt",
+                "connected_node_type": "joint"
+            }
+        ]
+    },
+    "PRN_Leg_FK_IK_R__MultMatrix_IK": {
+        "node_name": "PRN_Leg_FK_IK_R__MultMatrix_IK",
+        "node_type": "multMatrix",
+        "connected_attributes": [
+            "matrixIn[1]",
+            "matrixIn[2]",
+            "matrixSum"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "matrixIn[1]",
+                "data_type": "unknown",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "DRV_Leg_IK_R_jnt.worldMatrix[0]",
+                "exact_destination": "DRV_Leg_IK_R_jnt.worldMatrix",
+                "connected_node_name": "DRV_Leg_IK_R_jnt",
+                "connected_node_type": "joint"
+            },
+            {
+                "attribute_name": "matrixIn[2]",
+                "data_type": "unknown",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "DRV_Leg_IK_R_jnt.parentInverseMatrix[0]",
+                "exact_destination": "DRV_Leg_IK_R_jnt.parentInverseMatrix",
+                "connected_node_name": "DRV_Leg_IK_R_jnt",
+                "connected_node_type": "joint"
+            }
+        ],
+        "outgoing_connections": [
+            {
+                "attribute_name": "matrixSum",
+                "data_type": "matrix",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "PRN_Leg_FK_IK_R__MultMatrix_IK.matrixSum",
+                "exact_destination": "PRN_Leg_FK_IK_R__ParentMatrix.target[1].targetMatrix",
+                "connected_node_name": "PRN_Leg_FK_IK_R__ParentMatrix",
+                "connected_node_type": "parentMatrix"
+            }
+        ]
+    },
+    "DEF_Leg_R__ParentMatrix": {
+        "node_name": "DEF_Leg_R__ParentMatrix",
+        "node_type": "parentMatrix",
+        "connected_attributes": [
+            "outputMatrix",
+            "target[0].targetMatrix"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "target[0].targetMatrix",
+                "data_type": "unknown",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "RIG_Leg_R_jnt.worldMatrix[0]",
+                "exact_destination": "RIG_Leg_R_jnt.worldMatrix",
+                "connected_node_name": "RIG_Leg_R_jnt",
+                "connected_node_type": "joint"
+            }
+        ],
+        "outgoing_connections": [
+            {
+                "attribute_name": "outputMatrix",
+                "data_type": "matrix",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "DEF_Leg_R__ParentMatrix.outputMatrix",
+                "exact_destination": "DEF_Leg_R_jnt.offsetParentMatrix",
+                "connected_node_name": "DEF_Leg_R_jnt",
+                "connected_node_type": "joint"
+            }
+        ]
+    },
+    "DRV_Leg_IK_Pole_R__AimMatrix": {
+        "node_name": "DRV_Leg_IK_Pole_R__AimMatrix",
+        "node_type": "aimMatrix",
+        "connected_attributes": [
+            "inputMatrix",
+            "primaryTargetMatrix",
+            "secondaryTargetMatrix",
+            "outputMatrix"
+        ],
+        "incoming_connections": [
+            {
+                "attribute_name": "inputMatrix",
+                "data_type": "matrix",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "DRV_Leg_IK_Shape_Line_Start_R_jnt.worldMatrix[0]",
+                "exact_destination": "DRV_Leg_IK_Shape_Line_Start_R_jnt.worldMatrix",
+                "connected_node_name": "DRV_Leg_IK_Shape_Line_Start_R_jnt",
+                "connected_node_type": "joint"
+            },
+            {
+                "attribute_name": "primaryTargetMatrix",
+                "data_type": "matrix",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "CTR_Leg_IK_Pole_R_crv.worldMatrix[0]",
+                "exact_destination": "CTR_Leg_IK_Pole_R_crv.worldMatrix",
+                "connected_node_name": "CTR_Leg_IK_Pole_R_crv",
+                "connected_node_type": "transform"
+            },
+            {
+                "attribute_name": "secondaryTargetMatrix",
+                "data_type": "matrix",
+                "is_source": false,
+                "is_destination": true,
+                "exact_source": "CTR_Leg_IK_Pole_R_crv.worldMatrix[0]",
+                "exact_destination": "CTR_Leg_IK_Pole_R_crv.worldMatrix",
+                "connected_node_name": "CTR_Leg_IK_Pole_R_crv",
+                "connected_node_type": "transform"
+            }
+        ],
+        "outgoing_connections": [
+            {
+                "attribute_name": "outputMatrix",
+                "data_type": "matrix",
+                "is_source": true,
+                "is_destination": false,
+                "exact_source": "DRV_Leg_IK_Pole_R__AimMatrix.outputMatrix",
+                "exact_destination": "DRV_Leg_IK_Pole_R__AimMatrix_Decomp.inputMatrix",
+                "connected_node_name": "DRV_Leg_IK_Pole_R__AimMatrix_Decomp",
+                "connected_node_type": "decomposeMatrix"
+            }
+        ]
+    }
+}

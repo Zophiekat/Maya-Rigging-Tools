@@ -1,0 +1,72 @@
+{
+    "summary": {
+        "total_nodes": 15,
+        "node_types": {
+            "parentMatrix": 10,
+            "setRange": 1,
+            "multMatrix": 4
+        }
+    },
+    "nodes": [
+        {
+            "node_name": "PRN_Thigh_FK_IK_L__ParentMatrix",
+            "node_type": "parentMatrix"
+        },
+        {
+            "node_name": "CTR_Leg_L__Properties_SetRange",
+            "node_type": "setRange"
+        },
+        {
+            "node_name": "PRN__Leg__FK_IK_End__L__ParentMatrix",
+            "node_type": "parentMatrix"
+        },
+        {
+            "node_name": "PRN_Leg_FK_IK_L__MultMatrix_IK",
+            "node_type": "multMatrix"
+        },
+        {
+            "node_name": "PRN_Leg_FK_IK_L__MultMatrix_FK",
+            "node_type": "multMatrix"
+        },
+        {
+            "node_name": "DRV_Leg_FK_L__MultMatrix",
+            "node_type": "multMatrix"
+        },
+        {
+            "node_name": "Controls_Thigh_Twists__ParentMatrix",
+            "node_type": "parentMatrix"
+        },
+        {
+            "node_name": "RIG_Leg_L__ParentMatrix",
+            "node_type": "parentMatrix"
+        },
+        {
+            "node_name": "DRV_Thigh_FK_L__MultMatrix",
+            "node_type": "multMatrix"
+        },
+        {
+            "node_name": "Offset_RIG_Leg_L__ParentMatrix",
+            "node_type": "parentMatrix"
+        },
+        {
+            "node_name": "DEF_Leg_L__ParentMatrix",
+            "node_type": "parentMatrix"
+        },
+        {
+            "node_name": "Controls_Leg_Twists_L__ParentMatrix",
+            "node_type": "parentMatrix"
+        },
+        {
+            "node_name": "PRN_Leg_FK_IK_L__ParentMatrix",
+            "node_type": "parentMatrix"
+        },
+        {
+            "node_name": "DEF_Thigh_L__ParentMatrix",
+            "node_type": "parentMatrix"
+        },
+        {
+            "node_name": "RIG_Thigh_L__ParentMatrix",
+            "node_type": "parentMatrix"
+        }
+    ]
+}

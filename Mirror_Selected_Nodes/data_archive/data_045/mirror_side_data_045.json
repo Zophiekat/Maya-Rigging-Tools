@@ -1,0 +1,12 @@
+{
+    "summary": {
+        "total_nodes": 1,
+        "timestamp": null
+    },
+    "mirror_mapping": {
+        "Offset_CTR_Leg_IK_Pole_R_trs": "Offset_CTR_Leg_IK_Pole_L_trs"
+    },
+    "reverse_mapping": {
+        "Offset_CTR_Leg_IK_Pole_L_trs": "Offset_CTR_Leg_IK_Pole_R_trs"
+    }
+}

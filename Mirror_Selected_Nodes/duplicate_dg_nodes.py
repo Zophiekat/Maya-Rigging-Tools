@@ -15,36 +15,45 @@ def duplicate_dg_nodes():
     # Load the necessary JSON data files
     dg_nodes_path = PATHS.get_data_file_path("dg_nodes_data.json")
     node_side_data_path = PATHS.get_data_file_path("node_side_data.json")
-    mirrored_nodes_path = PATHS.get_data_file_path("mirrored_hierarchy_data.json")
+    mirror_side_data_path = PATHS.get_data_file_path("mirror_side_data.json")
     
     if not os.path.exists(dg_nodes_path) or not os.path.exists(node_side_data_path):
         cmds.error("Required JSON data files not found!")
         return False
         
     # Load the data
-    dg_data = load_json_data(dg_nodes_path)
+    dg_nodes_data = load_json_data(dg_nodes_path)
     side_data = load_json_data(node_side_data_path)
     
-    # Load mirrored node data if available
+    # Load mirror side data
     mirrored_node_mapping = {}
-    if os.path.exists(mirrored_nodes_path):
-        print(f"Using mirrored node data from: {mirrored_nodes_path}")
-        mirrored_hierarchy = load_json_data(mirrored_nodes_path)
-        
-        # Get the keys from the mirrored hierarchy - these are our R side node names
-        for r_node_name in mirrored_hierarchy.keys():
-            # Convert back to L side name for the mapping
-            if "_R_" in r_node_name:
-                l_node_name = r_node_name.replace("_R_", "_L_")
-                mirrored_node_mapping[l_node_name] = r_node_name
-            elif "_R" in r_node_name:
-                l_node_name = r_node_name.replace("_R", "_L")
-                mirrored_node_mapping[l_node_name] = r_node_name
+    if os.path.exists(mirror_side_data_path):
+        print(f"🪞 Using mirror side data from: {mirror_side_data_path}")
+        mirror_data = load_json_data(mirror_side_data_path)
+        mirrored_node_mapping = mirror_data.get("mirror_mapping", {})
+    else:
+        cmds.error("❌ Mirror side data not found! Run create_mirror_side_data.py first")
+        return False
     
-    # Extract DG nodes
-    dg_nodes_to_duplicate = []
-    if "nodes" in dg_data:
-        dg_nodes_to_duplicate = [n["node_name"] for n in dg_data["nodes"]]
+    # Extract DG nodes - handle different data structures
+    dg_nodes = []
+    if "dg_nodes" in dg_nodes_data:
+        raw_nodes = dg_nodes_data["dg_nodes"]
+        # Check if it's a list of dictionaries or strings
+        if raw_nodes and isinstance(raw_nodes[0], dict):
+            # Extract node names from dictionaries
+            dg_nodes = [node["node_name"] for node in raw_nodes if "node_name" in node]
+        else:
+            # It's already a list of strings
+            dg_nodes = raw_nodes
+    elif "nodes" in dg_nodes_data:
+        raw_nodes = dg_nodes_data["nodes"]
+        if raw_nodes and isinstance(raw_nodes[0], dict):
+            dg_nodes = [node["node_name"] for node in raw_nodes if "node_name" in node]
+        else:
+            dg_nodes = raw_nodes
+    
+    print(f"☘️ Found {len(dg_nodes)} DG nodes to process")
     
     # Extract left side nodes from node_side_data for quick lookup
     left_nodes = {}
@@ -67,144 +76,120 @@ def duplicate_dg_nodes():
     duplicate_results = {
         "success_count": 0,
         "error_count": 0,
+        "skipped_count": 0,
         "duplicated_nodes": []
     }
     
-    # Process each DG node individually
-    for node in dg_nodes_to_duplicate:
+    # Store the current selection to restore later
+    original_selection = cmds.ls(selection=True)
+    
+    # Process each DG node
+    for node in dg_nodes:
         # Check if the node exists
         if not cmds.objExists(node):
-            print(f"Warning: Node {node} does not exist in the scene, skipping")
+            print(f"ERROR: Node {node} does not exist in the scene, skipping")
             duplicate_results["error_count"] += 1
             continue
         
         # Check if it's a left side node
         if node not in left_nodes:
-            print(f"Node {node} is not identified as a left side node, skipping")
+            print(f"💤 Skipping: {node} is not identified as a left side node")
+            duplicate_results["skipped_count"] += 1
             continue
         
-        # Get the new name from the mirrored mapping if available, otherwise use pattern replacement
-        if node in mirrored_node_mapping:
-            new_name = mirrored_node_mapping[node]
-            print(f"Using mirrored node mapping: {node} → {new_name}")
-        else:
-            # Fall back to pattern replacement
-            pattern = left_nodes[node]
-            if pattern == "_L":
-                new_name = node.replace("_L", "_R")
-            else:  # pattern is "_L_"
-                new_name = node.replace("_L_", "_R_")
-            print(f"No mapping found, using pattern replacement: {node} → {new_name}")
+        # Check if we have a mirror mapping for this node
+        if node not in mirrored_node_mapping:
+            print(f"❌ ERROR: No mirror mapping found for {node}, skipping")
+            duplicate_results["error_count"] += 1
+            continue
         
-        # If the node already exists, delete it first
+        # Get the new name from the mirrored mapping
+        new_name = mirrored_node_mapping[node]
+        
+        # Check if the node already exists
         if cmds.objExists(new_name):
-            print(f"Node {new_name} already exists - deleting first")
-            try:
-                cmds.delete(new_name)
-            except Exception as e:
-                print(f"Error deleting existing node {new_name}: {str(e)}")
-                duplicate_results["error_count"] += 1
-                continue
+            print(f"Node {new_name} already exists, skipping")
+            duplicate_results["skipped_count"] += 1
+            continue
         
-        # Add to input set before duplication
+        print(f"🪞 Using mirror side mapping: {node} → {new_name}")
+        
+        # Try to duplicate the node
         try:
-            cmds.sets(node, add="mirror_input")
-        except Exception as e:
-            print(f"Warning: Could not add {node} to mirror_input set: {str(e)}")
-        
-        # Get the node type for reference
-        node_type = cmds.nodeType(node)
-        
-        try:
-            # Use direct duplication with the -rr flag (do not retain references)
-            # This will create a duplicate without maintaining connections
+            # Get the node type
+            node_type = cmds.nodeType(node)
+            
+            # Clear selection first
+            cmds.select(clear=True)
+            
+            # Select the DG node
             cmds.select(node, replace=True)
+            
+            # Verify selection
+            selected_nodes = cmds.ls(selection=True)
+            if not selected_nodes:
+                raise RuntimeError(f"❌ Failed to select node {node}")
+            
+            print(f"🖱️ Selected Node: {selected_nodes[0]}")
+            
+            # Duplicate the node with all the important flags
+            # For DG nodes, we need to select them first
             duplicated_nodes = cmds.duplicate(
-                node,
-                name=new_name,
-                parentOnly=True,
-                upstreamNodes=False,
-                inputConnections=False,
-                returnRootsOnly=True
-                )
+                upstreamNodes=False,  # Don't duplicate upstream nodes
+                inputConnections=False,  # Don't maintain input connections
+                renameChildren=False  # Don't rename children
+            )
+            
+            if not duplicated_nodes:
+                raise RuntimeError("❌ Duplicate command returned no results")
+            else:
+                print(f"🐑 Duplicated Node: {duplicated_nodes}")
+            
             duplicated = duplicated_nodes[0]
             
-            # Rename the duplicated node
-            duplicated = cmds.rename(duplicated, new_name)
-            print(f"Duplicated {node_type} node: {node} to {duplicated}")
+            # Rename to the desired name
+            if duplicated != new_name:
+                duplicated = cmds.rename(duplicated, new_name)
             
-            # Verify the result
-            if not cmds.objExists(duplicated):
-                print(f"Error: Failed to create {duplicated}")
-                duplicate_results["error_count"] += 1
-                continue
+            print(f"🐑 Duplicated DG node: {node} → {duplicated} (type: {node_type})")
             
-            # Add to output set
+            # Add original node to mirror_input set
+            try:
+                cmds.sets(node, add="mirror_input")
+                print(f"  ✅ Added {node} to mirror_input set")
+            except Exception as e:
+                print(f"  ⚠️ Warning: Could not add {node} to mirror_input set: {str(e)}")
+            
+            # Add duplicated node to mirror_output set
             try:
                 cmds.sets(duplicated, add="mirror_output")
+                print(f"  ✅ Added {duplicated} to mirror_output set")
             except Exception as e:
-                print(f"Warning: Could not add {duplicated} to mirror_output set: {str(e)}")
+                print(f"  ⚠️ Warning: Could not add {duplicated} to mirror_output set: {str(e)}")
             
             duplicate_results["success_count"] += 1
             duplicate_results["duplicated_nodes"].append({
                 "source": node,
-                "duplicate": duplicated
+                "duplicate": duplicated,
+                "node_type": node_type
             })
             
         except Exception as e:
-            print(f"Error duplicating {node}: {str(e)}")
+            print(f"ERROR: Failed to duplicate DG node {node}: {str(e)}")
             duplicate_results["error_count"] += 1
-            
-            # If direct duplication failed, fall back to createNode as a last resort
-            try:
-                print(f"Attempting fallback method for {node}...")
-                duplicated = cmds.createNode(node_type, name=new_name)
-                
-                # Copy attributes
-                attrs = cmds.listAttr(node, keyable=True) or []
-                attrs.extend(cmds.listAttr(node, keyable=False, settable=True) or [])
-                
-                for attr in attrs:
-                    if attr not in ["message"]:
-                        if (cmds.attributeQuery(attr, node=node, exists=True) and 
-                            cmds.attributeQuery(attr, node=duplicated, exists=True)):
-                            try:
-                                value = cmds.getAttr(f"{node}.{attr}")
-                                cmds.setAttr(f"{duplicated}.{attr}", value)
-                            except:
-                                pass
-                
-                print(f"Created new {node_type} node: {duplicated}")
-                
-                # Add to output set
-                try:
-                    cmds.sets(duplicated, add="mirror_output")
-                except Exception as fallback_error:
-                    print(f"Warning: Could not add {duplicated} to mirror_output set: {str(fallback_error)}")
-                
-                duplicate_results["success_count"] += 1
-                duplicate_results["duplicated_nodes"].append({
-                    "source": node,
-                    "duplicate": duplicated,
-                    "method": "fallback_createNode"
-                })
-                
-            except Exception as fallback_error:
-                print(f"Fallback method also failed for {node}: {str(fallback_error)}")
-                duplicate_results["error_count"] += 1
     
     # Print summary
     print(f"\nDG Node Duplication Summary:")
-    print(f"- Nodes processed: {len(dg_nodes_to_duplicate)}")
+    print(f"- Nodes processed: {len(dg_nodes)}")
     print(f"- Successfully duplicated: {duplicate_results['success_count']}")
+    print(f"- Skipped (not L-side or already exists): {duplicate_results['skipped_count']}")
     print(f"- Errors: {duplicate_results['error_count']}")
     
     return duplicate_results
 
 def run():
-    """Run the DG nodes duplication process."""
+    """Run the DG node duplication process."""
     return duplicate_dg_nodes()
 
-# Only run this code if the script is executed directly (not imported)
 if __name__ == "__main__":
     run()

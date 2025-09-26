@@ -11,24 +11,24 @@ def load_json_data(file_path):
         return json.load(file)
 
 def duplicate_dag_nodes_without_shapes():
-    """Duplicate DAG nodes without shapes from L to R side."""
+    """Duplicate DAG nodes that have no shape nodes from L to R side."""
     # Load the necessary JSON data files
-    dag_nodes_without_shapes_path = PATHS.get_data_file_path("dag_nodes_without_shapes_data.json")
+    nodes_without_shapes_path = PATHS.get_data_file_path("dag_nodes_without_shapes_data.json")
     node_side_data_path = PATHS.get_data_file_path("node_side_data.json")
     mirrored_nodes_path = PATHS.get_data_file_path("mirrored_hierarchy_data.json")
     
-    if not os.path.exists(dag_nodes_without_shapes_path) or not os.path.exists(node_side_data_path):
-        cmds.error("Required JSON data files not found!")
+    if not os.path.exists(nodes_without_shapes_path) or not os.path.exists(node_side_data_path):
+        cmds.error("❌ Required JSON data files not found!")
         return False
         
     # Load the data
-    dag_data = load_json_data(dag_nodes_without_shapes_path)
+    nodes_data = load_json_data(nodes_without_shapes_path)
     side_data = load_json_data(node_side_data_path)
     
     # Load mirrored node data if available
     mirrored_node_mapping = {}
     if os.path.exists(mirrored_nodes_path):
-        print(f"Using mirrored node data from: {mirrored_nodes_path}")
+        print(f"🪞 Using mirrored node data from: {mirrored_nodes_path}")
         mirrored_hierarchy = load_json_data(mirrored_nodes_path)
         
         # Get the keys from the mirrored hierarchy - these are our R side node names
@@ -41,10 +41,10 @@ def duplicate_dag_nodes_without_shapes():
                 l_node_name = r_node_name.replace("_R", "_L")
                 mirrored_node_mapping[l_node_name] = r_node_name
     
-    # Extract the list of node names
+    # Extract nodes
     nodes_to_duplicate = []
-    if "nodes" in dag_data:
-        nodes_to_duplicate = [node["node_name"] for node in dag_data["nodes"]]
+    if "nodes" in nodes_data:
+        nodes_to_duplicate = [n["node_name"] for n in nodes_data["nodes"]]
     
     # Extract left side nodes from node_side_data for quick lookup
     left_nodes = {}
@@ -67,89 +67,118 @@ def duplicate_dag_nodes_without_shapes():
     duplicate_results = {
         "success_count": 0,
         "error_count": 0,
+        "skipped_count": 0,
+        "already_exists": 0,
         "duplicated_nodes": []
     }
     
+    # Track what we've already duplicated to avoid duplicates
+    already_duplicated = set()
+    
     # Process each node individually
     for node in nodes_to_duplicate:
+        # Skip if already processed
+        if node in already_duplicated:
+            print(f"💤 Skipping {node} - already processed")
+            continue
+            
         # Check if the node exists
         if not cmds.objExists(node):
-            print(f"Warning: Node {node} does not exist in the scene, skipping")
+            print(f"❌ ERROR: Node {node} does not exist in the scene, skipping")
             duplicate_results["error_count"] += 1
             continue
         
         # Check if it's a left side node
         if node not in left_nodes:
-            print(f"Node {node} is not identified as a left side node, skipping")
+            print(f"💤 Skipping: {node} is not identified as a left side node")
+            duplicate_results["skipped_count"] += 1
             continue
         
-        # Get the new name from the mirrored mapping if available, otherwise use pattern replacement
-        if node in mirrored_node_mapping:
-            new_name = mirrored_node_mapping[node]
-            print(f"Using mirrored node mapping: {node} → {new_name}")
-        else:
-            # Fall back to pattern replacement
-            pattern = left_nodes[node]
-            if pattern == "_L":
-                new_name = node.replace("_L", "_R")
-            else:  # pattern is "_L_"
-                new_name = node.replace("_L_", "_R_")
-            print(f"No mapping found, using pattern replacement: {node} → {new_name}")
+        # Check if we have a mirror mapping for this node
+        if node not in mirrored_node_mapping:
+            print(f"❌ ERROR: No mirror mapping found for {node}, skipping")
+            duplicate_results["error_count"] += 1
+            continue
         
-        # If the node already exists, delete it first
+        # Get the new name from the mirrored mapping
+        new_name = mirrored_node_mapping[node]
+        
+        # Check if the target already exists
         if cmds.objExists(new_name):
-            print(f"Node {new_name} already exists - deleting first")
-            try:
-                cmds.delete(new_name)
-            except Exception as e:
-                print(f"Error deleting existing node {new_name}: {str(e)}")
-                continue
+            print(f"💤 Node {new_name} already exists, skipping duplication of {node}")
+            duplicate_results["already_exists"] += 1
+            already_duplicated.add(node)
+            continue
+            
+        print(f"🪞 Using mirrored node mapping: {node} → {new_name}")
         
-        # Add to input set before duplication
-        cmds.sets(node, add="mirror_input")
-        
-        # Store parent for reference (not used for parenting)
-        parent = cmds.listRelatives(node, parent=True)
-        parent_path = parent[0] if parent else None
-        
-        # Duplicate the node
+        # Try to duplicate the node WITHOUT its children
         try:
-            duplicated = cmds.duplicate(node, name=new_name, parentOnly=True)[0]
-            print(f"Duplicated {node} to {duplicated}")
+            # Clear selection first
+            cmds.select(clear=True)
             
-            # Verify the result
-            if not cmds.objExists(duplicated):
-                print(f"Error: Failed to create {duplicated}")
-                duplicate_results["error_count"] += 1
-                continue
+            # Select the node
+            cmds.select(node, replace=True)
             
-            # Remove from all object sets
-            all_sets = cmds.listSets(object=duplicated) or []
-            for obj_set in all_sets:
-                try:
-                    cmds.sets(duplicated, remove=obj_set)
-                    print(f"  Removed {duplicated} from set: {obj_set}")
-                except Exception as e:
-                    print(f"  Error removing from set {obj_set}: {str(e)}")
+            # Duplicate WITHOUT children using parentOnly flag
+            # This prevents duplicating the entire hierarchy
+            result = cmds.duplicate(parentOnly=True, name=new_name)
             
-            # Add to output set
-            cmds.sets(duplicated, add="mirror_output")
+            if not result or len(result) == 0:
+                raise RuntimeError(f"Duplicate command returned empty result")
+            
+            duplicated = result[0]
+            
+            # Ensure we have the exact name we want
+            if duplicated != new_name:
+                duplicated = cmds.rename(duplicated, new_name)
+            
+            print(f"🐑 Duplicated {node} to {duplicated}")
+            already_duplicated.add(node)
+            
+            # Add original node to mirror_input set
+            try:
+                cmds.sets(node, add="mirror_input")
+                print(f"  ✅ Added {node} to mirror_input set")
+            except Exception as e:
+                print(f"  ⚠️ Warning: Could not add {node} to mirror_input set: {str(e)}")
+            
+            # Handle set membership - Remove from L-side sets
+            sets_to_check = cmds.listSets(object=duplicated) or []
+            for set_name in sets_to_check:
+                if set_name in ["NodeGroup_Leg_L", "QS_Joints_DEF_Leg_L", "NodeGroup_Foot_L", "mirror_input"]:
+                    try:
+                        cmds.sets(duplicated, remove=set_name)
+                        print(f"🧼 Removed {duplicated} from set: {set_name}")
+                    except:
+                        pass
+            
+            # Add to mirror_output set
+            try:
+                cmds.sets(duplicated, add="mirror_output")
+            except Exception as e:
+                print(f"❌ Warning: Could not add {duplicated} to mirror_output set: {str(e)}")
             
             duplicate_results["success_count"] += 1
             duplicate_results["duplicated_nodes"].append({
                 "source": node,
                 "duplicate": duplicated,
-                "original_parent": parent_path
+                "node_type": cmds.nodeType(duplicated)
             })
             
         except Exception as e:
-            print(f"Error duplicating {node}: {str(e)}")
+            print(f"❌ ERROR: Failed to duplicate {node}: {str(e)}")
             duplicate_results["error_count"] += 1
     
+    # Clear selection after processing
+    cmds.select(clear=True)
+    
     # Print summary
-    print(f"\nDuplication Summary:")
+    print(f"\nDAG Nodes Without Shapes Duplication Summary:")
     print(f"- Nodes processed: {len(nodes_to_duplicate)}")
     print(f"- Successfully duplicated: {duplicate_results['success_count']}")
+    print(f"- Already existed: {duplicate_results['already_exists']}")
+    print(f"- Skipped (not L-side): {duplicate_results['skipped_count']}")
     print(f"- Errors: {duplicate_results['error_count']}")
     
     return duplicate_results
@@ -158,6 +187,5 @@ def run():
     """Run the DAG nodes without shapes duplication process."""
     return duplicate_dag_nodes_without_shapes()
 
-# Only run this code if the script is executed directly (not imported)
 if __name__ == "__main__":
     run()

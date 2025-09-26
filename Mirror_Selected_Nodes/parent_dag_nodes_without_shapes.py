@@ -17,15 +17,14 @@ def parent_dag_nodes_without_shapes():
     dag_nodes_path = PATHS.get_data_file_path("dag_nodes_without_shapes_data.json")
     
     if not os.path.exists(mirrored_hierarchy_path) or not os.path.exists(dag_nodes_path):
-        cmds.error("Required JSON data files not found!")
+        cmds.error("❌ Required JSON data files not found!")
         return False
     
     # Load the data
     mirrored_hierarchy_data = load_json_data(mirrored_hierarchy_path)
     dag_nodes_data = load_json_data(dag_nodes_path)
     
-    # Print some debug info about the hierarchy data
-    print(f"Mirrored hierarchy data contains {len(mirrored_hierarchy_data)} nodes")
+    print(f"🪞 Mirrored hierarchy data contains {len(mirrored_hierarchy_data)} nodes")
     
     # Extract R side nodes from our dag_nodes data
     r_side_nodes = []
@@ -41,7 +40,7 @@ def parent_dag_nodes_without_shapes():
             if cmds.objExists(r_node):
                 r_side_nodes.append(r_node)
     
-    print(f"Found {len(r_side_nodes)} R-side nodes to process for parenting")
+    print(f"☘️ Found {len(r_side_nodes)} R-side nodes to process for parenting")
     
     # Track results
     parenting_results = {
@@ -55,32 +54,40 @@ def parent_dag_nodes_without_shapes():
     for r_node in r_side_nodes:
         # Find the parent directly from mirrored hierarchy data
         if r_node not in mirrored_hierarchy_data:
-            print(f"Node {r_node} not found in mirrored hierarchy data, skipping")
+            print(f"❓ Node {r_node} not found in mirrored hierarchy data, skipping")
             parenting_results["skipped_count"] += 1
             continue
         
-        # Get parent from the mirrored hierarchy
-        r_parent = mirrored_hierarchy_data[r_node].get("parent")
+        # Get parent from the mirrored hierarchy - safely handle different data structures
+        node_data = mirrored_hierarchy_data[r_node]
+        r_parent = None
+        
+        if isinstance(node_data, dict) and "parent" in node_data:
+            r_parent = node_data["parent"]
+        else:
+            print(f"❌ Cannot determine parent for {r_node}, unexpected data structure")
+            parenting_results["skipped_count"] += 1
+            continue
         
         if not r_parent:
-            print(f"Node {r_node} has no parent in mirrored hierarchy (it's a root node), skipping")
+            print(f"❓ Node {r_node} has no parent in mirrored hierarchy (it's a root node), skipping")
             parenting_results["skipped_count"] += 1
             continue
         
         # Check if both the node and parent exist in the scene
         if not cmds.objExists(r_node):
-            print(f"R side node {r_node} does not exist in scene, skipping")
+            print(f"❌ R side node {r_node} does not exist in scene, skipping")
             parenting_results["error_count"] += 1
             continue
             
         if not cmds.objExists(r_parent):
-            print(f"R side parent {r_parent} does not exist in scene, skipping {r_node}")
+            print(f"❌ R side parent {r_parent} does not exist in scene, skipping {r_node}")
             parenting_results["error_count"] += 1
             continue
         
         # Perform the parenting
         try:
-            print(f"Parenting {r_node} to {r_parent}")
+            print(f"👭 Parenting {r_node} to {r_parent}")
             cmds.parent(r_node, r_parent)
             parenting_results["success_count"] += 1
             parenting_results["parented_nodes"].append({
@@ -88,7 +95,7 @@ def parent_dag_nodes_without_shapes():
                 "parent": r_parent
             })
         except Exception as e:
-            print(f"Error parenting {r_node} to {r_parent}: {str(e)}")
+            print(f"❌ Error parenting {r_node} to {r_parent}: {str(e)}")
             parenting_results["error_count"] += 1
     
     # Print summary

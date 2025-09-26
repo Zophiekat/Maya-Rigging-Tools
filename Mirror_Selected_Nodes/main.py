@@ -42,16 +42,22 @@ importlib.reload(store_hierarchy_data)
 import create_mirror_hierarchy_data
 importlib.reload(create_mirror_hierarchy_data)
 #
+import create_mirror_side_data  # Add the new mirror node data module
+importlib.reload(create_mirror_side_data)
+#
 import store_connection_data
 importlib.reload(store_connection_data)
 #
 import create_mirror_connection_data
 importlib.reload(create_mirror_connection_data)
 #
+import connect_mirror_attributes  # Add the new connection module
+importlib.reload(connect_mirror_attributes)
+#
 import filter_utils
 importlib.reload(filter_utils)
 #
-import mirror_selected_nodes
+import mirror_selected_nodes as mirror_selected_nodes
 importlib.reload(mirror_selected_nodes)
 
 
@@ -110,7 +116,11 @@ def run_mirror_tool():
     
     # Create mirrored hierarchy data
     print("Creating mirrored hierarchy data...")
-    create_mirror_hierarchy_data.run()  # Call the new module here
+    create_mirror_hierarchy_data.run()
+    
+    # Create mirror node mapping data (L→R mappings)
+    print("Creating mirror node mapping data...")
+    create_mirror_side_data.run()
     
     # Store connection data
     print("Storing connection data...")
@@ -120,19 +130,17 @@ def run_mirror_tool():
         connection_data_path
     )
     
-    # After these lines:
-    connection_data_path = PATHS.get_data_file_path("connection_data.json")
-    store_connection_data.save_connections_to_json(
-        all_selected_nodes, 
-        connection_data_path
-    )
-
+    # Create mirrored connection data
     print("Creating mirrored connection data...")
     create_mirror_connection_data.run()
 
-    # Run the mirroring process
+    # Run the mirroring process (duplicate nodes, parent them, etc.)
     print("Running mirror operation...")
     result = mirror_selected_nodes.run()
+    
+    # Connect the mirrored nodes' attributes
+    print("\nConnecting mirrored attributes...")
+    connection_result = connect_mirror_attributes.run()
 
     print("=== MIRRORING COMPLETE ===\n")
     return result
