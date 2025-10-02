@@ -1,0 +1,40 @@
+{
+    "templates": [
+        {
+            "name": "Component Info Attributes",
+            "description": "wiwiwi",
+            "connections": [
+                {
+                    "source_attribute": "Component_Name",
+                    "target_attribute": "Component_Name"
+                },
+                {
+                    "source_attribute": "Component_Type",
+                    "target_attribute": "Component_Type"
+                },
+                {
+                    "source_attribute": "Component_Side",
+                    "target_attribute": "Component_Side"
+                }
+            ]
+        },
+        {
+            "name": "Component Position Shape Attributes",
+            "description": "uwawa",
+            "connections": [
+                {
+                    "source_attribute": "Line_Width_Circle",
+                    "target_attribute": "lineWidth"
+                },
+                {
+                    "source_attribute": "Line_Width_Outline",
+                    "target_attribute": "lineWidth"
+                },
+                {
+                    "source_attribute": "Line_Width_Axes",
+                    "target_attribute": "lineWidth"
+                }
+            ]
+        }
+    ]
+}

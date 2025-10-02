@@ -1,0 +1,59 @@
+[
+    {
+        "transform_name": "CTR_Properties_Leg_L_crv",
+        "shape_nodes": [
+            "|Rig|Controls_grp|Controls_Leg_L_grp|Properties_Leg_L_grp|CTR_Properties_Leg_L_crv|CTR_Properties_Leg_L_crvShape",
+            "|Rig|Controls_grp|Controls_Leg_L_grp|Properties_Leg_L_grp|CTR_Properties_Leg_L_crv|CTR_Properties_Leg_L_crvShape1",
+            "|Rig|Controls_grp|Controls_Leg_L_grp|Properties_Leg_L_grp|CTR_Properties_Leg_L_crv|CTR_Properties_Leg_L_crvShape2"
+        ]
+    },
+    {
+        "transform_name": "CTR_Thigh_Twist_01_L_crv",
+        "shape_nodes": [
+            "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Thigh_Twists_L_grp|Offset_RIG_Thigh_Twist_01_L_trs|CTR_Thigh_Twist_01_L_crv|CTR_Thigh_Twist_01_L_crvShape"
+        ]
+    },
+    {
+        "transform_name": "CTR_Thigh_Twist_02_L_crv",
+        "shape_nodes": [
+            "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Thigh_Twists_L_grp|Offset_RIG_Thigh_Twist_02_L_trs|CTR_Thigh_Twist_02_L_crv|CTR_Thigh_Twist_02_L_crvShape"
+        ]
+    },
+    {
+        "transform_name": "CTR_Leg_Twist_01_L_crv",
+        "shape_nodes": [
+            "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Leg_Twists_L_grp|Offset_RIG_Leg_Twist_01_L_trs|CTR_Leg_Twist_01_L_crv|CTR_Leg_Twist_01_L_crvShape"
+        ]
+    },
+    {
+        "transform_name": "CTR_Leg_Twist_02_L_crv",
+        "shape_nodes": [
+            "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Leg_Twists_L_grp|Offset_RIG_Leg_Twist_02_L_trs|CTR_Leg_Twist_02_L_crv|CTR_Leg_Twist_02_L_crvShape"
+        ]
+    },
+    {
+        "transform_name": "CTR_Thigh_L_crv",
+        "shape_nodes": [
+            "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Leg_FK_L_grp|Offset_RIG_Thigh_L_trs|CTR_Thigh_L_crv|CTR_Thigh_L_crvShape"
+        ]
+    },
+    {
+        "transform_name": "CTR_Leg_L_crv",
+        "shape_nodes": [
+            "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Leg_FK_L_grp|Offset_RIG_Leg_L_trs|CTR_Leg_L_crv|CTR_Leg_L_crvShape"
+        ]
+    },
+    {
+        "transform_name": "CTR_Leg_IK_L_crv",
+        "shape_nodes": [
+            "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Leg_IK_L_grp|Offset_CTR_Leg_IK_L_trs|CTR_Leg_IK_L_crv|CTR_Leg_IK_L_crvShape"
+        ]
+    },
+    {
+        "transform_name": "CTR_Leg_IK_Pole_L_crv",
+        "shape_nodes": [
+            "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Leg_IK_L_grp|Offset_CTR_Leg_IK_Pole_L_trs|CTR_Leg_IK_Pole_L_crv|CTR_Leg_K_Pole_L_crvShape",
+            "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Leg_IK_L_grp|Offset_CTR_Leg_IK_Pole_L_trs|CTR_Leg_IK_Pole_L_crv|CTR_Leg_IK_Pole_L_crvShapeOrig"
+        ]
+    }
+]

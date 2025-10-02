@@ -1,0 +1,745 @@
+{
+    "summary": {
+        "total_selected": 78,
+        "filtered_nodes": 78,
+        "dag_nodes": 62,
+        "non_dag_nodes": 17,
+        "ignored_nodes": 0
+    },
+    "dag_nodes": {
+        "RIG_Thigh_Twist_02_L_jnt": {
+            "node_name": "RIG_Thigh_Twist_02_L_jnt",
+            "node_type": "joint",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Thigh_Twists_L_grp|Offset_RIG_Thigh_Twist_02_L_trs|CTR_Thigh_Twist_02_L_crv|RIG_Thigh_Twist_02_L_jnt",
+            "short_name": "RIG_Thigh_Twist_02_L_jnt",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "Controls_Leg_L_grp": {
+            "node_name": "Controls_Leg_L_grp",
+            "node_type": "transform",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp",
+            "short_name": "Controls_Leg_L_grp",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "Properties_Leg_L_grp": {
+            "node_name": "Properties_Leg_L_grp",
+            "node_type": "transform",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Properties_Leg_L_grp",
+            "short_name": "Properties_Leg_L_grp",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "CTR_Properties_Leg_L_crv": {
+            "node_name": "CTR_Properties_Leg_L_crv",
+            "node_type": "transform",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Properties_Leg_L_grp|CTR_Properties_Leg_L_crv",
+            "short_name": "CTR_Properties_Leg_L_crv",
+            "shape_nodes": [
+                "|Rig|Controls_grp|Controls_Leg_L_grp|Properties_Leg_L_grp|CTR_Properties_Leg_L_crv|CTR_Properties_Leg_L_crvShape",
+                "|Rig|Controls_grp|Controls_Leg_L_grp|Properties_Leg_L_grp|CTR_Properties_Leg_L_crv|CTR_Properties_Leg_L_crvShape1",
+                "|Rig|Controls_grp|Controls_Leg_L_grp|Properties_Leg_L_grp|CTR_Properties_Leg_L_crv|CTR_Properties_Leg_L_crvShape2"
+            ],
+            "shape_count": 3
+        },
+        "CTR_Properties_Leg_L_crvShape": {
+            "node_name": "CTR_Properties_Leg_L_crvShape",
+            "node_type": "nurbsCurve",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Properties_Leg_L_grp|CTR_Properties_Leg_L_crv|CTR_Properties_Leg_L_crvShape",
+            "short_name": "CTR_Properties_Leg_L_crvShape",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "CTR_Properties_Leg_L_crvShape1": {
+            "node_name": "CTR_Properties_Leg_L_crvShape1",
+            "node_type": "nurbsCurve",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Properties_Leg_L_grp|CTR_Properties_Leg_L_crv|CTR_Properties_Leg_L_crvShape1",
+            "short_name": "CTR_Properties_Leg_L_crvShape1",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "CTR_Properties_Leg_L_crvShape2": {
+            "node_name": "CTR_Properties_Leg_L_crvShape2",
+            "node_type": "nurbsCurve",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Properties_Leg_L_grp|CTR_Properties_Leg_L_crv|CTR_Properties_Leg_L_crvShape2",
+            "short_name": "CTR_Properties_Leg_L_crvShape2",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "Controls_Thigh_Twists_L_grp": {
+            "node_name": "Controls_Thigh_Twists_L_grp",
+            "node_type": "transform",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Thigh_Twists_L_grp",
+            "short_name": "Controls_Thigh_Twists_L_grp",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "Offset_RIG_Thigh_Twist_01_L_trs": {
+            "node_name": "Offset_RIG_Thigh_Twist_01_L_trs",
+            "node_type": "transform",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Thigh_Twists_L_grp|Offset_RIG_Thigh_Twist_01_L_trs",
+            "short_name": "Offset_RIG_Thigh_Twist_01_L_trs",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "CTR_Thigh_Twist_01_L_crv": {
+            "node_name": "CTR_Thigh_Twist_01_L_crv",
+            "node_type": "transform",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Thigh_Twists_L_grp|Offset_RIG_Thigh_Twist_01_L_trs|CTR_Thigh_Twist_01_L_crv",
+            "short_name": "CTR_Thigh_Twist_01_L_crv",
+            "shape_nodes": [
+                "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Thigh_Twists_L_grp|Offset_RIG_Thigh_Twist_01_L_trs|CTR_Thigh_Twist_01_L_crv|CTR_Thigh_Twist_01_L_crvShape"
+            ],
+            "shape_count": 1
+        },
+        "CTR_Thigh_Twist_01_L_crvShape": {
+            "node_name": "CTR_Thigh_Twist_01_L_crvShape",
+            "node_type": "nurbsCurve",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Thigh_Twists_L_grp|Offset_RIG_Thigh_Twist_01_L_trs|CTR_Thigh_Twist_01_L_crv|CTR_Thigh_Twist_01_L_crvShape",
+            "short_name": "CTR_Thigh_Twist_01_L_crvShape",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "RIG_Thigh_Twist_01_L_jnt": {
+            "node_name": "RIG_Thigh_Twist_01_L_jnt",
+            "node_type": "joint",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Thigh_Twists_L_grp|Offset_RIG_Thigh_Twist_01_L_trs|CTR_Thigh_Twist_01_L_crv|RIG_Thigh_Twist_01_L_jnt",
+            "short_name": "RIG_Thigh_Twist_01_L_jnt",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "Offset_RIG_Thigh_Twist_02_L_trs": {
+            "node_name": "Offset_RIG_Thigh_Twist_02_L_trs",
+            "node_type": "transform",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Thigh_Twists_L_grp|Offset_RIG_Thigh_Twist_02_L_trs",
+            "short_name": "Offset_RIG_Thigh_Twist_02_L_trs",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "CTR_Thigh_Twist_02_L_crv": {
+            "node_name": "CTR_Thigh_Twist_02_L_crv",
+            "node_type": "transform",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Thigh_Twists_L_grp|Offset_RIG_Thigh_Twist_02_L_trs|CTR_Thigh_Twist_02_L_crv",
+            "short_name": "CTR_Thigh_Twist_02_L_crv",
+            "shape_nodes": [
+                "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Thigh_Twists_L_grp|Offset_RIG_Thigh_Twist_02_L_trs|CTR_Thigh_Twist_02_L_crv|CTR_Thigh_Twist_02_L_crvShape"
+            ],
+            "shape_count": 1
+        },
+        "CTR_Thigh_Twist_02_L_crvShape": {
+            "node_name": "CTR_Thigh_Twist_02_L_crvShape",
+            "node_type": "nurbsCurve",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Thigh_Twists_L_grp|Offset_RIG_Thigh_Twist_02_L_trs|CTR_Thigh_Twist_02_L_crv|CTR_Thigh_Twist_02_L_crvShape",
+            "short_name": "CTR_Thigh_Twist_02_L_crvShape",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "Controls_Leg_Twists_L_grp": {
+            "node_name": "Controls_Leg_Twists_L_grp",
+            "node_type": "transform",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Leg_Twists_L_grp",
+            "short_name": "Controls_Leg_Twists_L_grp",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "Offset_RIG_Leg_Twist_01_L_trs": {
+            "node_name": "Offset_RIG_Leg_Twist_01_L_trs",
+            "node_type": "transform",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Leg_Twists_L_grp|Offset_RIG_Leg_Twist_01_L_trs",
+            "short_name": "Offset_RIG_Leg_Twist_01_L_trs",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "CTR_Leg_Twist_01_L_crv": {
+            "node_name": "CTR_Leg_Twist_01_L_crv",
+            "node_type": "transform",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Leg_Twists_L_grp|Offset_RIG_Leg_Twist_01_L_trs|CTR_Leg_Twist_01_L_crv",
+            "short_name": "CTR_Leg_Twist_01_L_crv",
+            "shape_nodes": [
+                "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Leg_Twists_L_grp|Offset_RIG_Leg_Twist_01_L_trs|CTR_Leg_Twist_01_L_crv|CTR_Leg_Twist_01_L_crvShape"
+            ],
+            "shape_count": 1
+        },
+        "CTR_Leg_Twist_01_L_crvShape": {
+            "node_name": "CTR_Leg_Twist_01_L_crvShape",
+            "node_type": "nurbsCurve",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Leg_Twists_L_grp|Offset_RIG_Leg_Twist_01_L_trs|CTR_Leg_Twist_01_L_crv|CTR_Leg_Twist_01_L_crvShape",
+            "short_name": "CTR_Leg_Twist_01_L_crvShape",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "RIG_Leg_Twist_01_L_jnt": {
+            "node_name": "RIG_Leg_Twist_01_L_jnt",
+            "node_type": "joint",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Leg_Twists_L_grp|Offset_RIG_Leg_Twist_01_L_trs|CTR_Leg_Twist_01_L_crv|RIG_Leg_Twist_01_L_jnt",
+            "short_name": "RIG_Leg_Twist_01_L_jnt",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "Offset_RIG_Leg_Twist_02_L_trs": {
+            "node_name": "Offset_RIG_Leg_Twist_02_L_trs",
+            "node_type": "transform",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Leg_Twists_L_grp|Offset_RIG_Leg_Twist_02_L_trs",
+            "short_name": "Offset_RIG_Leg_Twist_02_L_trs",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "CTR_Leg_Twist_02_L_crv": {
+            "node_name": "CTR_Leg_Twist_02_L_crv",
+            "node_type": "transform",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Leg_Twists_L_grp|Offset_RIG_Leg_Twist_02_L_trs|CTR_Leg_Twist_02_L_crv",
+            "short_name": "CTR_Leg_Twist_02_L_crv",
+            "shape_nodes": [
+                "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Leg_Twists_L_grp|Offset_RIG_Leg_Twist_02_L_trs|CTR_Leg_Twist_02_L_crv|CTR_Leg_Twist_02_L_crvShape"
+            ],
+            "shape_count": 1
+        },
+        "CTR_Leg_Twist_02_L_crvShape": {
+            "node_name": "CTR_Leg_Twist_02_L_crvShape",
+            "node_type": "nurbsCurve",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Leg_Twists_L_grp|Offset_RIG_Leg_Twist_02_L_trs|CTR_Leg_Twist_02_L_crv|CTR_Leg_Twist_02_L_crvShape",
+            "short_name": "CTR_Leg_Twist_02_L_crvShape",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "RIG_Leg_Twist_02_L_jnt": {
+            "node_name": "RIG_Leg_Twist_02_L_jnt",
+            "node_type": "joint",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Leg_Twists_L_grp|Offset_RIG_Leg_Twist_02_L_trs|CTR_Leg_Twist_02_L_crv|RIG_Leg_Twist_02_L_jnt",
+            "short_name": "RIG_Leg_Twist_02_L_jnt",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "Controls_Leg_FK_L_grp": {
+            "node_name": "Controls_Leg_FK_L_grp",
+            "node_type": "transform",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Leg_FK_L_grp",
+            "short_name": "Controls_Leg_FK_L_grp",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "Offset_RIG_Thigh_L_trs": {
+            "node_name": "Offset_RIG_Thigh_L_trs",
+            "node_type": "transform",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Leg_FK_L_grp|Offset_RIG_Thigh_L_trs",
+            "short_name": "Offset_RIG_Thigh_L_trs",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "CTR_Thigh_L_crv": {
+            "node_name": "CTR_Thigh_L_crv",
+            "node_type": "transform",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Leg_FK_L_grp|Offset_RIG_Thigh_L_trs|CTR_Thigh_L_crv",
+            "short_name": "CTR_Thigh_L_crv",
+            "shape_nodes": [
+                "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Leg_FK_L_grp|Offset_RIG_Thigh_L_trs|CTR_Thigh_L_crv|CTR_Thigh_L_crvShape"
+            ],
+            "shape_count": 1
+        },
+        "CTR_Thigh_L_crvShape": {
+            "node_name": "CTR_Thigh_L_crvShape",
+            "node_type": "nurbsCurve",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Leg_FK_L_grp|Offset_RIG_Thigh_L_trs|CTR_Thigh_L_crv|CTR_Thigh_L_crvShape",
+            "short_name": "CTR_Thigh_L_crvShape",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "Offset_RIG_Leg_L_trs": {
+            "node_name": "Offset_RIG_Leg_L_trs",
+            "node_type": "transform",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Leg_FK_L_grp|Offset_RIG_Leg_L_trs",
+            "short_name": "Offset_RIG_Leg_L_trs",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "CTR_Leg_L_crv": {
+            "node_name": "CTR_Leg_L_crv",
+            "node_type": "transform",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Leg_FK_L_grp|Offset_RIG_Leg_L_trs|CTR_Leg_L_crv",
+            "short_name": "CTR_Leg_L_crv",
+            "shape_nodes": [
+                "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Leg_FK_L_grp|Offset_RIG_Leg_L_trs|CTR_Leg_L_crv|CTR_Leg_L_crvShape"
+            ],
+            "shape_count": 1
+        },
+        "CTR_Leg_L_crvShape": {
+            "node_name": "CTR_Leg_L_crvShape",
+            "node_type": "nurbsCurve",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Leg_FK_L_grp|Offset_RIG_Leg_L_trs|CTR_Leg_L_crv|CTR_Leg_L_crvShape",
+            "short_name": "CTR_Leg_L_crvShape",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "Controls_Leg_IK_L_grp": {
+            "node_name": "Controls_Leg_IK_L_grp",
+            "node_type": "transform",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Leg_IK_L_grp",
+            "short_name": "Controls_Leg_IK_L_grp",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "Offset_CTR_Leg_IK_L_trs": {
+            "node_name": "Offset_CTR_Leg_IK_L_trs",
+            "node_type": "transform",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Leg_IK_L_grp|Offset_CTR_Leg_IK_L_trs",
+            "short_name": "Offset_CTR_Leg_IK_L_trs",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "CTR_Leg_IK_L_crv": {
+            "node_name": "CTR_Leg_IK_L_crv",
+            "node_type": "transform",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Leg_IK_L_grp|Offset_CTR_Leg_IK_L_trs|CTR_Leg_IK_L_crv",
+            "short_name": "CTR_Leg_IK_L_crv",
+            "shape_nodes": [
+                "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Leg_IK_L_grp|Offset_CTR_Leg_IK_L_trs|CTR_Leg_IK_L_crv|CTR_Leg_IK_L_crvShape"
+            ],
+            "shape_count": 1
+        },
+        "CTR_Leg_IK_L_crvShape": {
+            "node_name": "CTR_Leg_IK_L_crvShape",
+            "node_type": "nurbsCurve",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Leg_IK_L_grp|Offset_CTR_Leg_IK_L_trs|CTR_Leg_IK_L_crv|CTR_Leg_IK_L_crvShape",
+            "short_name": "CTR_Leg_IK_L_crvShape",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "CTR_Leg_IK_L_jnt": {
+            "node_name": "CTR_Leg_IK_L_jnt",
+            "node_type": "joint",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Leg_IK_L_grp|Offset_CTR_Leg_IK_L_trs|CTR_Leg_IK_L_crv|CTR_Leg_IK_L_jnt",
+            "short_name": "CTR_Leg_IK_L_jnt",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "Offset_CTR_Leg_IK_Pole_L_trs": {
+            "node_name": "Offset_CTR_Leg_IK_Pole_L_trs",
+            "node_type": "transform",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Leg_IK_L_grp|Offset_CTR_Leg_IK_Pole_L_trs",
+            "short_name": "Offset_CTR_Leg_IK_Pole_L_trs",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "CTR_Leg_IK_Pole_L_crv": {
+            "node_name": "CTR_Leg_IK_Pole_L_crv",
+            "node_type": "transform",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Leg_IK_L_grp|Offset_CTR_Leg_IK_Pole_L_trs|CTR_Leg_IK_Pole_L_crv",
+            "short_name": "CTR_Leg_IK_Pole_L_crv",
+            "shape_nodes": [
+                "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Leg_IK_L_grp|Offset_CTR_Leg_IK_Pole_L_trs|CTR_Leg_IK_Pole_L_crv|CTR_Leg_K_Pole_L_crvShape",
+                "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Leg_IK_L_grp|Offset_CTR_Leg_IK_Pole_L_trs|CTR_Leg_IK_Pole_L_crv|CTR_Leg_IK_Pole_L_crvShapeOrig"
+            ],
+            "shape_count": 2
+        },
+        "CTR_Leg_K_Pole_L_crvShape": {
+            "node_name": "CTR_Leg_K_Pole_L_crvShape",
+            "node_type": "nurbsCurve",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Leg_IK_L_grp|Offset_CTR_Leg_IK_Pole_L_trs|CTR_Leg_IK_Pole_L_crv|CTR_Leg_K_Pole_L_crvShape",
+            "short_name": "CTR_Leg_K_Pole_L_crvShape",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "CTR_Leg_IK_Pole_L_crvShapeOrig": {
+            "node_name": "CTR_Leg_IK_Pole_L_crvShapeOrig",
+            "node_type": "nurbsCurve",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Leg_IK_L_grp|Offset_CTR_Leg_IK_Pole_L_trs|CTR_Leg_IK_Pole_L_crv|CTR_Leg_IK_Pole_L_crvShapeOrig",
+            "short_name": "CTR_Leg_IK_Pole_L_crvShapeOrig",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "DRV_Leg_IK_Pole_L_jnt": {
+            "node_name": "DRV_Leg_IK_Pole_L_jnt",
+            "node_type": "joint",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|Controls_Leg_IK_L_grp|Offset_CTR_Leg_IK_Pole_L_trs|CTR_Leg_IK_Pole_L_crv|DRV_Leg_IK_Pole_L_jnt",
+            "short_name": "DRV_Leg_IK_Pole_L_jnt",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "System_Leg_FK_IK_L_grp": {
+            "node_name": "System_Leg_FK_IK_L_grp",
+            "node_type": "transform",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|System_Leg_FK_IK_L_grp",
+            "short_name": "System_Leg_FK_IK_L_grp",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "PRN_Thigh_FK_IK_L_jnt": {
+            "node_name": "PRN_Thigh_FK_IK_L_jnt",
+            "node_type": "joint",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|System_Leg_FK_IK_L_grp|PRN_Thigh_FK_IK_L_jnt",
+            "short_name": "PRN_Thigh_FK_IK_L_jnt",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "PRN_Leg_FK_IK_L_jnt": {
+            "node_name": "PRN_Leg_FK_IK_L_jnt",
+            "node_type": "joint",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|System_Leg_FK_IK_L_grp|PRN_Thigh_FK_IK_L_jnt|PRN_Leg_FK_IK_L_jnt",
+            "short_name": "PRN_Leg_FK_IK_L_jnt",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "PRN__Leg__FK_IK_End__L__jnt": {
+            "node_name": "PRN__Leg__FK_IK_End__L__jnt",
+            "node_type": "joint",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|System_Leg_FK_IK_L_grp|PRN_Thigh_FK_IK_L_jnt|PRN_Leg_FK_IK_L_jnt|PRN__Leg__FK_IK_End__L__jnt",
+            "short_name": "PRN__Leg__FK_IK_End__L__jnt",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "Offset_DRV_Leg_IK_Handle_L_trs": {
+            "node_name": "Offset_DRV_Leg_IK_Handle_L_trs",
+            "node_type": "transform",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|System_Leg_FK_IK_L_grp|Offset_DRV_Leg_IK_Handle_L_trs",
+            "short_name": "Offset_DRV_Leg_IK_Handle_L_trs",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "DRV_Leg_IK_Handle_L_jnt": {
+            "node_name": "DRV_Leg_IK_Handle_L_jnt",
+            "node_type": "joint",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|System_Leg_FK_IK_L_grp|Offset_DRV_Leg_IK_Handle_L_trs|DRV_Leg_IK_Handle_L_jnt",
+            "short_name": "DRV_Leg_IK_Handle_L_jnt",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "Offset_Leg_L_ikHandle_trs": {
+            "node_name": "Offset_Leg_L_ikHandle_trs",
+            "node_type": "transform",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|System_Leg_FK_IK_L_grp|Offset_DRV_Leg_IK_Handle_L_trs|DRV_Leg_IK_Handle_L_jnt|Offset_Leg_L_ikHandle_trs",
+            "short_name": "Offset_Leg_L_ikHandle_trs",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "Leg_L_ikHandle": {
+            "node_name": "Leg_L_ikHandle",
+            "node_type": "ikHandle",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|System_Leg_FK_IK_L_grp|Offset_DRV_Leg_IK_Handle_L_trs|DRV_Leg_IK_Handle_L_jnt|Offset_Leg_L_ikHandle_trs|Leg_L_ikHandle",
+            "short_name": "Leg_L_ikHandle",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "Leg_L_ikHandle_poleVectorConstraint1": {
+            "node_name": "Leg_L_ikHandle_poleVectorConstraint1",
+            "node_type": "poleVectorConstraint",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|System_Leg_FK_IK_L_grp|Offset_DRV_Leg_IK_Handle_L_trs|DRV_Leg_IK_Handle_L_jnt|Offset_Leg_L_ikHandle_trs|Leg_L_ikHandle|Leg_L_ikHandle_poleVectorConstraint1",
+            "short_name": "Leg_L_ikHandle_poleVectorConstraint1",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "DRV_Leg_IK_Shape_Line_Start_L_jnt": {
+            "node_name": "DRV_Leg_IK_Shape_Line_Start_L_jnt",
+            "node_type": "joint",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|System_Leg_FK_IK_L_grp|DRV_Leg_IK_Shape_Line_Start_L_jnt",
+            "short_name": "DRV_Leg_IK_Shape_Line_Start_L_jnt",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "Offset_DRV_Leg_IK_L_trs": {
+            "node_name": "Offset_DRV_Leg_IK_L_trs",
+            "node_type": "transform",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|System_Leg_FK_IK_L_grp|Offset_DRV_Leg_IK_L_trs",
+            "short_name": "Offset_DRV_Leg_IK_L_trs",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "DRV_Thigh_IK_L_jnt": {
+            "node_name": "DRV_Thigh_IK_L_jnt",
+            "node_type": "joint",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|System_Leg_FK_IK_L_grp|Offset_DRV_Leg_IK_L_trs|DRV_Thigh_IK_L_jnt",
+            "short_name": "DRV_Thigh_IK_L_jnt",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "DRV_Leg_IK_L_jnt": {
+            "node_name": "DRV_Leg_IK_L_jnt",
+            "node_type": "joint",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|System_Leg_FK_IK_L_grp|Offset_DRV_Leg_IK_L_trs|DRV_Thigh_IK_L_jnt|DRV_Leg_IK_L_jnt",
+            "short_name": "DRV_Leg_IK_L_jnt",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "DRV__Leg__IK_End__L__jnt": {
+            "node_name": "DRV__Leg__IK_End__L__jnt",
+            "node_type": "joint",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|System_Leg_FK_IK_L_grp|Offset_DRV_Leg_IK_L_trs|DRV_Thigh_IK_L_jnt|DRV_Leg_IK_L_jnt|DRV__Leg__IK_End__L__jnt",
+            "short_name": "DRV__Leg__IK_End__L__jnt",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "Leg_L_effector": {
+            "node_name": "Leg_L_effector",
+            "node_type": "ikEffector",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|System_Leg_FK_IK_L_grp|Offset_DRV_Leg_IK_L_trs|DRV_Thigh_IK_L_jnt|DRV_Leg_IK_L_jnt|Leg_L_effector",
+            "short_name": "Leg_L_effector",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "Offset_DRV_Thigh_FK_L_trs": {
+            "node_name": "Offset_DRV_Thigh_FK_L_trs",
+            "node_type": "transform",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|System_Leg_FK_IK_L_grp|Offset_DRV_Thigh_FK_L_trs",
+            "short_name": "Offset_DRV_Thigh_FK_L_trs",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "DRV_Thigh_FK_L_jnt": {
+            "node_name": "DRV_Thigh_FK_L_jnt",
+            "node_type": "joint",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|System_Leg_FK_IK_L_grp|Offset_DRV_Thigh_FK_L_trs|DRV_Thigh_FK_L_jnt",
+            "short_name": "DRV_Thigh_FK_L_jnt",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "DRV_Leg_FK_L_jnt": {
+            "node_name": "DRV_Leg_FK_L_jnt",
+            "node_type": "joint",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|System_Leg_FK_IK_L_grp|Offset_DRV_Thigh_FK_L_trs|DRV_Leg_FK_L_jnt",
+            "short_name": "DRV_Leg_FK_L_jnt",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "DRV_Leg_FK_End_L_jnt": {
+            "node_name": "DRV_Leg_FK_End_L_jnt",
+            "node_type": "joint",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|System_Leg_FK_IK_L_grp|Offset_DRV_Thigh_FK_L_trs|DRV_Leg_FK_End_L_jnt",
+            "short_name": "DRV_Leg_FK_End_L_jnt",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "RIG_Leg_L_jnt": {
+            "node_name": "RIG_Leg_L_jnt",
+            "node_type": "joint",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|System_Leg_FK_IK_L_grp|RIG_Leg_L_jnt",
+            "short_name": "RIG_Leg_L_jnt",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "RIG_Thigh_L_jnt": {
+            "node_name": "RIG_Thigh_L_jnt",
+            "node_type": "joint",
+            "is_dag_node": true,
+            "full_path": "|Rig|Controls_grp|Controls_Leg_L_grp|System_Leg_FK_IK_L_grp|RIG_Thigh_L_jnt",
+            "short_name": "RIG_Thigh_L_jnt",
+            "shape_nodes": [],
+            "shape_count": 0
+        }
+    },
+    "non_dag_nodes": {
+        "PRN_Leg_FK_IK_L__MultMatrix_IK": {
+            "node_name": "PRN_Leg_FK_IK_L__MultMatrix_IK",
+            "node_type": "multMatrix",
+            "is_dag_node": false,
+            "full_path": "PRN_Leg_FK_IK_L__MultMatrix_IK",
+            "short_name": "PRN_Leg_FK_IK_L__MultMatrix_IK",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "DRV_Thigh_FK_L__MultMatrix": {
+            "node_name": "DRV_Thigh_FK_L__MultMatrix",
+            "node_type": "multMatrix",
+            "is_dag_node": false,
+            "full_path": "DRV_Thigh_FK_L__MultMatrix",
+            "short_name": "DRV_Thigh_FK_L__MultMatrix",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "RIG_Leg_L__ParentMatrix": {
+            "node_name": "RIG_Leg_L__ParentMatrix",
+            "node_type": "parentMatrix",
+            "is_dag_node": false,
+            "full_path": "RIG_Leg_L__ParentMatrix",
+            "short_name": "RIG_Leg_L__ParentMatrix",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "Controls_Leg_Twists_L__ParentMatrix": {
+            "node_name": "Controls_Leg_Twists_L__ParentMatrix",
+            "node_type": "parentMatrix",
+            "is_dag_node": false,
+            "full_path": "Controls_Leg_Twists_L__ParentMatrix",
+            "short_name": "Controls_Leg_Twists_L__ParentMatrix",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "PRN_Leg_FK_IK_L__MultMatrix_FK": {
+            "node_name": "PRN_Leg_FK_IK_L__MultMatrix_FK",
+            "node_type": "multMatrix",
+            "is_dag_node": false,
+            "full_path": "PRN_Leg_FK_IK_L__MultMatrix_FK",
+            "short_name": "PRN_Leg_FK_IK_L__MultMatrix_FK",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "DRV_Leg_FK_L__MultMatrix": {
+            "node_name": "DRV_Leg_FK_L__MultMatrix",
+            "node_type": "multMatrix",
+            "is_dag_node": false,
+            "full_path": "DRV_Leg_FK_L__MultMatrix",
+            "short_name": "DRV_Leg_FK_L__MultMatrix",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "Controls_Thigh_Twists_L__ParentMatrix": {
+            "node_name": "Controls_Thigh_Twists_L__ParentMatrix",
+            "node_type": "parentMatrix",
+            "is_dag_node": false,
+            "full_path": "Controls_Thigh_Twists_L__ParentMatrix",
+            "short_name": "Controls_Thigh_Twists_L__ParentMatrix",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "PRN_Leg_FK_IK_L__ParentMatrix": {
+            "node_name": "PRN_Leg_FK_IK_L__ParentMatrix",
+            "node_type": "parentMatrix",
+            "is_dag_node": false,
+            "full_path": "PRN_Leg_FK_IK_L__ParentMatrix",
+            "short_name": "PRN_Leg_FK_IK_L__ParentMatrix",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "PRN_Thigh_FK_IK_L__ParentMatrix": {
+            "node_name": "PRN_Thigh_FK_IK_L__ParentMatrix",
+            "node_type": "parentMatrix",
+            "is_dag_node": false,
+            "full_path": "PRN_Thigh_FK_IK_L__ParentMatrix",
+            "short_name": "PRN_Thigh_FK_IK_L__ParentMatrix",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "PRN__Leg__FK_IK_End__L__ParentMatrix": {
+            "node_name": "PRN__Leg__FK_IK_End__L__ParentMatrix",
+            "node_type": "parentMatrix",
+            "is_dag_node": false,
+            "full_path": "PRN__Leg__FK_IK_End__L__ParentMatrix",
+            "short_name": "PRN__Leg__FK_IK_End__L__ParentMatrix",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "CTR_Leg_L__Properties_SetRange": {
+            "node_name": "CTR_Leg_L__Properties_SetRange",
+            "node_type": "setRange",
+            "is_dag_node": false,
+            "full_path": "CTR_Leg_L__Properties_SetRange",
+            "short_name": "CTR_Leg_L__Properties_SetRange",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "DRV_Leg_IK_Pole_L__AimMatrix_Decomp": {
+            "node_name": "DRV_Leg_IK_Pole_L__AimMatrix_Decomp",
+            "node_type": "decomposeMatrix",
+            "is_dag_node": false,
+            "full_path": "DRV_Leg_IK_Pole_L__AimMatrix_Decomp",
+            "short_name": "DRV_Leg_IK_Pole_L__AimMatrix_Decomp",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "DRV_Leg_IK_Pole_L__AimMatrix": {
+            "node_name": "DRV_Leg_IK_Pole_L__AimMatrix",
+            "node_type": "aimMatrix",
+            "is_dag_node": false,
+            "full_path": "DRV_Leg_IK_Pole_L__AimMatrix",
+            "short_name": "DRV_Leg_IK_Pole_L__AimMatrix",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "RIG_Thigh_L__ParentMatrix": {
+            "node_name": "RIG_Thigh_L__ParentMatrix",
+            "node_type": "parentMatrix",
+            "is_dag_node": false,
+            "full_path": "RIG_Thigh_L__ParentMatrix",
+            "short_name": "RIG_Thigh_L__ParentMatrix",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "Offset_RIG_Leg_L__ParentMatrix": {
+            "node_name": "Offset_RIG_Leg_L__ParentMatrix",
+            "node_type": "parentMatrix",
+            "is_dag_node": false,
+            "full_path": "Offset_RIG_Leg_L__ParentMatrix",
+            "short_name": "Offset_RIG_Leg_L__ParentMatrix",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "DEF_Leg_L__ParentMatrix": {
+            "node_name": "DEF_Leg_L__ParentMatrix",
+            "node_type": "parentMatrix",
+            "is_dag_node": false,
+            "full_path": "DEF_Leg_L__ParentMatrix",
+            "short_name": "DEF_Leg_L__ParentMatrix",
+            "shape_nodes": [],
+            "shape_count": 0
+        },
+        "DEF_Thigh_L__ParentMatrix": {
+            "node_name": "DEF_Thigh_L__ParentMatrix",
+            "node_type": "parentMatrix",
+            "is_dag_node": false,
+            "full_path": "DEF_Thigh_L__ParentMatrix",
+            "short_name": "DEF_Thigh_L__ParentMatrix",
+            "shape_nodes": [],
+            "shape_count": 0
+        }
+    }
+}

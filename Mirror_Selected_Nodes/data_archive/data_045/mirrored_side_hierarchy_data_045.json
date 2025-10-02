@@ -1,0 +1,10 @@
+{
+    "Offset_CTR_Reg_IK_Pole_R_trs": {
+        "node_name": "Offset_CTR_Reg_IK_Pole_R_trs",
+        "parent": "Controls_Reg_IK_R_grp",
+        "children": [],
+        "full_dag_path": "|Rig|Controls_grp|Controls_Leg_R_grp|Controls_Leg_IK_R_grp|Offset_CTR_Reg_IK_Pole_R_trs",
+        "children_count": 0,
+        "parent_count": 1
+    }
+}

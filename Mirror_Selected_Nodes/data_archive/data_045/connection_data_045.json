@@ -1,0 +1,9 @@
+{
+    "Offset_CTR_Leg_IK_Pole_R_trs": {
+        "node_name": "Offset_CTR_Leg_IK_Pole_R_trs",
+        "node_type": "transform",
+        "connected_attributes": [],
+        "incoming_connections": [],
+        "outgoing_connections": []
+    }
+}

@@ -1,0 +1,71 @@
+{
+    "summary": {
+        "total_transforms": 9,
+        "total_shapes": 12,
+        "transform_types": {
+            "transform": 9
+        },
+        "shape_types": {
+            "nurbsCurve": 12
+        }
+    },
+    "transforms": [
+        {
+            "transform_name": "CTR_Leg_Twist_02_L_crv",
+            "shape_nodes": [
+                "CTR_Leg_Twist_02_L_crvShape"
+            ]
+        },
+        {
+            "transform_name": "CTR_Leg_IK_L_crv",
+            "shape_nodes": [
+                "CTR_Leg_IK_L_crvShape"
+            ]
+        },
+        {
+            "transform_name": "CTR_Leg_IK_Pole_L_crv",
+            "shape_nodes": [
+                "CTR_Leg_K_Pole_L_crvShape",
+                "CTR_Leg_IK_Pole_L_crvShapeOrig"
+            ]
+        },
+        {
+            "transform_name": "CTR_Leg_Twist_01_L_crv",
+            "shape_nodes": [
+                "CTR_Leg_Twist_01_L_crvShape"
+            ]
+        },
+        {
+            "transform_name": "CTR_Thigh_L_crv",
+            "shape_nodes": [
+                "CTR_Thigh_L_crvShape"
+            ]
+        },
+        {
+            "transform_name": "CTR_Leg_L_crv",
+            "shape_nodes": [
+                "CTR_Leg_L_crvShape"
+            ]
+        },
+        {
+            "transform_name": "CTR_Thigh_Twist_02_L_crv",
+            "shape_nodes": [
+                "CTR_Thigh_Twist_02_L_crvShape"
+            ]
+        },
+        {
+            "transform_name": "CTR_Properties_Leg_L_crv",
+            "shape_nodes": [
+                "CTR_Properties_Leg_L_crvShape",
+                "CTR_Properties_Leg_L_crvShape1",
+                "CTR_Properties_Leg_L_crvShape2"
+            ]
+        },
+        {
+            "transform_name": "CTR_Thigh_Twist_01_L_crv",
+            "shape_nodes": [
+                "CTR_Thigh_Twist_01_L_crvShape"
+            ]
+        }
+    ]
+}

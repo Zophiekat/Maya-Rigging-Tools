@@ -1,0 +1,22 @@
+[
+    {
+        "node_name": "lambert1",
+        "node_type": "lambert"
+    },
+    {
+        "node_name": "defaultLightSet",
+        "node_type": "objectSet"
+    },
+    {
+        "node_name": "bump2d1",
+        "node_type": "bump2d"
+    },
+    {
+        "node_name": "blendColors1",
+        "node_type": "blendColors"
+    },
+    {
+        "node_name": "legStretchMultiplyDivide",
+        "node_type": "multiplyDivide"
+    }
+]

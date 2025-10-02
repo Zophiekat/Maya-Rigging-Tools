@@ -1,0 +1,24 @@
+{
+    "summary": {
+        "total_nodes": 3,
+        "node_types": {
+            "multiplyDivide": 1,
+            "blendColors": 1,
+            "condition": 1
+        }
+    },
+    "nodes": [
+        {
+            "node_name": "legStretchMultiplyDivide",
+            "node_type": "multiplyDivide"
+        },
+        {
+            "node_name": "blendColors1",
+            "node_type": "blendColors"
+        },
+        {
+            "node_name": "ikFkBlendCondition",
+            "node_type": "condition"
+        }
+    ]
+}

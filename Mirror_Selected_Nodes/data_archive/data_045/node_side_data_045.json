@@ -1,0 +1,23 @@
+{
+    "summary": {
+        "total_nodes": 1,
+        "no_side_count": 0,
+        "left_side_count": 0,
+        "right_side_count": 1,
+        "left_L_count": 0,
+        "left_L_underscore_count": 0,
+        "right_R_count": 0,
+        "right_R_underscore_count": 1
+    },
+    "no_side": [],
+    "left_side": {
+        "L_suffix": [],
+        "L_infix": []
+    },
+    "right_side": {
+        "R_suffix": [],
+        "R_infix": [
+            "Offset_CTR_Leg_IK_Pole_R_trs"
+        ]
+    }
+}
